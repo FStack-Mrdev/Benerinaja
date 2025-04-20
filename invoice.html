@@ -4,127 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Invoice | BenerinAja</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
+      font-family: Arial, sans-serif;
       padding: 20px;
-      background: #f7f7f7;
+      background: #f5f5f5;
       color: #333;
     }
-
-    .invoice-box {
-      max-width: 800px;
+    #invoice {
+      max-width: 600px;
       margin: auto;
+      background: #fff;
       padding: 30px;
-      background: white;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-
-    h1, h2 {
+    h1 {
       text-align: center;
+      color: #0a3d62;
     }
-
     .details {
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
-
     .details p {
       margin: 5px 0;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-
-    table th {
-      background: #2ecc71;
-      color: white;
-    }
-
     .total {
-      text-align: right;
-      margin-top: 20px;
+      font-size: 1.2em;
       font-weight: bold;
+      margin-top: 20px;
+      text-align: right;
     }
-
-    .btn {
+    .btn-download {
       display: block;
-      width: fit-content;
-      margin: 30px auto 0;
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
       background: #2ecc71;
       color: white;
       border: none;
-      padding: 10px 20px;
+      border-radius: 6px;
       font-size: 16px;
-      border-radius: 5px;
       cursor: pointer;
-    }
-
-    .btn i {
-      margin-right: 8px;
     }
   </style>
 </head>
 <body>
-  <div class="invoice-box" id="invoice">
-    <h1>BenerinAja</h1>
-    <h2>Invoice Servis</h2>
 
+  <div id="invoice">
+    <h1>Invoice Servis</h1>
     <div class="details">
-      <p><strong>Nama:</strong> Andi</p>
+      <p><strong>Nama Pelanggan:</strong> Andi</p>
       <p><strong>Tanggal:</strong> 20 April 2025</p>
+      <p><strong>Layanan:</strong> Ganti layar + baterai</p>
       <p><strong>Kode Servis:</strong> A001</p>
     </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Deskripsi</th>
-          <th>Harga</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Ganti Layar</td>
-          <td>Rp 500.000</td>
-        </tr>
-        <tr>
-          <td>Ganti Baterai</td>
-          <td>Rp 200.000</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p class="total">Total: Rp 700.000</p>
+    <div class="total">
+      Total: Rp 750.000
+    </div>
   </div>
 
-  <button class="btn" onclick="downloadPDF()"><i class="fas fa-download"></i>Download Invoice</button>
+  <button class="btn-download" onclick="downloadInvoice()">Download Invoice</button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-    async function downloadPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.html(document.querySelector("#invoice"), {
-        callback: function (pdf) {
-          pdf.save("invoice-benerinaja.pdf");
-        },
-        x: 10,
-        y: 10,
-        html2canvas: { scale: 0.5 }
-      });
+    function downloadInvoice() {
+      const element = document.getElementById("invoice");
+      html2pdf().from(element).save("invoice-benerinaja.pdf");
     }
   </script>
+
 </body>
 </html>
