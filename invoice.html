@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invoice Generator - Benerin.aja</title>
   <style>
     body {
@@ -22,7 +22,7 @@
       background: #fff;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
       margin-bottom: 20px;
     }
 
@@ -160,16 +160,6 @@
   <script>
     let itemId = 0;
 
-    window.onload = () => {
-      const stored = localStorage.getItem("invoiceForm");
-      if (stored) {
-        const data = JSON.parse(stored);
-        document.getElementById("clientName").value = data.clientName || '';
-        document.getElementById("invoiceDate").value = data.invoiceDate || '';
-      }
-      generateInvoiceNumber();
-    }
-
     function generateInvoiceNumber() {
       const today = new Date();
       const number = "INV-" + today.getFullYear() + (today.getMonth()+1).toString().padStart(2, '0') + today.getDate().toString().padStart(2, '0') + "-" + Math.floor(100 + Math.random() * 900);
@@ -259,6 +249,9 @@
       };
       localStorage.setItem("invoiceForm", JSON.stringify(data));
     }
+
+    // Generate nomor invoice saat halaman dimuat
+    generateInvoiceNumber();
   </script>
 </body>
 </html>
