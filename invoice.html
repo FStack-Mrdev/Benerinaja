@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Invoice Generator - Benerin.aja</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -69,15 +68,10 @@
     }
 
     .watermark {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      font-size: 60px;
-      color: rgba(200, 200, 200, 0.2);
-      z-index: 0;
-      pointer-events: none;
-      user-select: none;
+      text-align: center;
+      font-size: 50px;
+      color: rgba(200, 200, 200, 0.15);
+      margin-bottom: -30px;
     }
 
     @media print {
@@ -123,7 +117,7 @@
     </div>
   </div>
 
-  <div class="invoice-section" id="invoiceArea" style="display: none; position: relative;">
+  <div class="invoice-section" id="invoiceArea" style="display: none;">
     <div class="watermark">Benerin.aja</div>
     <h2>Invoice</h2>
     <p><strong>Nomor:</strong> <span id="outInvoiceNumber"></span></p>
