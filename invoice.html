@@ -240,4 +240,42 @@
             <td>${desc}</td>
             <td>${qty}</td>
             <td>Rp ${price.toLocaleString()}</td>
-            <td>Rp
+            <td>Rp ${total.toLocaleString()}</td>
+          </tr>
+        `;
+        tr.querySelector("span").innerText = `Rp ${total.toLocaleString()}`;
+      });
+
+      document.getElementById("totalAmount").innerText = `Rp ${grandTotal.toLocaleString()}`;
+      document.getElementById("invoiceArea").style.visibility = "visible";
+      document.getElementById("downloadBtn").style.display = "inline-block";
+    }
+
+    function downloadInvoice() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF("p", "pt", "a4");
+      const invoiceElement = document.getElementById("invoiceArea");
+
+      html2canvas(invoiceElement).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const imgProps = doc.getImageProperties(imgData);
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        doc.save("invoice-benerinaja.pdf");
+      });
+    }
+
+    function saveForm() {
+      const data = {
+        clientName: document.getElementById("clientName").value,
+        invoiceDate: document.getElementById("invoiceDate").value
+      };
+      localStorage.setItem("invoiceForm", JSON.stringify(data));
+    }
+
+    generateInvoiceNumber();
+  </script>
+</body>
+</html>
