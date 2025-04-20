@@ -3,82 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invoice Generator</title>
+  <title>Invoice Generator - Benerin.aja</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 0 auto;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
       padding: 20px;
+      max-width: 900px;
+      margin: auto;
     }
-    h2 {
+
+    h1, h2 {
       text-align: center;
     }
-    form, #invoiceTemplate {
-      margin-bottom: 20px;
+
+    .form-section, .invoice-section {
+      background: #fff;
       padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
     }
+
     label {
       display: block;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
+
     input {
       padding: 5px;
-      margin-left: 10px;
+      margin-top: 5px;
+      width: 100%;
+      box-sizing: border-box;
     }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .actions {
+      margin-top: 15px;
+      text-align: right;
+    }
+
     button {
       padding: 10px 15px;
-      margin-top: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
+      background-color: #1e88e5;
+      color: white;
     }
-    #invoiceTemplate {
-      display: none;
+
+    .watermark {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 60px;
+      color: rgba(200, 200, 200, 0.2);
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .form-section, .actions {
+        display: none;
+      }
+      .invoice-section {
+        box-shadow: none;
+        margin: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Invoice Generator</h2>
+  <h1>Invoice Generator</h1>
 
-  <form id="invoiceForm">
-    <label>Nama Klien: <input type="text" id="clientName" required></label>
-    <label>Tanggal: <input type="date" id="invoiceDate" required></label>
-    <label>Deskripsi: <input type="text" id="description" required></label>
-    <label>Jumlah (Rp): <input type="number" id="amount" required></label>
-    <button type="button" onclick="generateInvoice()">Tampilkan Invoice</button>
-  </form>
+  <div class="form-section">
+    <label>Nama Klien: <input type="text" id="clientName" /></label>
+    <label>Tanggal: <input type="date" id="invoiceDate" /></label>
+    <label>Nomor Invoice (Otomatis): <input type="text" id="invoiceNumber" readonly /></label>
 
-  <div id="invoiceTemplate">
-    <h2>Invoice</h2>
-    <p>Klien: <span id="outClientName"></span></p>
-    <p>Tanggal: <span id="outDate"></span></p>
-    <p>Deskripsi: <span id="outDescription"></span></p>
-    <p>Jumlah: Rp <span id="outAmount"></span></p>
+    <h3>Daftar Barang / Jasa</h3>
+    <table id="itemTable">
+      <thead>
+        <tr>
+          <th>Deskripsi</th>
+          <th>Qty</th>
+          <th>Harga</th>
+          <th>Total</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="actions">
+      <button onclick="addItem()">+ Tambah Item</button>
+    </div>
+    <div class="actions">
+      <button onclick="generateInvoice()">Tampilkan Invoice</button>
+    </div>
   </div>
 
-  <button id="downloadBtn" onclick="downloadPDF()" style="display:none;">Download PDF</button>
+  <div class="invoice-section" id="invoiceArea" style="display: none; position: relative;">
+    <div class="watermark">Benerin.aja</div>
+    <h2>Invoice</h2>
+    <p><strong>Nomor:</strong> <span id="outInvoiceNumber"></span></p>
+    <p><strong>Tanggal:</strong> <span id="outDate"></span></p>
+    <p><strong>Klien:</strong> <span id="outClientName"></span></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Deskripsi</th>
+          <th>Qty</th>
+          <th>Harga</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="invoiceItems"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"><strong>Total Keseluruhan</strong></td>
+          <td><strong id="totalAmount"></strong></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="actions" style="text-align: center;">
+    <button id="downloadBtn" onclick="downloadPDF()" style="display:none;">Download PDF</button>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
+    let itemId = 0;
+
+    window.onload = () => {
+      const stored = localStorage.getItem("invoiceForm");
+      if (stored) {
+        const data = JSON.parse(stored);
+        document.getElementById("clientName").value = data.clientName || '';
+        document.getElementById("invoiceDate").value = data.invoiceDate || '';
+      }
+      generateInvoiceNumber();
+    }
+
+    function generateInvoiceNumber() {
+      const today = new Date();
+      const number = "INV-" + today.getFullYear() + (today.getMonth()+1).toString().padStart(2, '0') + today.getDate().toString().padStart(2, '0') + "-" + Math.floor(100 + Math.random() * 900);
+      document.getElementById("invoiceNumber").value = number;
+    }
+
+    function addItem() {
+      const row = document.createElement("tr");
+      row.setAttribute("data-id", itemId);
+      row.innerHTML = `
+        <td><input type="text" placeholder="Deskripsi" onchange="saveForm()" /></td>
+        <td><input type="number" value="1" min="1" onchange="saveForm()" /></td>
+        <td><input type="number" value="0" min="0" onchange="saveForm()" /></td>
+        <td><span>0</span></td>
+        <td><button onclick="removeItem(${itemId})">Hapus</button></td>
+      `;
+      document.querySelector("#itemTable tbody").appendChild(row);
+      itemId++;
+      saveForm();
+    }
+
+    function removeItem(id) {
+      const row = document.querySelector(`tr[data-id='${id}']`);
+      if (row) row.remove();
+      saveForm();
+    }
+
     function generateInvoice() {
-      const name = document.getElementById('clientName').value;
-      const date = document.getElementById('invoiceDate').value;
-      const desc = document.getElementById('description').value;
-      const amount = document.getElementById('amount').value;
+      const clientName = document.getElementById("clientName").value;
+      const date = document.getElementById("invoiceDate").value;
+      const number = document.getElementById("invoiceNumber").value;
 
-      document.getElementById('outClientName').innerText = name;
-      document.getElementById('outDate').innerText = date;
-      document.getElementById('outDescription').innerText = desc;
-      document.getElementById('outAmount').innerText = amount;
+      document.getElementById("outClientName").innerText = clientName;
+      document.getElementById("outDate").innerText = date;
+      document.getElementById("outInvoiceNumber").innerText = number;
 
-      document.getElementById('invoiceTemplate').style.display = 'block';
-      document.getElementById('downloadBtn').style.display = 'inline-block';
+      const tbody = document.getElementById("invoiceItems");
+      tbody.innerHTML = '';
+      let grandTotal = 0;
+
+      document.querySelectorAll("#itemTable tbody tr").forEach(tr => {
+        const inputs = tr.querySelectorAll("input");
+        const desc = inputs[0].value;
+        const qty = parseInt(inputs[1].value) || 0;
+        const price = parseInt(inputs[2].value) || 0;
+        const total = qty * price;
+        grandTotal += total;
+
+        tbody.innerHTML += `
+          <tr>
+            <td>${desc}</td>
+            <td>${qty}</td>
+            <td>Rp ${price.toLocaleString()}</td>
+            <td>Rp ${total.toLocaleString()}</td>
+          </tr>
+        `;
+        tr.querySelector("span").innerText = `Rp ${total.toLocaleString()}`;
+      });
+
+      document.getElementById("totalAmount").innerText = `Rp ${grandTotal.toLocaleString()}`;
+      document.getElementById("invoiceArea").style.display = 'block';
+      document.getElementById("downloadBtn").style.display = 'inline-block';
     }
 
     function downloadPDF() {
-      const element = document.getElementById('invoiceTemplate');
-      html2pdf().from(element).save('invoice.pdf');
+      const element = document.getElementById("invoiceArea");
+      html2pdf().from(element).save("invoice.pdf");
+    }
+
+    function saveForm() {
+      const data = {
+        clientName: document.getElementById("clientName").value,
+        invoiceDate: document.getElementById("invoiceDate").value
+      };
+      localStorage.setItem("invoiceForm", JSON.stringify(data));
     }
   </script>
 </body>
