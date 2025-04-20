@@ -212,6 +212,8 @@
     function downloadPDF() {
       const invoice = document.getElementById("invoiceArea");
 
+      console.log("Mempersiapkan invoice untuk diunduh:", invoice); // Log untuk memastikan elemen ada
+
       // Menambahkan sedikit delay untuk memberi waktu render
       setTimeout(() => {
         html2pdf()
@@ -224,7 +226,9 @@
           })
           .from(invoice)
           .save();
-      }, 500); // Tambahkan waktu delay agar rendering selesai sebelum download
+
+        console.log("Invoice selesai diunduh."); // Log setelah selesai
+      }, 1000); // Meningkatkan delay menjadi 1000 ms atau 1 detik
     }
 
     function saveForm() {
