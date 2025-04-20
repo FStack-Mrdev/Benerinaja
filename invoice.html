@@ -69,12 +69,25 @@
       color: white;
     }
 
+    .info-section {
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    .info-section p {
+      margin: 5px 0;
+    }
+
+    .info-section ul {
+      padding-left: 20px;
+    }
+
     @media print {
       body {
         background: white;
       }
-      .form-section, .actions {
-        display: none;
+      .form-section, h1, .actions, #downloadBtn {
+        display: none; /* Menyembunyikan elemen-elemen tersebut saat mencetak */
       }
       .invoice-section {
         box-shadow: none;
@@ -136,8 +149,8 @@
       </tfoot>
     </table>
 
-    <!-- Additional Information -->
-    <div class="additional-info">
+    <!-- Metode Pembayaran dan Kontak -->
+    <div class="info-section">
       <h3>Metode Pembayaran:</h3>
       <ul>
         <li>Transfer ke: BSI 7150292918 a.n. Benerin Aja</li>
@@ -145,13 +158,13 @@
       </ul>
       
       <h3>Kontak Kami:</h3>
-      <ul>
-        <li>WhatsApp: 0853-4372-4776</li>
-        <li>Instagram: @benerinaja.official</li>
-        <li>Facebook: BenerinAja Official</li>
-        <li>Alamat: Online Service - Jemput & Antar (Area Terjangkau)</li>
-      </ul>
+      <p>WhatsApp: 0853-4372-4776</p>
+      <p>Instagram: @benerinaja.official</p>
+      <p>Facebook: BenerinAja Official</p>
+      <p>Alamat: Online Service - Jemput & Antar (Area Terjangkau)</p>
 
+      <hr>
+      
       <h3>Garansi & Syarat Ketentuan:</h3>
       <ul>
         <li>Garansi diberikan sesuai dengan jenis perbaikan:</li>
@@ -167,7 +180,7 @@
   </div>
 
   <div class="actions" style="text-align: center;">
-    <button id="printBtn" onclick="printInvoice()" style="display:none;">Print Invoice</button>
+    <button id="downloadBtn" onclick="downloadInvoice()" style="display:none;">Download PDF</button>
   </div>
 
   <script>
@@ -234,22 +247,26 @@
 
       document.getElementById("totalAmount").innerText = `Rp ${grandTotal.toLocaleString()}`;
       document.getElementById("invoiceArea").style.visibility = "visible"; // pastikan invoice terlihat
-      document.getElementById("printBtn").style.display = "inline-block";
+      document.getElementById("downloadBtn").style.display = "inline-block";
     }
 
-    function printInvoice() {
+    function downloadInvoice() {
       const invoice = document.getElementById("invoiceArea");
-      const printWindow = window.open('', '', 'height=600,width=800');
-      printWindow.document.write('<html><head><title>Invoice</title>');
-      printWindow.document.write('<link rel="stylesheet" type="text/css" href="style.css">');
-      printWindow.document.write('</head><body>');
-      printWindow.document.write(invoice.innerHTML);
-      printWindow.document.write('</body></html>');
-      printWindow.document.close();
-      printWindow.print();
+
+      // Coba print menggunakan window.print
+      window.print();
     }
 
     function saveForm() {
       const data = {
         clientName: document.getElementById("clientName").value,
         invoiceDate: document.getElementById("invoiceDate").value
+      };
+      localStorage.setItem("invoiceForm", JSON.stringify(data));
+    }
+
+    // Generate nomor invoice saat halaman dimuat
+    generateInvoiceNumber();
+  </script>
+</body>
+</html>
