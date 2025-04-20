@@ -2,111 +2,129 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invoice - BenerinAja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice | BenerinAja</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f4f4f4;
-    }
-    .container {
-      width: 80%;
-      margin: 50px auto;
-      padding: 30px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .invoice-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .invoice-header h1 {
-      margin: 0;
-      font-size: 32px;
-      color: #2ecc71;
-    }
-    .invoice-header p {
-      margin: 5px 0;
-      font-size: 16px;
+      padding: 20px;
+      background: #f7f7f7;
       color: #333;
     }
-    .invoice-details, .invoice-items {
-      margin-top: 20px;
+
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    .invoice-details p, .invoice-items p {
-      font-size: 16px;
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .details {
+      margin-bottom: 20px;
+    }
+
+    .details p {
       margin: 5px 0;
     }
-    .invoice-items table {
+
+    table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
-    .invoice-items th, .invoice-items td {
+
+    table th, table td {
       border: 1px solid #ddd;
       padding: 10px;
       text-align: left;
     }
-    .invoice-items th {
-      background-color: #f4f4f4;
+
+    table th {
+      background: #2ecc71;
+      color: white;
     }
+
     .total {
       text-align: right;
       margin-top: 20px;
-      font-size: 18px;
       font-weight: bold;
+    }
+
+    .btn {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn i {
+      margin-right: 8px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="invoice-header">
-      <h1>Invoice</h1>
-      <p>Servis HP - BenerinAja</p>
+  <div class="invoice-box" id="invoice">
+    <h1>BenerinAja</h1>
+    <h2>Invoice Servis</h2>
+
+    <div class="details">
+      <p><strong>Nama:</strong> Andi</p>
+      <p><strong>Tanggal:</strong> 20 April 2025</p>
+      <p><strong>Kode Servis:</strong> A001</p>
     </div>
 
-    <div class="invoice-details">
-      <p><strong>Nama Pelanggan:</strong> <span id="nama"></span></p>
-      <p><strong>Email:</strong> <span id="email"></span></p>
-      <p><strong>Nomor HP:</strong> <span id="nomor"></span></p>
-      <p><strong>Keluhan/Layanan:</strong> <span id="keluhan"></span></p>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Deskripsi</th>
+          <th>Harga</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ganti Layar</td>
+          <td>Rp 500.000</td>
+        </tr>
+        <tr>
+          <td>Ganti Baterai</td>
+          <td>Rp 200.000</td>
+        </tr>
+      </tbody>
+    </table>
 
-    <div class="invoice-items">
-      <table>
-        <thead>
-          <tr>
-            <th>Deskripsi Layanan</th>
-            <th>Harga</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Servis Layar Retak</td>
-            <td>Rp 150,000</td>
-          </tr>
-          <tr>
-            <td>Penggantian Baterai</td>
-            <td>Rp 200,000</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="total">
-      <p><strong>Total: </strong>Rp 350,000</p>
-    </div>
+    <p class="total">Total: Rp 700.000</p>
   </div>
 
+  <button class="btn" onclick="downloadPDF()"><i class="fas fa-download"></i>Download Invoice</button>
+
   <script>
-    // Gantikan dengan data yang sesuai dari formulir
-    document.getElementById("nama").innerText = "Andi";
-    document.getElementById("email").innerText = "andi@mail.com";
-    document.getElementById("nomor").innerText = "085123456789";
-    document.getElementById("keluhan").innerText = "Layar retak, baterai cepat habis";
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.html(document.querySelector("#invoice"), {
+        callback: function (pdf) {
+          pdf.save("invoice-benerinaja.pdf");
+        },
+        x: 10,
+        y: 10,
+        html2canvas: { scale: 0.5 }
+      });
+    }
   </script>
 </body>
 </html>
