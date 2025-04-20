@@ -93,6 +93,8 @@ form textarea {
     </div>
     <p class="subtitle">Solusi Servis HP Cepat & Terpercaya</p>
     <a href="#form" class="btn-green">Booking Sekarang</a>
+    <!-- Tambahan tombol Chat WhatsApp di header -->
+<a href="https://wa.me/6285343724776?text=Halo%20BenerinAja,%20saya%20mau%20booking%20servis%20HP" class="btn-green" target="_blank">Chat via WhatsApp</a>
   </header>  <main class="content">
     <section class="card">
       <h2>Visi Kami</h2>
@@ -123,7 +125,30 @@ form textarea {
     <input type="tel" placeholder="Nomor HP" required />
     <textarea placeholder="Keluhan atau layanan yang dibutuhkan (Contoh: Layar retak, baterai cepat habis)" required></textarea>
     <button type="submit" class="btn-green">Kirim</button>
-  </form>
+    
+  </form><!-- Tambahan Section: Cek Status Servis (ditempatkan di bawah form booking) -->
+<section class="card" id="cek-status">
+  <h2>Cek Status Servis</h2>
+  <input type="text" id="kodeInput" placeholder="Masukkan Kode Servis (Contoh: A001)" />
+  <button onclick="cekStatus()" class="btn-green" style="margin-top: 10px;">Cek</button>
+  <p id="hasilStatus" style="margin-top: 15px;"></p>
+</section>
+
+<script>
+  async function cekStatus() {
+    const kode = document.getElementById("kodeInput").value.trim().toUpperCase();
+    try {
+      const response = await fetch("status.json");
+      const data = await response.json();
+      const hasil = data.find(item => item.kode === kode);
+      document.getElementById("hasilStatus").innerText = hasil
+        ? `Status: ${hasil.status}`
+        : "Kode tidak ditemukan.";
+    } catch (e) {
+      document.getElementById("hasilStatus").innerText = "Gagal memuat data status.";
+    }
+  }
+</script>
 </section>
 
   </main>
