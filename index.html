@@ -81,6 +81,21 @@ form textarea {
   height: 100px;
   resize: vertical;
 }
+    .button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* Responsive: di layar lebar tampil horizontal */
+@media (min-width: 600px) {
+  .button-group {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
 
   </style>
 </head>
@@ -91,9 +106,10 @@ form textarea {
       <h1>Benerin<span class="highlight">Aja</span></h1>
     </div>
     <p class="subtitle">Solusi Servis HP Cepat & Terpercaya</p>
-    <a href="#form" class="btn-green">Booking Sekarang</a>
-    <!-- Tambahan tombol Chat WhatsApp di header -->
-<a href="https://wa.me/6285343724776?text=Halo%20BenerinAja,%20saya%20mau%20booking%20servis%20HP" class="btn-green" target="_blank">Chat via WhatsApp</a>
+    <div class="button-group">
+  <a href="#form" class="btn-green">Booking Sekarang</a>
+  <a href="https://wa.me/6285343724776?text=Halo%20BenerinAja,%20saya%20mau%20booking%20servis%20HP" class="btn-green" target="_blank">Chat via WhatsApp</a>
+</div>
   </header>  <main class="content">
     <section class="card">
       <h2>Visi Kami</h2>
