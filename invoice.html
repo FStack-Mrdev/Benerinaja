@@ -263,12 +263,6 @@
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
         doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-
-        const logoBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAEsElEQVR4n...";
-        const centerX = pdfWidth / 2 - 60;
-        const centerY = pdfHeight / 2 - 60;
-        doc.addImage(logoBase64, 'PNG', centerX, centerY, 120, 120);
-
         doc.save("invoice-benerinaja.pdf");
       });
     }
