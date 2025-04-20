@@ -87,7 +87,7 @@
         background: white;
       }
       .form-section, h1, .actions, #downloadBtn {
-        display: none; /* Menyembunyikan elemen-elemen tersebut saat mencetak */
+        display: none;
       }
       .invoice-section {
         box-shadow: none;
@@ -95,6 +95,8 @@
       }
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
   <h1>Invoice Generator</h1>
@@ -149,14 +151,13 @@
       </tfoot>
     </table>
 
-    <!-- Metode Pembayaran dan Kontak -->
     <div class="info-section">
       <h3>Metode Pembayaran:</h3>
       <ul>
         <li>Transfer ke: BSI 7150292918 a.n. Benerin Aja</li>
         <li>QRIS: [Lampirkan QR di cetakan]</li>
       </ul>
-      
+
       <h3>Kontak Kami:</h3>
       <p>WhatsApp: 0853-4372-4776</p>
       <p>Instagram: @benerinaja.official</p>
@@ -164,7 +165,7 @@
       <p>Alamat: Online Service - Jemput & Antar (Area Terjangkau)</p>
 
       <hr>
-      
+
       <h3>Garansi & Syarat Ketentuan:</h3>
       <ul>
         <li>Garansi diberikan sesuai dengan jenis perbaikan:</li>
@@ -246,15 +247,30 @@
       });
 
       document.getElementById("totalAmount").innerText = `Rp ${grandTotal.toLocaleString()}`;
-      document.getElementById("invoiceArea").style.visibility = "visible"; // pastikan invoice terlihat
+      document.getElementById("invoiceArea").style.visibility = "visible";
       document.getElementById("downloadBtn").style.display = "inline-block";
     }
 
     function downloadInvoice() {
-      const invoice = document.getElementById("invoiceArea");
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF("p", "pt", "a4");
+      const invoiceElement = document.getElementById("invoiceArea");
 
-      // Coba print menggunakan window.print
-      window.print();
+      html2canvas(invoiceElement).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const imgProps = doc.getImageProperties(imgData);
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+        const logoBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAEsElEQVR4n...";
+        const centerX = pdfWidth / 2 - 60;
+        const centerY = pdfHeight / 2 - 60;
+        doc.addImage(logoBase64, 'PNG', centerX, centerY, 120, 120);
+
+        doc.save("invoice-benerinaja.pdf");
+      });
     }
 
     function saveForm() {
@@ -265,7 +281,6 @@
       localStorage.setItem("invoiceForm", JSON.stringify(data));
     }
 
-    // Generate nomor invoice saat halaman dimuat
     generateInvoiceNumber();
   </script>
 </body>
