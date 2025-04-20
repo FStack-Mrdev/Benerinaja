@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Generator - Benerin.aja</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-section, .invoice-section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      padding: 8px;
+      margin-top: 5px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .actions {
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #1e88e5;
+      color: white;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .form-section, .actions {
+        display: none;
+      }
+      .invoice-section {
+        box-shadow: none;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Invoice Generator</h1>
+
+  <div class="form-section">
+    <label>Nama Klien: <input type="text" id="clientName" /></label>
+    <label>Tanggal: <input type="date" id="invoiceDate" /></label>
+    <label>Nomor Invoice (Otomatis): <input type="text" id="invoiceNumber" readonly /></label>
+
+    <h3>Daftar Barang / Jasa</h3>
+    <table id="itemTable">
+      <thead>
+        <tr>
+          <th>Deskripsi</th>
+          <th>Qty</th>
+          <th>Harga</th>
+          <th>Total</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="actions">
+      <button onclick="addItem()">+ Tambah Item</button>
+    </div>
+    <div class="actions">
+      <button onclick="generateInvoice()">Tampilkan Invoice</button>
+    </div>
+  </div>
+
+  <div class="invoice-section hidden" id="invoiceArea">
+    <h2>Invoice</h2>
+    <p><strong>Nomor:</strong> <span id="outInvoiceNumber"></span></p>
+    <p><strong>Tanggal:</strong> <span id="outDate"></span></p>
+    <p><strong>Klien:</strong> <span id="outClientName"></span></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Deskripsi</th>
+          <th>Qty</th>
+          <th>Harga</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="invoiceItems"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"><strong>Total Keseluruhan</strong></td>
+          <td><strong id="totalAmount"></strong></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="actions" style="text-align: center;">
+    <button id="downloadBtn" onclick="downloadPDF()" style="display:none;">Download PDF</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    let itemId = 0;
+
+    function generateInvoiceNumber() {
+      const today = new Date();
+      const number = "INV-" + today.getFullYear() + (today.getMonth()+1).toString().padStart(2, '0') + today.getDate().toString().padStart(2, '0') + "-" + Math.floor(100 + Math.random() * 900);
+      document.getElementById("invoiceNumber").value = number;
+    }
+
+    function addItem() {
+      const row = document.createElement("tr");
+      row.setAttribute("data-id", itemId);
+      row.innerHTML = `
+        <td><input type="text" placeholder="Deskripsi" onchange="saveForm()" /></td>
+        <td><input type="number" value="1" min="1" onchange="saveForm()" /></td>
+        <td><input type="number" value="0" min="0" onchange="saveForm()" /></td>
+        <td><span>Rp 0</span></td>
+        <td><button onclick="removeItem(${itemId})">Hapus</button></td>
+      `;
+      document.querySelector("#itemTable tbody").appendChild(row);
+      itemId++;
+      saveForm();
+    }
+
+    function removeItem(id) {
+      const row = document.querySelector(`tr[data-id='${id}']`);
+      if (row) row.remove();
+      saveForm();
+    }
+
+    function generateInvoice() {
+      const clientName = document.getElementById("clientName").value;
+      const date = document.getElementById("invoiceDate").value;
+      const number = document.getElementById("invoiceNumber").value;
+
+      document.getElementById("outClientName").innerText = clientName;
+      document.getElementById("outDate").innerText = date;
+      document.getElementById("outInvoiceNumber").innerText = number;
+
+      const tbody = document.getElementById("invoiceItems");
+      tbody.innerHTML = '';
+      let grandTotal = 0;
+
+      document.querySelectorAll("#itemTable tbody tr").forEach(tr => {
+        const inputs = tr.querySelectorAll("input");
+        const desc = inputs[0].value;
+        const qty = parseInt(inputs[1].value) || 0;
+        const price = parseInt(inputs[2].value) || 0;
+        const total = qty * price;
+        grandTotal += total;
+
+        tbody.innerHTML += `
+          <tr>
+            <td>${desc}</td>
+            <td>${qty}</td>
+            <td>Rp ${price.toLocaleString()}</td>
+            <td>Rp ${total.toLocaleString()}</td>
+          </tr>
+        `;
+        tr.querySelector("span").innerText = `Rp ${total.toLocaleString()}`;
+      });
+
+      document.getElementById("totalAmount").innerText = `Rp ${grandTotal.toLocaleString()}`;
+      document.getElementById("invoiceArea").style.visibility = "visible"; // pastikan invoice terlihat
+      document.getElementById("downloadBtn").style.display = "inline-block";
+    }
+
+    function downloadPDF() {
+      const invoice = document.getElementById("invoiceArea");
+
+      // Menambahkan sedikit delay untuk memberi waktu render
+      setTimeout(() => {
+        html2pdf()
+          .set({
+            margin: 0.5,
+            filename: 'invoice.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+          })
+          .from(invoice)
+          .save();
+      }, 500); // Tambahkan waktu delay agar rendering selesai sebelum download
+    }
+
+    function saveForm() {
+      const data = {
+        clientName: document.getElementById("clientName").value,
+        invoiceDate: document.getElementById("invoiceDate").value
+      };
+      localStorage.setItem("invoiceForm", JSON.stringify(data));
+    }
+
+    // Generate nomor invoice saat halaman dimuat
+    generateInvoiceNumber();
+  </script>
+</body>
+</html>
