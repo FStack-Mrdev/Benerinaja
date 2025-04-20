@@ -13,9 +13,8 @@
       margin: auto;
     }
 
-    h1, h2 {
+    h1 {
       text-align: center;
-      margin-bottom: 20px;
     }
 
     .form-section, .invoice-section {
@@ -70,19 +69,6 @@
       color: white;
     }
 
-    .watermark {
-      text-align: center;
-      font-size: 50px;
-      color: rgba(180, 180, 180, 0.12);
-      margin-bottom: -30px;
-    }
-
-    /* Sembunyikan invoice saat generate tapi tetap bisa dibaca PDF */
-    #invoiceArea.hidden {
-      position: absolute;
-      left: -9999px;
-    }
-
     @media print {
       body {
         background: white;
@@ -127,7 +113,6 @@
   </div>
 
   <div class="invoice-section hidden" id="invoiceArea">
-    <div class="watermark">Benerin.aja</div>
     <h2>Invoice</h2>
     <p><strong>Nomor:</strong> <span id="outInvoiceNumber"></span></p>
     <p><strong>Tanggal:</strong> <span id="outDate"></span></p>
