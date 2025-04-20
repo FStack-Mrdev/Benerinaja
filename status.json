@@ -1,0 +1,17 @@
+[
+  {
+    "kode": "A001",
+    "nama": "Rizky",
+    "status": "Sedang diproses"
+  },
+  {
+    "kode": "A002",
+    "nama": "Dewi",
+    "status": "Selesai - Siap Diambil"
+  },
+  {
+    "kode": "A003",
+    "nama": "Budi",
+    "status": "Menunggu Sparepart"
+  }
+]
