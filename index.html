@@ -1,166 +1,129 @@
-<!DOCTYPE html><html lang="id"><head>
+<!DOCTYPE html><html lang="id">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BenerinAja - Layanan Servis HP</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="description" content="BenerinAja - Layanan servis HP cepat, jujur, dan profesional. Booking mudah dan teknisi handal siap membantu Anda." />
+  <title>BenerinAja - Servis HP Cepat & Terpercaya</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #333;
+      font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      transition: background-color 0.5s, color 0.5s;
-    }body.dark {
-  background-color: #222;
-  color: #eee;
-}
-
-header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 1em;
+      background: #f5f5f5;
+      color: #333;
+    }.header {
   text-align: center;
-  position: relative;
-}
-
-header img {
-  max-width: 100px;
-  display: block;
-  margin: 0 auto 10px;
-}
-
-.btn-scroll {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 15px;
-  background-color: #27ae60;
+  background: #0a3d62;
   color: white;
-  border-radius: 5px;
-  font-weight: bold;
-  text-decoration: none;
+  padding: 2rem 1rem;
 }
 
-@media (max-width: 600px) {
-  .btn-scroll {
-    margin-top: 15px;
-    position: relative;
-  }
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.dark-toggle {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background-color: #333;
+.logo img {
+  max-height: 50px;
+}
+
+.logo h1 {
+  font-size: 2rem;
+  margin: 0.5rem 0 0;
+}
+
+.highlight {
+  color: #2ecc71;
+}
+
+.subtitle {
+  margin: 0.5rem 0 1rem;
+  font-weight: 300;
+}
+
+.btn-green {
+  background-color: #2ecc71;
   color: white;
-  padding: 10px 15px;
+  padding: 0.7rem 1.5rem;
   border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
   cursor: pointer;
-  z-index: 1000;
+}
+
+.content {
+  padding: 2rem 1rem;
+  max-width: 700px;
+  margin: auto;
 }
 
 .card {
   background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  transition: transform 0.3s;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.card:hover {
-  transform: scale(1.02);
-}
-
-body.dark .card {
-  background-color: #444;
-  color: #fff;
-}
-
-section {
-  padding: 30px 20px;
-}
-
-.floating-chat {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #25d366;
-  color: white;
-  border-radius: 50%;
-  padding: 15px;
-  font-size: 24px;
-  z-index: 999;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 500px;
-  margin: auto;
-}
-
-input, textarea, button {
-  padding: 10px;
-  border-radius: 5px;
+form input,
+form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-button[type="submit"] {
-  background-color: #27ae60;
-  color: white;
-  border: none;
+form textarea {
+  height: 100px;
+  resize: vertical;
 }
 
   </style>
-</head><body>
-  <button class="dark-toggle" id="darkModeToggle">Dark Mode</button>
-  <header>
-    <img src="logo.png" alt="Logo BenerinAja" />
-    <h1>BenerinAja</h1>
-    <p>Solusi Servis HP Cepat & Terpercaya</p>
-    <a href="#form" class="btn-scroll">Booking Sekarang</a>
-  </header>  <section id="vision">
-    <div class="card">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <img src="images/logo.jpg" alt="Logo BenerinAja" />
+      <h1>Benerin<span class="highlight">Aja</span></h1>
+    </div>
+    <p class="subtitle">Solusi Servis HP Cepat & Terpercaya</p>
+    <a href="#form" class="btn-green">Booking Sekarang</a>
+  </header>  <main class="content">
+    <section class="card">
       <h2>Visi Kami</h2>
       <p>Menjadi layanan servis HP terbaik di Indonesia dengan pelayanan cepat, jujur, dan profesional.</p>
-    </div>
-    <div class="card">
-      <h2>Misi Kami</h2>
-      <ul>
-        <li>Memberikan pelayanan servis HP berkualitas</li>
-        <li>Mengedepankan kejujuran dan transparansi</li>
-        <li>Menyediakan teknisi yang handal dan berpengalaman</li>
-      </ul>
-    </div>
-  </section>  <section id="how-to-order">
-    <div class="card">
-      <h2>Cara Pemesanan</h2>
-      <ol>
-        <li>Klik tombol "Booking Sekarang"</li>
-        <li>Isi formulir dengan lengkap</li>
-        <li>Tim kami akan segera menghubungi Anda</li>
-      </ol>
-    </div>
-  </section>  <section id="form">
-    <div class="card">
-      <h2>Formulir Booking</h2>
-      <form action="https://formspree.io/f/xkgjdedl" method="POST">
-        <input type="text" name="name" placeholder="Nama Anda" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="tel" name="phone" placeholder="Nomor HP" required>
-        <textarea name="message" rows="4" placeholder="Keluhan atau layanan yang dibutuhkan"></textarea>
-        <button type="submit">Kirim</button>
-      </form>
-    </div>
-  </section>  <a class="floating-chat" href="https://wa.me/6281234567890" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-  </a>  <script>
-    const toggleBtn = document.getElementById('darkModeToggle');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      toggleBtn.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
-    });
-  </script></body></html>
+    </section><section class="card">
+  <h2>Misi Kami</h2>
+  <ul>
+    <li>Memberikan pelayanan servis HP berkualitas</li>
+    <li>Mengedepankan kejujuran dan transparansi</li>
+    <li>Menyediakan teknisi yang handal dan berpengalaman</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>Cara Pemesanan</h2>
+  <ol>
+    <li>Klik tombol "Booking Sekarang"</li>
+    <li>Isi formulir dengan lengkap</li>
+    <li>Tim kami akan segera menghubungi Anda</li>
+  </ol>
+</section>
+
+<section class="card" id="form">
+  <h2>Formulir Booking</h2>
+  <form>
+    <input type="text" placeholder="Nama Anda (Contoh: Andi)" required />
+    <input type="email" placeholder="Email" required />
+    <input type="tel" placeholder="Nomor HP" required />
+    <textarea placeholder="Keluhan atau layanan yang dibutuhkan (Contoh: Layar retak, baterai cepat habis)" required></textarea>
+    <button type="submit" class="btn-green">Kirim</button>
+  </form>
+</section>
+
+  </main>
+</body>
+</html>
