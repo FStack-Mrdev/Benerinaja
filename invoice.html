@@ -3,100 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invoice | BenerinAja</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <title>Invoice Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
       padding: 20px;
-      background: #f5f5f5;
-      color: #333;
     }
-    #invoice {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    h1 {
+    h2 {
       text-align: center;
-      color: #0a3d62;
     }
-    .details {
-      margin: 20px 0;
+    form, #invoiceTemplate {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
     }
-    .details p {
-      margin: 5px 0;
-    }
-    .total {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 20px;
-      text-align: right;
-    }
-    .btn-download {
+    label {
       display: block;
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background: #2ecc71;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 5px;
+      margin-left: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
       cursor: pointer;
     }
-    .watermark {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      font-size: 50px;
-      color: rgba(0, 0, 0, 0.05);
-      pointer-events: none;
-      user-select: none;
+    #invoiceTemplate {
+      display: none;
     }
   </style>
 </head>
 <body>
+  <h2>Invoice Generator</h2>
 
-  <div id="invoice">
-    <div class="watermark">BenerinAja</div>
-    <h1>Invoice Servis</h1>
-    <div class="details">
-      <p><strong>Invoice ID:</strong> <span id="inv-id"></span></p>
-      <p><strong>Nama Pelanggan:</strong> Andi</p>
-      <p><strong>Tanggal:</strong> <span id="tanggal"></span></p>
-      <p><strong>Layanan:</strong> Ganti layar + baterai</p>
-      <p><strong>Kode Servis:</strong> A001</p>
-    </div>
-    <div class="total">
-      Total: Rp 750.000
-    </div>
+  <form id="invoiceForm">
+    <label>Nama Klien: <input type="text" id="clientName" required></label>
+    <label>Tanggal: <input type="date" id="invoiceDate" required></label>
+    <label>Deskripsi: <input type="text" id="description" required></label>
+    <label>Jumlah (Rp): <input type="number" id="amount" required></label>
+    <button type="button" onclick="generateInvoice()">Tampilkan Invoice</button>
+  </form>
+
+  <div id="invoiceTemplate">
+    <h2>Invoice</h2>
+    <p>Klien: <span id="outClientName"></span></p>
+    <p>Tanggal: <span id="outDate"></span></p>
+    <p>Deskripsi: <span id="outDescription"></span></p>
+    <p>Jumlah: Rp <span id="outAmount"></span></p>
   </div>
 
-  <button class="btn-download" onclick="downloadInvoice()">Download Invoice</button>
+  <button id="downloadBtn" onclick="downloadPDF()" style="display:none;">Download PDF</button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-    // Tanggal hari ini & ID otomatis
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString('id-ID', {
-      day: 'numeric', month: 'long', year: 'numeric'
-    });
-    const invoiceId = 'INV' + today.toISOString().slice(0,10).replace(/-/g,"") + '-' + Math.floor(Math.random() * 1000);
+    function generateInvoice() {
+      const name = document.getElementById('clientName').value;
+      const date = document.getElementById('invoiceDate').value;
+      const desc = document.getElementById('description').value;
+      const amount = document.getElementById('amount').value;
 
-    document.getElementById("tanggal").innerText = formattedDate;
-    document.getElementById("inv-id").innerText = invoiceId;
+      document.getElementById('outClientName').innerText = name;
+      document.getElementById('outDate').innerText = date;
+      document.getElementById('outDescription').innerText = desc;
+      document.getElementById('outAmount').innerText = amount;
 
-    // Download PDF
-    function downloadInvoice() {
-      const element = document.getElementById("invoice");
-      html2pdf().from(element).save(`invoice-${invoiceId}.pdf`);
+      document.getElementById('invoiceTemplate').style.display = 'block';
+      document.getElementById('downloadBtn').style.display = 'inline-block';
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('invoiceTemplate');
+      html2pdf().from(element).save('invoice.pdf');
     }
   </script>
-
 </body>
 </html>
