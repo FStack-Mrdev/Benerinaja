@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Invoice | BenerinAja</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,6 +19,7 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
     }
     h1 {
       text-align: center;
@@ -47,15 +49,27 @@
       font-size: 16px;
       cursor: pointer;
     }
+    .watermark {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 50px;
+      color: rgba(0, 0, 0, 0.05);
+      pointer-events: none;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
 
   <div id="invoice">
+    <div class="watermark">BenerinAja</div>
     <h1>Invoice Servis</h1>
     <div class="details">
+      <p><strong>Invoice ID:</strong> <span id="inv-id"></span></p>
       <p><strong>Nama Pelanggan:</strong> Andi</p>
-      <p><strong>Tanggal:</strong> 20 April 2025</p>
+      <p><strong>Tanggal:</strong> <span id="tanggal"></span></p>
       <p><strong>Layanan:</strong> Ganti layar + baterai</p>
       <p><strong>Kode Servis:</strong> A001</p>
     </div>
@@ -66,11 +80,21 @@
 
   <button class="btn-download" onclick="downloadInvoice()">Download Invoice</button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
+    // Tanggal hari ini & ID otomatis
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('id-ID', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    });
+    const invoiceId = 'INV' + today.toISOString().slice(0,10).replace(/-/g,"") + '-' + Math.floor(Math.random() * 1000);
+
+    document.getElementById("tanggal").innerText = formattedDate;
+    document.getElementById("inv-id").innerText = invoiceId;
+
+    // Download PDF
     function downloadInvoice() {
       const element = document.getElementById("invoice");
-      html2pdf().from(element).save("invoice-benerinaja.pdf");
+      html2pdf().from(element).save(`invoice-${invoiceId}.pdf`);
     }
   </script>
 
