@@ -131,7 +131,35 @@ form textarea {
   background-color: #128C7E; /* Warna hijau gelap saat hover */
   transform: scale(1.1);
 }
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 
+.floating-wa {
+  animation: bounce 1.5s infinite;
+}
+    .floating-wa::after {
+  content: 'Chat via WhatsApp';
+  position: absolute;
+  right: 60px;
+  background: #2ecc71;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.floating-wa:hover::after {
+  opacity: 1;
+}
   </style>
 </head>
 <body>
