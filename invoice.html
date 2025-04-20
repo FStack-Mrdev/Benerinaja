@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f0f2f5;
       padding: 20px;
       max-width: 900px;
       margin: auto;
@@ -15,6 +15,7 @@
 
     h1, h2 {
       text-align: center;
+      margin-bottom: 20px;
     }
 
     .form-section, .invoice-section {
@@ -31,10 +32,12 @@
     }
 
     input {
-      padding: 5px;
+      padding: 8px;
       margin-top: 5px;
       width: 100%;
       box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
 
     table {
@@ -70,8 +73,15 @@
     .watermark {
       text-align: center;
       font-size: 50px;
-      color: rgba(200, 200, 200, 0.15);
+      color: rgba(180, 180, 180, 0.12);
       margin-bottom: -30px;
+    }
+
+    /* Sembunyikan invoice saat generate tapi tetap bisa dibaca PDF */
+    #invoiceArea.hidden {
+      visibility: hidden;
+      position: absolute;
+      left: -9999px;
     }
 
     @media print {
@@ -117,7 +127,7 @@
     </div>
   </div>
 
-  <div class="invoice-section" id="invoiceArea" style="display: none;">
+  <div class="invoice-section hidden" id="invoiceArea">
     <div class="watermark">Benerin.aja</div>
     <h2>Invoice</h2>
     <p><strong>Nomor:</strong> <span id="outInvoiceNumber"></span></p>
@@ -174,7 +184,7 @@
         <td><input type="text" placeholder="Deskripsi" onchange="saveForm()" /></td>
         <td><input type="number" value="1" min="1" onchange="saveForm()" /></td>
         <td><input type="number" value="0" min="0" onchange="saveForm()" /></td>
-        <td><span>0</span></td>
+        <td><span>Rp 0</span></td>
         <td><button onclick="removeItem(${itemId})">Hapus</button></td>
       `;
       document.querySelector("#itemTable tbody").appendChild(row);
@@ -221,13 +231,29 @@
       });
 
       document.getElementById("totalAmount").innerText = `Rp ${grandTotal.toLocaleString()}`;
-      document.getElementById("invoiceArea").style.display = 'block';
+      document.getElementById("invoiceArea").classList.remove("hidden");
       document.getElementById("downloadBtn").style.display = 'inline-block';
     }
 
     function downloadPDF() {
-      const element = document.getElementById("invoiceArea");
-      html2pdf().from(element).save("invoice.pdf");
+      const invoice = document.getElementById("invoiceArea");
+      invoice.classList.remove("hidden");
+
+      setTimeout(() => {
+        html2pdf()
+          .set({
+            margin: 0.5,
+            filename: 'invoice.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+          })
+          .from(invoice)
+          .save()
+          .then(() => {
+            // invoice.classList.add("hidden"); // kalau mau sembunyikan lagi setelah download
+          });
+      }, 300);
     }
 
     function saveForm() {
