@@ -1,195 +1,205 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Benerin.aja - Servis HP</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
   <style>
     :root {
-      --bg-light: #f4f4f4;
-      --bg-dark: #1c1c1c;
-      --text-light: #333;
-      --text-dark: #f4f4f4;
-      --primary: #27ae60;
-    }body {
-  font-family: Arial, sans-serif;
-  background: var(--bg-light);
-  margin: 0;
-  padding: 0;
-  color: var(--text-light);
-  transition: background 0.3s, color 0.3s;
-}
-
-body.dark-mode {
-  background: var(--bg-dark);
-  color: var(--text-dark);
-}
-
-header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 1em;
-  text-align: center;
-}
-
-header img {
-  max-width: 120px;
-  display: block;
-  margin: 0 auto 10px;
-}
-
-main {
-  padding: 20px;
-}
-
-.card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
-}
-
-body.dark-mode .card {
-  background: #2b2b2b;
-}
-
-.card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contact-btn {
-  display: inline-block;
-  padding: 10px 15px;
-  background-color: var(--primary);
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  background: #2c3e50;
-  color: white;
-  margin-top: 30px;
-}
-
-.toggle-darkmode {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background: #27ae60;
-  border: none;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.floating-whatsapp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25d366;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 50px;
-  text-decoration: none;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-
-.social-icons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.social-icons a {
-  color: white;
-  font-size: 20px;
-  text-decoration: none;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
+      --primary: #2c3e50;
+      --accent: #27ae60;
+      --bg: #f4f4f4;
+      --text: #333;
+    }
+    body.dark {
+      --bg: #1e1e1e;
+      --text: #fff;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1em;
+      text-align: center;
+      position: relative;
+    }
+    .toggle-dark {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      background: var(--accent);
+      border: none;
+      color: white;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    header img {
+      max-width: 120px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    main {
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .contact-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: var(--primary);
+      color: white;
+      margin-top: 30px;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .social-icons a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      text-align: center;
+      font-size: 30px;
+      line-height: 55px;
+      z-index: 999;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
-  <button class="toggle-darkmode" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-  <a class="floating-whatsapp" href="https://wa.me/6285343724776" target="_blank">Chat WhatsApp</a>  <header>
+  <div id="loader">Loading...</div>
+  <header>
+    <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Mode</button>
     <img src="logo.jpg" alt="Logo Benerin.aja">
     <h1>Benerin.aja</h1>
     <p>Jasa Servis HP Profesional & Terpercaya</p>
-    <div class="social-icons">
-      <a href="#" title="Instagram">IG</a>
-      <a href="#" title="TikTok">TT</a>
-      <a href="#" title="Facebook">FB</a>
+  </header>
+
+  <main>
+    <div class="card reveal">
+      <h2>Tentang Kami</h2>
+      <p>Benerin.aja adalah layanan servis HP untuk segala kerusakan ringan hingga berat. Kami siap bantu perbaiki perangkat Anda dengan cepat dan aman.</p>
     </div>
-  </header>  <main>
-    <div class="card">
+
+    <div class="card reveal">
+      <h2>Layanan Kami</h2>
+      <ul>
+        <li>Ganti LCD</li>
+        <li>Ganti Baterai</li>
+        <li>Perbaikan Port Charger</li>
+        <li>Servis Mati Total</li>
+        <li>Software & Flashing</li>
+      </ul>
+    </div>
+
+    <div class="card reveal">
       <h2>Formulir Booking</h2>
-      <form onsubmit="event.preventDefault(); alert('Formulir berhasil dikirim!');">
-        <input type="text" placeholder="Nama Lengkap" required />
-        <input type="text" placeholder="Tipe HP" required />
-        <textarea placeholder="Keluhan" rows="4" required></textarea>
+      <form onsubmit="return validateForm()">
+        <label>Nama:</label><br/>
+        <input type="text" id="nama" required><br/><br/>
+        <label>No. WhatsApp:</label><br/>
+        <input type="tel" id="wa" required><br/><br/>
+        <label>Deskripsi Kerusakan:</label><br/>
+        <textarea id="deskripsi" required></textarea><br/><br/>
         <button type="submit" class="contact-btn">Kirim</button>
       </form>
-    </div><div class="card">
-  <h2>Tentang Kami</h2>
-  <p>Benerin.aja adalah layanan servis HP dari kerusakan ringan hingga berat. Kami siap bantu perbaiki perangkat Anda dengan cepat dan aman.</p>
-</div>
+    </div>
+  </main>
 
-<div class="card">
-  <h2>Layanan Kami</h2>
-  <ul>
-    <li>Ganti LCD</li>
-    <li>Ganti Baterai</li>
-    <li>Perbaikan Port Charger</li>
-    <li>Servis Mati Total</li>
-    <li>Software & Flashing</li>
-  </ul>
-</div>
+  <footer>
+    &copy; 2025 Benerin.aja<br/>
+    <div class="social-icons">
+      <a href="https://wa.me/6285343724776" target="_blank">WA</a>
+      <a href="https://instagram.com" target="_blank">IG</a>
+      <a href="https://facebook.com" target="_blank">FB</a>
+    </div>
+  </footer>
 
-<div class="card">
-  <h2>Visi & Misi</h2>
-  <p><strong>Visi:</strong> Menjadi solusi terpercaya untuk semua permasalahan gadget di Indonesia.</p>
-  <p><strong>Misi:</strong></p>
-  <ul>
-    <li>Menyediakan layanan perbaikan yang cepat, aman, dan berkualitas.</li>
-    <li>Mengutamakan kepuasan dan kenyamanan pelanggan.</li>
-    <li>Memberikan edukasi dan informasi seputar gadget secara berkala.</li>
-  </ul>
-</div>
+  <a class="whatsapp-float" href="https://wa.me/6285343724776" target="_blank">✉️</a>
 
-  </main>  <footer>
-    &copy; 2025 Benerin.aja. All rights reserved.
-  </footer>  <script>
+  <script>
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+    });
+
     function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle("dark");
     }
 
-    const cards = document.querySelectorAll('.card');
-    const reveal = () => {
-      cards.forEach(card => {
-        const top = card.getBoundingClientRect().top;
-        if (top < window.innerHeight - 100) {
-          card.classList.add('visible');
+    function validateForm() {
+      const nama = document.getElementById("nama").value.trim();
+      const wa = document.getElementById("wa").value.trim();
+      const deskripsi = document.getElementById("deskripsi").value.trim();
+
+      if (!nama || !wa || !deskripsi) {
+        alert("Harap isi semua kolom!");
+        return false;
+      }
+
+      alert("Formulir berhasil dikirim!");
+      return false;
+    }
+
+    const reveals = document.querySelectorAll(".reveal");
+    window.addEventListener("scroll", () => {
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        if (elementTop < windowHeight - 50) {
+          reveals[i].classList.add("active");
         }
-      });
-    };
-    window.addEventListener('scroll', reveal);
-    window.addEventListener('load', reveal);
-  </script></body>
+      }
+    });
+  </script>
+</body>
 </html>
