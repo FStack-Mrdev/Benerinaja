@@ -202,3 +202,51 @@ form button {
   color: #fff;
   border: 1px solid #555;
 }
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  td {
+    position: relative;
+    padding-left: 50%;
+    margin-bottom: 0.5rem;
+  }
+
+  td::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  td:nth-child(1)::before { content: "Deskripsi"; }
+  td:nth-child(2)::before { content: "Qty"; }
+  td:nth-child(3)::before { content: "Harga"; }
+  td:nth-child(4)::before { content: "Aksi"; }
+
+  .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
