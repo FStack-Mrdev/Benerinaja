@@ -238,8 +238,48 @@
       document.getElementById("waExport").href = `https://wa.me/?text=Halo, ini invoice ${invoiceNo}%0ANama: ${client}%0ATotal: ${total}`;
 
       // Google Sheet Web App URL
-      const gsheetUrl = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // ganti dengan link Web App asli
-      document.getElementById("gsheetExport").href = gsheetUrl;
+      const gsheetUrl = "https://script.google.com/macros/s/AKfycbyhJbSaec6zETQTPMoDwmVgRbDnjsl-DlPZIhUqFnQi5xZmmQGBhE7_KXBr_RB-F-uGVg/exec"; // ganti dengan link Web App asli
+      document.getElementById("gsheetExport").addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const invoiceNo = document.getElementById("invoiceNumber").textContent;
+  const client = document.querySelector('[name="client"]').value;
+  const notes = document.querySelector('[name="notes"]').value;
+  const qty = document.querySelectorAll('[name="item_qty[]"]');
+  const price = document.querySelectorAll('[name="item_price[]"]');
+  const desc = document.querySelectorAll('[name="item_desc[]"]');
+  const total = document.getElementById("totalAmount").textContent;
+
+  const items = [];
+
+  for (let i = 0; i < desc.length; i++) {
+    items.push({
+      desc: desc[i].value,
+      qty: qty[i].value,
+      price: price[i].value
+    });
+  }
+
+  const data = {
+    invoice: invoiceNo,
+    client: client,
+    notes: notes,
+    items: items,
+    total: total
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyhJbSaec6zETQTPMoDwmVgRbDnjsl-DlPZIhUqFnQi5xZmmQGBhE7_KXBr_RB-F-uGVg/exec", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => res.text())
+  .then(res => alert("✅ Data berhasil dikirim ke Google Sheets!"))
+  .catch(err => alert("❌ Gagal mengirim ke Sheets: " + err));
+});
+
     }
   </script>
 </body>
