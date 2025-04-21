@@ -87,6 +87,19 @@
       padding-top: 5px;
       min-width: 200px;
     }
+    .export-links {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .export-links a {
+      display: inline-block;
+      margin: 0.5rem;
+      color: white;
+      background: #3498db;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+    }
     @media print {
       .no-print, .no-print * {
         display: none !important;
@@ -147,6 +160,11 @@
     <div class="signature-box">
       <p>Hormat Kami,</p>
       <div class="signature">Tim BenerinAja</div>
+    </div>
+
+    <div class="export-links no-print">
+      <a href="#" id="waExport" target="_blank">Kirim ke WhatsApp</a>
+      <a href="#" id="gsheetExport" target="_blank">Kirim ke Google Sheet</a>
     </div>
   </div>
 
@@ -211,8 +229,18 @@
       const now = new Date();
       const datePart = now.toISOString().slice(0,10).replace(/-/g, '');
       const random = Math.floor(1000 + Math.random() * 9000);
-      document.getElementById("invoiceNumber").textContent = `INV-${datePart}-${random}`;
-    };
+      const invoiceNo = `INV-${datePart}-${random}`;
+      document.getElementById("invoiceNumber").textContent = invoiceNo;
+
+      // WhatsApp export link
+      const client = document.querySelector('[name="client"]').value;
+      const total = document.getElementById("totalAmount").textContent;
+      document.getElementById("waExport").href = `https://wa.me/?text=Halo, ini invoice ${invoiceNo}%0ANama: ${client}%0ATotal: ${total}`;
+
+      // Google Sheet Web App URL
+      const gsheetUrl = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // ganti dengan link Web App asli
+      document.getElementById("gsheetExport").href = gsheetUrl;
+    }
   </script>
 </body>
 </html>
