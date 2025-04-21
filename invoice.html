@@ -147,16 +147,11 @@
 <body>
   <div class="container">
     <div class="logo invoice-header">
-  <img src="https://i.ibb.co/5KYcYhF/logo-benerinaja.png" alt="BenerinAja Logo" class="logo-img">
-  <h1>Invoice Servis</h1>
-  <p>Nomor Invoice: <span id="invoiceNumber"></span></p>
-</div>
-
-    <!-- Tambahan hidden input untuk Formspree -->
-<p>Nomor Invoice: <span id="invoiceNumber"></span></p>
-<input type="hidden" name="invoice_number" id="invoiceInput">
-
-
+      <img src="https://i.ibb.co/5KYcYhF/logo-benerinaja.png" alt="BenerinAja Logo" class="logo-img">
+      <h1>Invoice Servis</h1>
+      <p>Nomor Invoice: <span id="invoiceNumber"></span></p>
+      <input type="hidden" name="invoice_number" id="invoiceInput">
+    </div>
 
     <form action="https://formspree.io/f/xkgjdedl" method="POST" id="invoiceForm">
       <div class="form-row">
@@ -233,54 +228,19 @@
 
     document.getElementById('itemsBody').addEventListener('input', updateTotal);
 
-    <script>
-  function tambahItem() {
-    const tbody = document.getElementById('itemsBody');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td data-label="Deskripsi"><input name="item_desc[]" required></td>
-      <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-      <td data-label="Harga"><input name="item_price[]" type="number" min="0" value="0" required></td>
-      <td data-label="Aksi" class="no-print">
-        <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
-      </td>
-    `;
-    tbody.appendChild(row);
-  }
+    // Generate nomor invoice otomatis saat halaman dimuat
+    window.onload = function() {
+      function generateInvoiceNumber() {
+        const now = new Date();
+        const datePart = now.toISOString().slice(0,10).replace(/-/g, '');
+        const random = Math.floor(1000 + Math.random() * 9000);
+        return `INV-${datePart}-${random}`;
+      }
 
-  function hapusBaris(btn) {
-    btn.closest('tr').remove();
-    updateTotal();
-  }
-
-  function updateTotal() {
-    const qty = document.querySelectorAll('[name="item_qty[]"]');
-    const price = document.querySelectorAll('[name="item_price[]"]');
-    let total = 0;
-    for (let i = 0; i < qty.length; i++) {
-      total += (parseFloat(qty[i].value) || 0) * (parseFloat(price[i].value) || 0);
-    }
-    document.getElementById('totalAmount').textContent = `Rp ${total.toLocaleString('id-ID')}`;
-  }
-
-  document.getElementById('itemsBody').addEventListener('input', updateTotal);
-
-  // 👉 Generate nomor invoice otomatis saat halaman dimuat
-  window.onload = function() {
-    function generateInvoiceNumber() {
-      const now = new Date();
-      const datePart = now.toISOString().slice(0,10).replace(/-/g, '');
-      const random = Math.floor(1000 + Math.random() * 9000);
-      return `INV-${datePart}-${random}`;
-    }
-
-    const invoiceNo = generateInvoiceNumber();
-    document.getElementById("invoiceNumber").textContent = invoiceNo;
-    document.getElementById("invoiceInput").value = invoiceNo;
-  };
-</script>
-
-       
+      const invoiceNo = generateInvoiceNumber();
+      document.getElementById("invoiceNumber").textContent = invoiceNo;
+      document.getElementById("invoiceInput").value = invoiceNo;
+    };
   </script>
 </body>
 </html>
