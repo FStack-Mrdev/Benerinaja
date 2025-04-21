@@ -144,3 +144,10 @@ form textarea {
     transform: translateY(-5px);
   }
 }
+
+@media (max-width: 600px) {
+  .floating-wa::after {
+    opacity: 1;
+    right: 70px;
+  }
+}
