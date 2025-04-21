@@ -29,7 +29,6 @@
     .logo img {
       max-height: 80px;
     }
-
     input, textarea {
       width: 100%;
       padding: 0.6rem;
@@ -38,7 +37,6 @@
       border-radius: 5px;
       box-sizing: border-box;
     }
-
     .form-row {
       display: flex;
       flex-wrap: wrap;
@@ -47,7 +45,6 @@
     .form-row input {
       flex: 1 1 100%;
     }
-
     .btn {
       padding: 0.6rem 1.2rem;
       background-color: #2ecc71;
@@ -60,100 +57,52 @@
     .btn.red {
       background-color: #e74c3c;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 1rem;
     }
-
     thead {
       background-color: #f0f0f0;
     }
-
     th, td {
       padding: 0.5rem;
       border: 1px solid #ccc;
       text-align: left;
     }
-
     tfoot td {
       font-weight: bold;
     }
-
     .no-print {
       margin-top: 1rem;
     }
-
-    @media (max-width: 600px) {
-      .form-row {
-        flex-direction: column;
-      }
-
-      table thead {
-        display: none;
-      }
-
-      table, tbody, tr, td {
-        display: block;
-        width: 100%;
-      }
-
-      tbody tr {
-        margin-bottom: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 0.5rem;
-      }
-
-      td {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
-      }
-
-      td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        flex: 1;
-      }
-
-      td > * {
-        flex: 2;
-      }
-
-      tfoot td {
-        display: flex;
-        justify-content: space-between;
-        padding-top: 1rem;
-      }
+    .signature-box {
+      margin-top: 2rem;
+      text-align: right;
     }
-
+    .signature {
+      margin-top: 60px;
+      display: inline-block;
+      border-top: 1px solid #333;
+      padding-top: 5px;
+      min-width: 200px;
+    }
     @media print {
       .no-print, .no-print * {
         display: none !important;
-      }
-      input, textarea {
-        border: none;
-        padding: 0;
-        background: none;
-      }
-      input:focus, textarea:focus {
-        outline: none;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="logo invoice-header">
-      <img src="logo-benerinaja.jpg" alt="BenerinAja Logo" class="logo-img">
+    <div class="logo">
+      <img src="logo-benerinaja.jpg" alt="BenerinAja Logo">
       <h1>Invoice Servis</h1>
       <p>Nomor Invoice: <span id="invoiceNumber"></span></p>
-      <input type="hidden" name="invoice_number" id="invoiceInput">
     </div>
 
-    <form action="https://formspree.io/f/xkgjdedl" method="POST" id="invoiceForm">
+    <form action="#" method="POST" id="invoiceForm">
       <div class="form-row">
         <input type="text" name="client" placeholder="Nama Klien" required>
         <input type="date" name="date" required>
@@ -161,7 +110,7 @@
       <textarea name="notes" placeholder="Catatan tambahan (opsional)"></textarea>
 
       <h2>Detail Item</h2>
-      <table id="itemsTable">
+      <table>
         <thead>
           <tr>
             <th>Deskripsi</th>
@@ -174,8 +123,7 @@
           <tr>
             <td data-label="Deskripsi"><input name="item_desc[]" required></td>
             <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-            <td data-label="Harga"><input name="item_price[]" class="currency" required>
-
+            <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
             <td data-label="Aksi" class="no-print">
               <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
             </td>
@@ -192,30 +140,38 @@
       <div class="no-print">
         <button type="button" class="btn" onclick="tambahItem()">+ Item</button>
         <button type="button" class="btn" onclick="window.print()">Cetak</button>
-        <button type="submit" class="btn">Kirim ke Email</button>
+        <button type="submit" class="btn">Kirim</button>
       </div>
     </form>
+
+    <div class="signature-box">
+      <p>Hormat Kami,</p>
+      <div class="signature">Tim BenerinAja</div>
+    </div>
   </div>
 
   <script>
     function tambahItem() {
-  const tbody = document.getElementById('itemsBody');
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td data-label="Deskripsi"><input name="item_desc[]" required></td>
-    <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-    <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
-    <td data-label="Aksi" class="no-print">
-      <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
-    </td>
-  `;
-  tbody.appendChild(row);
-}
-
+      const tbody = document.getElementById('itemsBody');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td data-label="Deskripsi"><input name="item_desc[]" required></td>
+        <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
+        <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
+        <td data-label="Aksi" class="no-print">
+          <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    }
 
     function hapusBaris(btn) {
       btn.closest('tr').remove();
       updateTotal();
+    }
+
+    function parseRupiah(rp) {
+      return parseInt(rp.replace(/[^\d]/g, '')) || 0;
     }
 
     function updateTotal() {
@@ -223,25 +179,39 @@
       const price = document.querySelectorAll('[name="item_price[]"]');
       let total = 0;
       for (let i = 0; i < qty.length; i++) {
-        total += (parseFloat(qty[i].value) || 0) * (parseFloat(price[i].value) || 0);
+        total += (parseInt(qty[i].value) || 0) * parseRupiah(price[i].value);
       }
       document.getElementById('totalAmount').textContent = `Rp ${total.toLocaleString('id-ID')}`;
     }
 
-    document.getElementById('itemsBody').addEventListener('input', updateTotal);
+    function formatRupiah(angka) {
+      angka = angka.replace(/[^,\d]/g, '').toString();
+      const split = angka.split(',');
+      let sisa = split[0].length % 3;
+      let rupiah = split[0].substr(0, sisa);
+      const ribuan = split[0].substr(sisa).match(/\d{3}/g);
 
-    // Generate nomor invoice otomatis saat halaman dimuat
-    window.onload = function() {
-      function generateInvoiceNumber() {
-        const now = new Date();
-        const datePart = now.toISOString().slice(0,10).replace(/-/g, '');
-        const random = Math.floor(1000 + Math.random() * 9000);
-        return `INV-${datePart}-${random}`;
+      if (ribuan) {
+        rupiah += (sisa ? '.' : '') + ribuan.join('.');
       }
+      return 'Rp ' + rupiah;
+    }
 
-      const invoiceNo = generateInvoiceNumber();
-      document.getElementById("invoiceNumber").textContent = invoiceNo;
-      document.getElementById("invoiceInput").value = invoiceNo;
+    document.addEventListener('input', function (e) {
+      if (e.target.classList.contains('currency')) {
+        const cursor = e.target.selectionStart;
+        const raw = e.target.value.replace(/\D/g, '');
+        e.target.value = formatRupiah(raw);
+        e.target.setSelectionRange(cursor, cursor);
+        updateTotal();
+      }
+    });
+
+    window.onload = function () {
+      const now = new Date();
+      const datePart = now.toISOString().slice(0,10).replace(/-/g, '');
+      const random = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById("invoiceNumber").textContent = `INV-${datePart}-${random}`;
     };
   </script>
 </body>
