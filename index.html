@@ -25,7 +25,9 @@
   <i class="fab fa-whatsapp"></i>
 </a>
 </div>
-  </header>  <main class="content">
+    
+  </h<button id="darkModeToggle" class="btn-green" style="margin-top: 1rem;">🌙 Mode Gelap</button>
+eader>  <main class="content">
     <section class="card">
       <h2>Visi Kami</h2>
       <p>Menjadi layanan servis HP terbaik di Indonesia dengan pelayanan cepat, jujur, dan profesional.</p>
@@ -83,5 +85,27 @@
 </section>
 
   </main>
+    <script>
+  const toggleBtn = document.getElementById('darkModeToggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+      toggleBtn.innerText = '☀️ Mode Terang';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      toggleBtn.innerText = '🌙 Mode Gelap';
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
+  // Load preferensi dari localStorage saat halaman pertama kali dibuka
+  window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+      toggleBtn.innerText = '☀️ Mode Terang';
+    }
+  });
+</script>
 </body>
 </html>
