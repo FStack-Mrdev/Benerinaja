@@ -372,3 +372,17 @@ form button {
     }
   }
 </style>
+
+.invoice-header p {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-top: -10px;
+}
+
+.logo-img {
+  max-height: 80px;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
