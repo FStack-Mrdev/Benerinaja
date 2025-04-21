@@ -146,10 +146,12 @@
 </head>
 <body>
   <div class="container">
-    <div class="logo">
-      <img src="a-logo-design-featuring-the-text-benerin__ak1A72QSfK3TC9FmNboLQ_1OuCNXfUT9aB1BZFxezpTw.jpeg" alt="Logo">
-      <h1>Invoice Servis</h1>
-    </div>
+    <div class="logo invoice-header">
+  <img src="https://i.ibb.co/5KYcYhF/logo-benerinaja.png" alt="BenerinAja Logo" class="logo-img">
+  <h1>Invoice Servis</h1>
+  <p>Nomor Invoice: <span id="invoiceNumber"></span></p>
+</div>
+
 
     <form action="https://formspree.io/f/xkgjdedl" method="POST" id="invoiceForm">
       <div class="form-row">
@@ -225,6 +227,17 @@
     }
 
     document.getElementById('itemsBody').addEventListener('input', updateTotal);
+    
+<script>
+  function generateInvoiceNumber() {
+    const now = new Date();
+    const datePart = now.toISOString().slice(0,10).replace(/-/g, '');
+    const random = Math.floor(1000 + Math.random() * 9000);
+    return `INV-${datePart}-${random}`;
+  }
+  document.getElementById("invoiceNumber").textContent = generateInvoiceNumber();
+</script>
+    
   </script>
 </body>
 </html>
