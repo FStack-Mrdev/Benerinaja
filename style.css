@@ -1,10 +1,19 @@
-body {
-  font-family: sans-serif;
+/* Reset dasar */
+* {
   margin: 0;
-  background: #f5f5f5;
-  color: #333;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Body umum */
+body {
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header */
 .header {
   text-align: center;
   background: #0a3d62;
@@ -12,6 +21,7 @@ body {
   padding: 2rem 1rem;
 }
 
+/* Logo */
 .logo {
   display: flex;
   flex-direction: column;
@@ -37,6 +47,7 @@ body {
   font-weight: 300;
 }
 
+/* Tombol hijau */
 .btn-green {
   background-color: #2ecc71;
   color: white;
@@ -46,14 +57,21 @@ body {
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
+.btn-green:hover {
+  background-color: #27ae60;
+}
+
+/* Konten utama */
 .content {
   padding: 2rem 1rem;
   max-width: 700px;
   margin: auto;
 }
 
+/* Kartu */
 .card {
   background: white;
   padding: 1.5rem;
@@ -61,12 +79,14 @@ body {
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: transform 0.2s ease;
+  color: #333;
 }
 
 .card:hover {
   transform: translateY(-3px);
 }
 
+/* Formulir */
 form input,
 form textarea {
   display: block;
@@ -75,6 +95,7 @@ form textarea {
   padding: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 1rem;
 }
 
 form textarea {
@@ -82,6 +103,11 @@ form textarea {
   resize: vertical;
 }
 
+form button {
+  width: 100%;
+}
+
+/* Group tombol */
 .button-group {
   display: flex;
   flex-direction: column;
@@ -97,6 +123,7 @@ form textarea {
   }
 }
 
+/* WhatsApp Floating Button */
 .floating-wa {
   position: fixed;
   bottom: 20px;
@@ -136,6 +163,14 @@ form textarea {
   opacity: 1;
 }
 
+@media (max-width: 600px) {
+  .floating-wa::after {
+    opacity: 1;
+    right: 70px;
+  }
+}
+
+/* Efek bounce */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -145,13 +180,7 @@ form textarea {
   }
 }
 
-@media (max-width: 600px) {
-  .floating-wa::after {
-    opacity: 1;
-    right: 70px;
-  }
-}
-
+/* Mode Gelap */
 .dark-mode {
   background-color: #121212;
   color: #e0e0e0;
