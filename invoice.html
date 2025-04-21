@@ -1,73 +1,51 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Invoice Servis</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      padding: 1rem;
       background: #f5f5f5;
       color: #333;
-      padding: 1rem;
-      margin: 0;
     }
-
     .container {
       max-width: 800px;
       margin: auto;
-      background: #fff;
-      padding: 2rem;
+      background: white;
+      padding: 1.5rem;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
+    h1, h2 {
+      text-align: center;
+    }
     .logo {
       text-align: center;
       margin-bottom: 20px;
     }
-
     .logo img {
       max-height: 80px;
     }
 
-    h1, h2 {
-      text-align: center;
+    input, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
     }
 
     .form-row {
       display: flex;
-      gap: 1rem;
       flex-wrap: wrap;
+      gap: 1rem;
     }
-
     .form-row input {
       flex: 1 1 100%;
-      padding: 0.6rem;
-    }
-
-    textarea {
-      width: 100%;
-      padding: 0.6rem;
-      margin: 1rem 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 1rem;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 0.6rem;
-      text-align: left;
-    }
-
-    tfoot td {
-      font-weight: bold;
     }
 
     .btn {
@@ -77,24 +55,34 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin: 0.5rem 0.3rem 0.5rem 0;
+      margin-bottom: 0.5rem;
     }
-
     .btn.red {
       background-color: #e74c3c;
     }
 
-    .no-print {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: flex-start;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
     }
 
-    input[type="text"], input[type="date"], input[type="number"], textarea {
+    thead {
+      background-color: #f0f0f0;
+    }
+
+    th, td {
+      padding: 0.5rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
+      text-align: left;
+    }
+
+    tfoot td {
+      font-weight: bold;
+    }
+
+    .no-print {
+      margin-top: 1rem;
     }
 
     @media (max-width: 600px) {
@@ -102,61 +90,54 @@
         flex-direction: column;
       }
 
-      table, thead, tbody, th, td, tr {
+      table thead {
+        display: none;
+      }
+
+      table, tbody, tr, td {
         display: block;
         width: 100%;
       }
 
-      thead {
-        display: none;
-      }
-
-      tr {
+      tbody tr {
         margin-bottom: 1rem;
-        background: #fafafa;
-        padding: 0.5rem;
         border: 1px solid #ddd;
         border-radius: 5px;
+        padding: 0.5rem;
       }
 
       td {
-        position: relative;
-        padding-left: 50%;
-        border: none;
-        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
       }
 
       td::before {
         content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 45%;
-        padding-left: 0.5rem;
         font-weight: bold;
+        flex: 1;
       }
 
-      .no-print {
-        flex-direction: column;
-        align-items: stretch;
+      td > * {
+        flex: 2;
       }
 
-      .btn {
-        width: 100%;
-        margin: 0.3rem 0;
+      tfoot td {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1rem;
       }
     }
 
     @media print {
-      .no-print {
+      .no-print, .no-print * {
         display: none !important;
       }
-
       input, textarea {
         border: none;
         padding: 0;
         background: none;
       }
-
       input:focus, textarea:focus {
         outline: none;
       }
@@ -175,7 +156,6 @@
         <input type="text" name="client" placeholder="Nama Klien" required>
         <input type="date" name="date" required>
       </div>
-
       <textarea name="notes" placeholder="Catatan tambahan (opsional)"></textarea>
 
       <h2>Detail Item</h2>
@@ -190,12 +170,13 @@
         </thead>
         <tbody id="itemsBody">
           <tr>
-  <td data-label="Deskripsi"><input name="item_desc[]" required></td>
-  <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-  <td data-label="Harga"><input name="item_price[]" type="number" min="0" value="0" required></td>
-  <td class="no-print" data-label="Aksi"><button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button></td>
-</tr>
-
+            <td data-label="Deskripsi"><input name="item_desc[]" required></td>
+            <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
+            <td data-label="Harga"><input name="item_price[]" type="number" min="0" value="0" required></td>
+            <td data-label="Aksi" class="no-print">
+              <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
+            </td>
+          </tr>
         </tbody>
         <tfoot>
           <tr>
@@ -221,7 +202,9 @@
         <td data-label="Deskripsi"><input name="item_desc[]" required></td>
         <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
         <td data-label="Harga"><input name="item_price[]" type="number" min="0" value="0" required></td>
-        <td data-label="Aksi" class="no-print"><button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button></td>
+        <td data-label="Aksi" class="no-print">
+          <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
+        </td>
       `;
       tbody.appendChild(row);
     }
