@@ -174,7 +174,8 @@
           <tr>
             <td data-label="Deskripsi"><input name="item_desc[]" required></td>
             <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-            <td data-label="Harga"><input name="item_price[]" type="number" min="0" value="0" required></td>
+            <td data-label="Harga"><input name="item_price[]" class="currency" required>
+
             <td data-label="Aksi" class="no-print">
               <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
             </td>
@@ -198,18 +199,19 @@
 
   <script>
     function tambahItem() {
-      const tbody = document.getElementById('itemsBody');
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td data-label="Deskripsi"><input name="item_desc[]" required></td>
-        <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-        <td data-label="Harga"><input name="item_price[]" type="number" min="0" value="0" required></td>
-        <td data-label="Aksi" class="no-print">
-          <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
-        </td>
-      `;
-      tbody.appendChild(row);
-    }
+  const tbody = document.getElementById('itemsBody');
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td data-label="Deskripsi"><input name="item_desc[]" required></td>
+    <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
+    <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
+    <td data-label="Aksi" class="no-print">
+      <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
+    </td>
+  `;
+  tbody.appendChild(row);
+}
+
 
     function hapusBaris(btn) {
       btn.closest('tr').remove();
