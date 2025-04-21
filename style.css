@@ -154,23 +154,22 @@ form textarea {
 
 .dark-mode {
   background-color: #121212;
-  color: #f5f5f5;
+  color: #e0e0e0;
 }
 
 .dark-mode .card {
   background-color: #1e1e1e;
-  color: #f5f5f5;
-  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+  color: #fff;
+  box-shadow: none;
 }
 
 .dark-mode .btn-green {
   background-color: #27ae60;
 }
 
-.dark-mode .floating-wa {
-  background-color: #27ae60;
-}
-
-.dark-mode .floating-wa::after {
-  background-color: #27ae60;
+.dark-mode input,
+.dark-mode textarea {
+  background-color: #2c2c2c;
+  color: #fff;
+  border: 1px solid #555;
 }
