@@ -134,10 +134,10 @@
         </thead>
         <tbody id="itemsBody">
           <tr>
-            <td data-label="Deskripsi"><input name="item_desc[]" required></td>
-            <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-            <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
-            <td data-label="Aksi" class="no-print">
+            <td><input name="item_desc[]" required></td>
+            <td><input name="item_qty[]" type="number" min="1" value="1" required></td>
+            <td><input name="item_price[]" class="currency" required></td>
+            <td class="no-print">
               <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
             </td>
           </tr>
@@ -153,18 +153,13 @@
       <div class="no-print">
         <button type="button" class="btn" onclick="tambahItem()">+ Item</button>
         <button type="button" class="btn" onclick="window.print()">Cetak</button>
-        <button type="submit" class="btn">Kirim</button>
+        <button type="button" id="gsheetExport" class="btn">Kirim ke Google Sheet</button>
       </div>
     </form>
 
     <div class="signature-box">
       <p>Hormat Kami,</p>
       <div class="signature">Tim BenerinAja</div>
-    </div>
-
-    <div class="export-links no-print">
-      <a href="#" id="waExport" target="_blank">Kirim ke WhatsApp</a>
-      <a href="#" id="gsheetExport" target="_blank">Kirim ke Google Sheet</a>
     </div>
   </div>
 
@@ -173,10 +168,10 @@
       const tbody = document.getElementById('itemsBody');
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td data-label="Deskripsi"><input name="item_desc[]" required></td>
-        <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-        <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
-        <td data-label="Aksi" class="no-print">
+        <td><input name="item_desc[]" required></td>
+        <td><input name="item_qty[]" type="number" min="1" value="1" required></td>
+        <td><input name="item_price[]" class="currency" required></td>
+        <td class="no-print">
           <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
         </td>
       `;
@@ -232,55 +227,47 @@
       const invoiceNo = `INV-${datePart}-${random}`;
       document.getElementById("invoiceNumber").textContent = invoiceNo;
 
-      // WhatsApp export link
-      const client = document.querySelector('[name="client"]').value;
-      const total = document.getElementById("totalAmount").textContent;
-      document.getElementById("waExport").href = `https://wa.me/?text=Halo, ini invoice ${invoiceNo}%0ANama: ${client}%0ATotal: ${total}`;
+      const gsheetUrl = "https://script.google.com/macros/s/AKfycbzZyXRpfQvcasB5d7LwxwB_CuURgur2oLXrfoP--Oi5W-jcslaa0EcjE-wsQnnPBR5nCA/exec";
 
-      // Google Sheet Web App URL
-      const gsheetUrl = "https://script.google.com/macros/s/AKfycbym1a-oM2BHvJ2ovJWuh37DkY1yXVlJEzK15MPP_IgayCwD7yCvG0GCVXvmgBI7P941-w/exec"; // ganti dengan link Web App asli
-      document.getElementById("gsheetExport").addEventListener("click", function (e) {
-  e.preventDefault();
+      document.getElementById("gsheetExport").addEventListener("click", function () {
+        const client = document.querySelector('[name="client"]').value;
+        if (!client) return alert("Nama klien wajib diisi!");
 
-  const invoiceNo = document.getElementById("invoiceNumber").textContent;
-  const client = document.querySelector('[name="client"]').value;
-  const notes = document.querySelector('[name="notes"]').value;
-  const qty = document.querySelectorAll('[name="item_qty[]"]');
-  const price = document.querySelectorAll('[name="item_price[]"]');
-  const desc = document.querySelectorAll('[name="item_desc[]"]');
-  const total = document.getElementById("totalAmount").textContent;
+        const notes = document.querySelector('[name="notes"]').value;
+        const qty = document.querySelectorAll('[name="item_qty[]"]');
+        const price = document.querySelectorAll('[name="item_price[]"]');
+        const desc = document.querySelectorAll('[name="item_desc[]"]');
+        const total = document.getElementById("totalAmount").textContent;
 
-  const items = [];
+        const items = [];
+        for (let i = 0; i < desc.length; i++) {
+          items.push({
+            desc: desc[i].value,
+            qty: qty[i].value,
+            price: price[i].value
+          });
+        }
 
-  for (let i = 0; i < desc.length; i++) {
-    items.push({
-      desc: desc[i].value,
-      qty: qty[i].value,
-      price: price[i].value
-    });
-  }
+        const data = {
+          invoice: invoiceNo,
+          client: client,
+          notes: notes,
+          items: items,
+          total: total
+        };
 
-  const data = {
-    invoice: invoiceNo,
-    client: client,
-    notes: notes,
-    items: items,
-    total: total
-  };
-
-  fetch("https://script.google.com/macros/s/AKfycbym1a-oM2BHvJ2ovJWuh37DkY1yXVlJEzK15MPP_IgayCwD7yCvG0GCVXvmgBI7P941-w/exec", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.text())
-  .then(res => alert("✅ Data berhasil dikirim ke Google Sheets!"))
-  .catch(err => alert("❌ Gagal mengirim ke Sheets: " + err));
-});
-
-    }
+        fetch(gsheetUrl, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => res.text())
+        .then(res => alert("✅ Data berhasil dikirim ke Google Sheets!"))
+        .catch(err => alert("❌ Gagal mengirim ke Sheets: " + err));
+      });
+    };
   </script>
 </body>
 </html>
