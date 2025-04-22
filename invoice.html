@@ -238,7 +238,7 @@
       document.getElementById("waExport").href = `https://wa.me/?text=Halo, ini invoice ${invoiceNo}%0ANama: ${client}%0ATotal: ${total}`;
 
       // Google Sheet Web App URL
-      const gsheetUrl = "https://script.google.com/macros/s/AKfycbwDXJTjlu6vv3yKMb4EHpPrIMaENLOE-W62k79N6jr_lFut_lpGwVnJpEFEM7KffO19dA/exec"; // ganti dengan link Web App asli
+      const gsheetUrl = "https://script.google.com/macros/s/AKfycbwVAY91XiBhXOwYBhz3LLw9otN7hpBMcJOntANUYQPyXm6kfSqWeVGrlW3lcC7M6hbo1Q/exec"; // ganti dengan link Web App asli
       document.getElementById("gsheetExport").addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -268,7 +268,7 @@
     total: total
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbz23ymoWaCW_ooSPMSyJXY_6udmB54AWzFBF15vEavJPJU-gSluCoEru9upRoRZXGupdA/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwVAY91XiBhXOwYBhz3LLw9otN7hpBMcJOntANUYQPyXm6kfSqWeVGrlW3lcC7M6hbo1Q/exec", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
