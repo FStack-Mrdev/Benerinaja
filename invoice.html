@@ -238,51 +238,35 @@
       document.getElementById("waExport").href = `https://wa.me/?text=Halo, ini invoice ${invoiceNo}%0ANama: ${client}%0ATotal: ${total}`;
 
       // Google Sheet Web App URL
-      const gsheetUrl = "https://script.google.com/macros/s/AKfycbz3itxHnI6Sg8FA5HdF90bxri-E1_Q0ibqQ_8yT_l4FpNP09EXnAZKnI5C5FyXEwBILWQ/exec";
- // ganti dengan link Web App asli
-      document.getElementById("gsheetExport").addEventListener("click", function (e) {
-  e.preventDefault();
+<!-- Tombol Ekspor -->
+<button id="gsheetExport" class="btn">Kirim ke Google Sheet</button>
 
-  const invoiceNo = document.getElementById("invoiceNumber").textContent;
-  const client = document.querySelector('[name="client"]').value;
-  const notes = document.querySelector('[name="notes"]').value;
-  const qty = document.querySelectorAll('[name="item_qty[]"]');
-  const price = document.querySelectorAll('[name="item_price[]"]');
-  const desc = document.querySelectorAll('[name="item_desc[]"]');
-  const total = document.getElementById("totalAmount").textContent;
+<script>
+  const gsheetUrl = "https://script.google.com/macros/s/AKfycbxhzI1EkLQdznqcWFfBlvSQADdG8OyRobBadmsGTi2EnTPvB0REpmR2IYdA1PJhC4F6pw/exec";
 
-  const items = [];
+  document.getElementById("gsheetExport").addEventListener("click", function (e) {
+    e.preventDefault();
 
-  for (let i = 0; i < desc.length; i++) {
-    items.push({
-      desc: desc[i].value,
-      qty: qty[i].value,
-      price: price[i].value
-    });
-  }
+    const data = {
+      invoice: "INV-" + Date.now(),
+      client: "Budi",
+      notes: "Service baterai",
+      items: [
+        { desc: "Baterai", qty: 1, price: 150000 },
+        { desc: "Jasa Pasang", qty: 1, price: 50000 }
+      ],
+      total: "Rp 200.000"
+    };
 
-  const data = {
-    invoice: invoiceNo,
-    client: client,
-    notes: notes,
-    items: items,
-    total: total
-  };
-
-  fetch("https://script.google.com/macros/s/AKfycbz3itxHnI6Sg8FA5HdF90bxri-E1_Q0ibqQ_8yT_l4FpNP09EXnAZKnI5C5FyXEwBILWQ/exec", {
-
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.text())
-  .then(res => alert("✅ Data berhasil dikirim ke Google Sheets!"))
-  .catch(err => alert("❌ Gagal mengirim ke Sheets: " + err));
-});
-
-    }
-  </script>
-</body>
-</html>
+    fetch("https://script.google.com/macros/s/AKfycbxhzI1EkLQdznqcWFfBlvSQADdG8OyRobBadmsGTi2EnTPvB0REpmR2IYdA1PJhC4F6pw/exec, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => alert("Berhasil dikirim: " + res.result))
+    .catch(err => alert("Gagal mengirim: " + err));
+  });
+</script>
