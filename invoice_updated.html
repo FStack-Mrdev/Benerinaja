@@ -112,7 +112,7 @@
       <img src="logo-benerinaja.jpg" alt="BenerinAja Logo">
       <h1>Invoice Servis</h1>
       <p>Nomor Invoice: <span id="invoiceNumber"></span></p>
-    </div><form action="#" method="POST" id="invoiceForm">
+    </div><form action="https://formspree.io/f/xkgjdedl" method="POST" id="invoiceForm">
   <div class="form-row">
     <input type="text" name="client" placeholder="Nama Klien" required>
     <input type="date" name="date" required>
@@ -152,6 +152,7 @@
     <button type="button" class="btn" onclick="window.print()">Cetak</button>
     <button type="submit" class="btn">Kirim</button>
   </div>
+<input type="hidden" name="total_amount" id="hiddenTotal" />
 </form>
 
 <div class="signature-box">
@@ -209,6 +210,9 @@
       for (let i = 0; i < qty.length; i++) {
         total += (parseInt(qty[i].value) || 0) * parseRupiah(price[i].value);
       }
+      document.getElementById('totalAmount').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+      document.getElementById('hiddenTotal').value = total;
+    }
       document.getElementById('totalAmount').textContent = `Rp ${total.toLocaleString('id-ID')}`;
     }
 
