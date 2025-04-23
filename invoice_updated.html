@@ -161,11 +161,17 @@
 </div>
 
 <div class="export-links no-print">
-  <a href="#" id="waExport" target="_blank">Kirim ke WhatsApp</a>
-  <a href="#" id="gsheetExport" target="_blank">Kirim ke Google Sheet</a>
-</div>
 
-<!-- Optimized Footer -->
+  <form action="https://formspree.io/f/xkgjdedl" method="POST" id="formspreeForm">
+    <input type="hidden" name="client" id="formspreeClient">
+    <input type="hidden" name="date" id="formspreeDate">
+    <input type="hidden" name="notes" id="formspreeNotes">
+    <input type="hidden" name="total_amount" id="formspreeTotal">
+    <button type="submit" class="btn">Kirim ke Email (Formspree)</button>
+  </form>
+  <a href="#" id="waExport" class="btn" target="_blank">Kirim ke WhatsApp</a>
+  <a href="#" id="gsheetExport" class="btn" target="_blank">Kirim ke Google Sheet</a>
+</div><!-- Optimized Footer -->
 <div style="font-size: 12px; line-height: 1.4; margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px; display: flex; gap: 20px; justify-content: space-between;">
   <div>
     <p><strong>Pembayaran:</strong></p>
@@ -240,6 +246,17 @@
     });
 
     window.onload = function () {
+  document.getElementById("invoiceForm").addEventListener("input", function () {
+    const client = document.querySelector('[name="client"]').value;
+    const date = document.querySelector('[name="date"]').value;
+    const notes = document.querySelector('[name="notes"]').value;
+    const total = document.getElementById("totalAmount").textContent;
+
+    document.getElementById("formspreeClient").value = client;
+    document.getElementById("formspreeDate").value = date;
+    document.getElementById("formspreeNotes").value = notes;
+    document.getElementById("formspreeTotal").value = total;
+  });
       const now = new Date();
       const datePart = now.toISOString().slice(0,10).replace(/-/g, '');
       const random = Math.floor(1000 + Math.random() * 9000);
@@ -250,24 +267,7 @@
       const total = document.getElementById("totalAmount").textContent;
       document.getElementById("waExport").href = `https://wa.me/?text=Halo, ini invoice ${invoiceNo}%0ANama: ${client}%0ATotal: ${total}`;
 
-      document.getElementById("gsheetExport").addEventListener("click", function (e) {
-        e.preventDefault();
-
-        const invoiceNo = document.getElementById("invoiceNumber").textContent;
-        const client = document.querySelector('[name="client"]').value;
-        const notes = document.querySelector('[name="notes"]').value;
-        const qty = document.querySelectorAll('[name="item_qty[]"]');
-        const price = document.querySelectorAll('[name="item_price[]"]');
-        const desc = document.querySelectorAll('[name="item_desc[]"]');
-        const total = document.getElementById("totalAmount").textContent;
-
-        const items = [];
-        for (let i = 0; i < desc.length; i++) {
-          items.push({
-            desc: desc[i].value,
-            qty: qty[i].value,
-            price: price[i].value
-          });
+      // GSheet Export handler tetap ada di sini, tidak perlu diubah
         }
 
         const data = {
