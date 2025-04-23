@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -113,79 +112,73 @@
       <img src="logo-benerinaja.jpg" alt="BenerinAja Logo">
       <h1>Invoice Servis</h1>
       <p>Nomor Invoice: <span id="invoiceNumber"></span></p>
-    </div>
-
-    <form action="#" method="POST" id="invoiceForm">
-      <div class="form-row">
-        <input type="text" name="client" placeholder="Nama Klien" required>
-        <input type="date" name="date" required>
-      </div>
-      <textarea name="notes" placeholder="Catatan tambahan (opsional)"></textarea>
-
-      <h2>Detail Item</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Deskripsi</th>
-            <th>Qty</th>
-            <th>Harga</th>
-            <th class="no-print">Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="itemsBody">
-          <tr>
-            <td data-label="Deskripsi"><input name="item_desc[]" required></td>
-            <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
-            <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
-            <td data-label="Aksi" class="no-print">
-              <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2">Total</td>
-            <td colspan="2" id="totalAmount">Rp 0</td>
-          </tr>
-        </tfoot>
-      </table>
-
-      <div class="no-print">
-        <button type="button" class="btn" onclick="tambahItem()">+ Item</button>
-        <button type="button" class="btn" onclick="window.print()">Cetak</button>
-        <button type="submit" class="btn">Kirim</button>
-      </div>
-    </form>
-
-    <div class="signature-box">
-      <p>Hormat Kami,</p>
-      <div class="signature">Tim BenerinAja</div>
-    </div>
-
-    <div class="export-links no-print">
-      <a href="#" id="waExport" target="_blank">Kirim ke WhatsApp</a>
-      <a href="#" id="gsheetExport" target="_blank">Kirim ke Google Sheet</a>
-    </div>
+    </div><form action="#" method="POST" id="invoiceForm">
+  <div class="form-row">
+    <input type="text" name="client" placeholder="Nama Klien" required>
+    <input type="date" name="date" required>
   </div>
+  <textarea name="notes" placeholder="Catatan tambahan (opsional)"></textarea>
 
-  <div style="border-top: 1px solid #ccc; margin-top: 30px; padding-top: 20px; font-family: Arial, sans-serif;">
-  <h3>Pembayaran:</h3>
-  <p>Silakan lakukan pembayaran melalui QRIS di bawah ini:</p>
-  <img src="[GAMBAR_QR_CODE]" alt="QR Code Pembayaran" style="width:150px; height:150px;" />
-  <p><strong>Nama Merchant:</strong> Benerin.aja<br />
-     <strong>Nominal:</strong> [Sesuai Total]</p>  <h3>Informasi Garansi:</h3>
-  <ul>
-    <li>Garansi 30 hari untuk penggantian LCD dan sparepart resmi.</li>
-    <li>Garansi berlaku sejak tanggal servis selesai.</li>
-  </ul>  <h3>Syarat & Ketentuan:</h3>
-  <ul>
-    <li>Kerusakan akibat cairan, jatuh, atau pembongkaran ulang oleh pihak lain membatalkan garansi.</li>
-    <li>Simpan invoice ini sebagai bukti klaim garansi.</li>
-    <li>Servis yang batal setelah teknisi datang tetap dikenakan biaya transport (jika berlaku).</li>
-  </ul>  <p style="margin-top: 30px;">Hormat Kami,<br /><strong>Tim Benerin.aja</strong></p>
+  <h2>Detail Item</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Deskripsi</th>
+        <th>Qty</th>
+        <th>Harga</th>
+        <th class="no-print">Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="itemsBody">
+      <tr>
+        <td data-label="Deskripsi"><input name="item_desc[]" required></td>
+        <td data-label="Qty"><input name="item_qty[]" type="number" min="1" value="1" required></td>
+        <td data-label="Harga"><input name="item_price[]" class="currency" required></td>
+        <td data-label="Aksi" class="no-print">
+          <button type="button" class="btn red" onclick="hapusBaris(this)">Hapus</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">Total</td>
+        <td colspan="2" id="totalAmount">Rp 0</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="no-print">
+    <button type="button" class="btn" onclick="tambahItem()">+ Item</button>
+    <button type="button" class="btn" onclick="window.print()">Cetak</button>
+    <button type="submit" class="btn">Kirim</button>
+  </div>
+</form>
+
+<div class="signature-box">
+  <p>Hormat Kami,</p>
+  <div class="signature">Tim BenerinAja</div>
 </div>
 
-  <script>
+<div class="export-links no-print">
+  <a href="#" id="waExport" target="_blank">Kirim ke WhatsApp</a>
+  <a href="#" id="gsheetExport" target="_blank">Kirim ke Google Sheet</a>
+</div>
+
+<!-- Optimized Footer -->
+<div style="font-size: 12px; line-height: 1.4; margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px; display: flex; gap: 20px; justify-content: space-between;">
+  <div>
+    <p><strong>Pembayaran:</strong></p>
+    <img src="[GAMBAR_QR_CODE]" style="width: 100px; height: 100px;" alt="QR Code">
+    <p style="margin: 0;"><strong>Merchant:</strong> Benerin.aja<br><strong>Nominal:</strong> [Sesuai Total]</p>
+  </div>
+  <div style="flex: 1;">
+    <p style="margin: 0 0 5px 0;"><strong>Garansi:</strong> 30 hari LCD & sparepart resmi (dari tanggal servis).</p>
+    <p style="margin: 0 0 5px 0;"><strong>Syarat:</strong> Tidak berlaku jika terkena cairan, jatuh, atau dibongkar ulang.</p>
+    <p style="margin: 0;">Invoice ini wajib disimpan untuk klaim garansi.</p>
+  </div>
+</div>
+
+  </div>  <script>
     function tambahItem() {
       const tbody = document.getElementById('itemsBody');
       const row = document.createElement('tr');
@@ -249,55 +242,49 @@
       const invoiceNo = `INV-${datePart}-${random}`;
       document.getElementById("invoiceNumber").textContent = invoiceNo;
 
-      // WhatsApp export link
       const client = document.querySelector('[name="client"]').value;
       const total = document.getElementById("totalAmount").textContent;
       document.getElementById("waExport").href = `https://wa.me/?text=Halo, ini invoice ${invoiceNo}%0ANama: ${client}%0ATotal: ${total}`;
 
-      // Google Sheet Web App URL
-      const gsheetUrl = "https://benerinaja.mr-dep.workers.dev"; // ganti dengan link Web App asli
       document.getElementById("gsheetExport").addEventListener("click", function (e) {
-  e.preventDefault();
+        e.preventDefault();
 
-  const invoiceNo = document.getElementById("invoiceNumber").textContent;
-  const client = document.querySelector('[name="client"]').value;
-  const notes = document.querySelector('[name="notes"]').value;
-  const qty = document.querySelectorAll('[name="item_qty[]"]');
-  const price = document.querySelectorAll('[name="item_price[]"]');
-  const desc = document.querySelectorAll('[name="item_desc[]"]');
-  const total = document.getElementById("totalAmount").textContent;
+        const invoiceNo = document.getElementById("invoiceNumber").textContent;
+        const client = document.querySelector('[name="client"]').value;
+        const notes = document.querySelector('[name="notes"]').value;
+        const qty = document.querySelectorAll('[name="item_qty[]"]');
+        const price = document.querySelectorAll('[name="item_price[]"]');
+        const desc = document.querySelectorAll('[name="item_desc[]"]');
+        const total = document.getElementById("totalAmount").textContent;
 
-  const items = [];
+        const items = [];
+        for (let i = 0; i < desc.length; i++) {
+          items.push({
+            desc: desc[i].value,
+            qty: qty[i].value,
+            price: price[i].value
+          });
+        }
 
-  for (let i = 0; i < desc.length; i++) {
-    items.push({
-      desc: desc[i].value,
-      qty: qty[i].value,
-      price: price[i].value
-    });
-  }
+        const data = {
+          invoice: invoiceNo,
+          client: client,
+          notes: notes,
+          items: items,
+          total: total
+        };
 
-  const data = {
-    invoice: invoiceNo,
-    client: client,
-    notes: notes,
-    items: items,
-    total: total
-  };
-
-  fetch("https://benerinaja.mr-dep.workers.dev", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
+        fetch("https://benerinaja.mr-dep.workers.dev", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => res.text())
+        .then(res => alert("✅ Data berhasil dikirim ke Google Sheets!"))
+        .catch(err => alert("❌ Gagal mengirim ke Sheets: " + err));
+      });
     }
-  })
-  .then(res => res.text())
-  .then(res => alert("✅ Data berhasil dikirim ke Google Sheets!"))
-  .catch(err => alert("❌ Gagal mengirim ke Sheets: " + err));
-});
-
-    }
-  </script>
-</body>
+  </script></body>
 </html>
