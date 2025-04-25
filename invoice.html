@@ -4,112 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Generator - Benerin.Aja</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         /* Global Style */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f7fc;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: #444;
         }
         h1, h2 {
-            color: #4CAF50;
+            color: #333;
+            text-align: center;
         }
 
-        /* Centering the Form */
         .container {
             max-width: 900px;
             margin: 50px auto;
-            padding: 20px;
+            padding: 30px;
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
-        .container h1 {
-            text-align: center;
-            font-size: 2rem;
+        .container:hover {
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 20px;
         }
 
         label {
-            display: block;
             font-size: 1rem;
-            margin-top: 10px;
             color: #666;
+            font-weight: 500;
         }
 
-        input, button {
-            width: 100%;
+        input {
             padding: 12px;
-            margin-top: 8px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
             font-size: 1rem;
-            box-sizing: border-box;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
         }
 
         button {
             background-color: #4CAF50;
             color: white;
+            padding: 14px;
             border: none;
+            font-size: 1rem;
             font-weight: bold;
+            width: 100%;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         button:hover {
             background-color: #45a049;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        /* Invoice Section */
         .invoice {
-            background-color: #fff;
+            margin-top: 40px;
             padding: 20px;
-            margin-top: 30px;
-            border-radius: 8px;
+            background-color: #fff;
+            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             display: none;
         }
 
         .invoice p {
-            margin: 10px 0;
+            margin: 12px 0;
             font-size: 1rem;
-            color: #444;
         }
 
         .invoice .total {
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 600;
             color: #4CAF50;
         }
 
-        /* Animations */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
+        .invoice h2 {
+            font-size: 1.5rem;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Responsive Design */
+        .invoice-header img {
+            height: 40px;
+        }
+
+        .invoice-details {
+            margin-top: 20px;
+        }
+
+        .invoice-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .invoice-footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        /* Responsiveness */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            .form-group {
+                grid-template-columns: 1fr;
             }
+
             button {
-                font-size: 0.9rem;
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -121,48 +149,60 @@
 
         <form id="invoiceForm">
             <div class="form-group">
-                <label for="customerName">Nama Customer:</label>
-                <input type="text" id="customerName" required placeholder="Masukkan Nama Customer">
+                <div>
+                    <label for="customerName">Nama Customer:</label>
+                    <input type="text" id="customerName" required placeholder="Masukkan Nama Customer">
+                </div>
+                <div>
+                    <label for="phone">No. Telepon:</label>
+                    <input type="text" id="phone" required placeholder="Masukkan No. Telepon">
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="address">Alamat:</label>
-                <input type="text" id="address" required placeholder="Masukkan Alamat Customer">
+                <div>
+                    <label for="address">Alamat:</label>
+                    <input type="text" id="address" required placeholder="Masukkan Alamat Customer">
+                </div>
+                <div>
+                    <label for="serviceName">Nama Layanan:</label>
+                    <input type="text" id="serviceName" required placeholder="Masukkan Nama Layanan">
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="phone">No. Telepon:</label>
-                <input type="text" id="phone" required placeholder="Masukkan No. Telepon">
-            </div>
-
-            <div class="form-group">
-                <label for="serviceName">Nama Layanan:</label>
-                <input type="text" id="serviceName" required placeholder="Masukkan Nama Layanan">
-            </div>
-
-            <div class="form-group">
-                <label for="unitPrice">Harga Satuan (Rp):</label>
-                <input type="number" id="unitPrice" required placeholder="Masukkan Harga Satuan">
-            </div>
-
-            <div class="form-group">
-                <label for="quantity">Jumlah:</label>
-                <input type="number" id="quantity" required placeholder="Masukkan Jumlah Layanan">
+                <div>
+                    <label for="unitPrice">Harga Satuan (Rp):</label>
+                    <input type="number" id="unitPrice" required placeholder="Masukkan Harga Satuan">
+                </div>
+                <div>
+                    <label for="quantity">Jumlah:</label>
+                    <input type="number" id="quantity" required placeholder="Masukkan Jumlah Layanan">
+                </div>
             </div>
 
             <button type="submit">Generate Invoice</button>
         </form>
 
         <!-- Invoice Output -->
-        <div id="invoiceOutput" class="invoice fade-in">
-            <h2>Invoice</h2>
-            <p><strong>Nama Customer:</strong> <span id="outputCustomerName"></span></p>
-            <p><strong>Alamat:</strong> <span id="outputAddress"></span></p>
-            <p><strong>No. Telepon:</strong> <span id="outputPhone"></span></p>
-            <p><strong>Nama Layanan:</strong> <span id="outputServiceName"></span></p>
-            <p><strong>Harga Satuan:</strong> Rp <span id="outputUnitPrice"></span></p>
-            <p><strong>Jumlah:</strong> <span id="outputQuantity"></span></p>
-            <p class="total"><strong>Total:</strong> Rp <span id="outputTotal"></span></p>
+        <div id="invoiceOutput" class="invoice">
+            <div class="invoice-header">
+                <img src="https://via.placeholder.com/150" alt="Logo">
+                <h2>Invoice</h2>
+            </div>
+            <div class="invoice-details">
+                <p><strong>Nama Customer:</strong> <span id="outputCustomerName"></span></p>
+                <p><strong>No. Telepon:</strong> <span id="outputPhone"></span></p>
+                <p><strong>Alamat:</strong> <span id="outputAddress"></span></p>
+                <p><strong>Nama Layanan:</strong> <span id="outputServiceName"></span></p>
+                <p><strong>Harga Satuan:</strong> Rp <span id="outputUnitPrice"></span></p>
+                <p><strong>Jumlah:</strong> <span id="outputQuantity"></span></p>
+                <p class="total"><strong>Total:</strong> Rp <span id="outputTotal"></span></p>
+            </div>
+
+            <div class="invoice-footer">
+                <p>Terima kasih telah menggunakan layanan Benerin.Aja. Untuk pertanyaan lebih lanjut, kunjungi <a href="#">Website kami</a>.</p>
+            </div>
         </div>
     </div>
 
@@ -183,8 +223,8 @@
 
             // Update tampilkan invoice
             document.getElementById('outputCustomerName').textContent = customerName;
-            document.getElementById('outputAddress').textContent = address;
             document.getElementById('outputPhone').textContent = phone;
+            document.getElementById('outputAddress').textContent = address;
             document.getElementById('outputServiceName').textContent = serviceName;
             document.getElementById('outputUnitPrice').textContent = unitPrice.toLocaleString('id-ID');
             document.getElementById('outputQuantity').textContent = quantity;
