@@ -566,3 +566,22 @@ form button {
     flex: 1 1 100%;
   }
 }
+
+.pembayaran-garansi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.qris-box, .syarat-box {
+  flex: 1 1 48%;
+}
+
+.qris-box img {
+  display: block;
+  margin: 0 auto;
+}
