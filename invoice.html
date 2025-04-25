@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Generator - Benerin.Aja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* Global Style */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #f4f7fc;
             margin: 0;
             padding: 0;
@@ -17,67 +18,92 @@
             color: #4CAF50;
         }
 
-        /* Form Layout */
+        /* Centering the Form */
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            text-align: center;
+            font-size: 2rem;
         }
 
         label {
             display: block;
             font-size: 1rem;
             margin-top: 10px;
+            color: #666;
         }
 
         input, button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 8px;
-            border-radius: 4px;
+            border-radius: 8px;
             border: 1px solid #ddd;
             font-size: 1rem;
+            box-sizing: border-box;
         }
 
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            cursor: pointer;
             font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
             background-color: #45a049;
         }
 
-        /* Invoice Display */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        /* Invoice Section */
         .invoice {
             background-color: #fff;
             padding: 20px;
-            margin-top: 20px;
+            margin-top: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: none;
         }
 
         .invoice p {
-            margin: 5px 0;
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #444;
         }
 
-        .invoice strong {
-            font-weight: 600;
-        }
-
-        .total {
+        .invoice .total {
             font-size: 1.2rem;
             font-weight: bold;
             color: #4CAF50;
         }
 
-        /* Responsiveness */
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -92,29 +118,43 @@
 
     <div class="container">
         <h1>Generator Invoice - Benerin.Aja</h1>
+
         <form id="invoiceForm">
-            <label for="customerName">Nama Customer:</label>
-            <input type="text" id="customerName" required placeholder="Masukkan Nama Customer">
+            <div class="form-group">
+                <label for="customerName">Nama Customer:</label>
+                <input type="text" id="customerName" required placeholder="Masukkan Nama Customer">
+            </div>
 
-            <label for="address">Alamat:</label>
-            <input type="text" id="address" required placeholder="Masukkan Alamat Customer">
+            <div class="form-group">
+                <label for="address">Alamat:</label>
+                <input type="text" id="address" required placeholder="Masukkan Alamat Customer">
+            </div>
 
-            <label for="phone">No. Telepon:</label>
-            <input type="text" id="phone" required placeholder="Masukkan No. Telepon">
+            <div class="form-group">
+                <label for="phone">No. Telepon:</label>
+                <input type="text" id="phone" required placeholder="Masukkan No. Telepon">
+            </div>
 
-            <label for="serviceName">Nama Layanan:</label>
-            <input type="text" id="serviceName" required placeholder="Masukkan Nama Layanan">
+            <div class="form-group">
+                <label for="serviceName">Nama Layanan:</label>
+                <input type="text" id="serviceName" required placeholder="Masukkan Nama Layanan">
+            </div>
 
-            <label for="unitPrice">Harga Satuan (Rp):</label>
-            <input type="number" id="unitPrice" required placeholder="Masukkan Harga Satuan">
+            <div class="form-group">
+                <label for="unitPrice">Harga Satuan (Rp):</label>
+                <input type="number" id="unitPrice" required placeholder="Masukkan Harga Satuan">
+            </div>
 
-            <label for="quantity">Jumlah:</label>
-            <input type="number" id="quantity" required placeholder="Masukkan Jumlah Layanan">
+            <div class="form-group">
+                <label for="quantity">Jumlah:</label>
+                <input type="number" id="quantity" required placeholder="Masukkan Jumlah Layanan">
+            </div>
 
             <button type="submit">Generate Invoice</button>
         </form>
 
-        <div id="invoiceOutput" class="invoice" style="display: none;">
+        <!-- Invoice Output -->
+        <div id="invoiceOutput" class="invoice fade-in">
             <h2>Invoice</h2>
             <p><strong>Nama Customer:</strong> <span id="outputCustomerName"></span></p>
             <p><strong>Alamat:</strong> <span id="outputAddress"></span></p>
@@ -150,7 +190,7 @@
             document.getElementById('outputQuantity').textContent = quantity;
             document.getElementById('outputTotal').textContent = total.toLocaleString('id-ID');
 
-            // Tampilkan invoice
+            // Tampilkan invoice dengan animasi
             document.getElementById('invoiceOutput').style.display = 'block';
         });
     </script>
