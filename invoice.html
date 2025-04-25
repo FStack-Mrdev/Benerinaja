@@ -140,21 +140,15 @@
       <table>
         <tr>
           <th>Customer Name</th>
-          <td>
-            <input type="text" id="customer-name-input" value="John Doe" oninput="updateCustomerInfo()">
-          </td>
+          <td id="customer-name">John Doe</td>
         </tr>
         <tr>
           <th>Address</th>
-          <td>
-            <input type="text" id="address-input" value="Jl. Merdeka No. 123, Jakarta" oninput="updateCustomerInfo()">
-          </td>
+          <td id="address">Jl. Merdeka No. 123, Jakarta</td>
         </tr>
         <tr>
           <th>Phone</th>
-          <td>
-            <input type="text" id="phone-input" value="081234567890" oninput="updateCustomerInfo()">
-          </td>
+          <td id="phone">081234567890</td>
         </tr>
       </table>
     </div>
@@ -276,10 +270,9 @@
       }
     }
 
-    // Update customer information in the invoice
-    function updateCustomerInfo() {
-      const customerName = document.getElementById("customer-name-input").value;
-      const address = document.getElementById("address-input").value;
-      const phone = document.getElementById("phone-input").value;
+    // Initialize
+    updateServices();
+  </script>
 
-      document.getElementById("customer
+</body>
+</html>
