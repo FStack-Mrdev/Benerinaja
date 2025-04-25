@@ -104,6 +104,15 @@
     .add-item-btn:hover {
       background-color: #1976D2;
     }
+    #add-item-form input {
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #add-item-form button {
+      margin-top: 10px;
+    }
     @media (max-width: 600px) {
       .invoice-header {
         flex-direction: column;
@@ -177,7 +186,15 @@
       <span id="total-price">Rp 850.000</span>
     </div>
 
-    <button class="btn add-item-btn" onclick="addItem()">Add Service</button>
+    <button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
+
+    <div id="add-item-form" style="display:none; margin-top: 20px;">
+      <input type="text" id="new-service-name" placeholder="Service Name" required>
+      <input type="number" id="new-service-price" placeholder="Price" required>
+      <input type="number" id="new-service-quantity" placeholder="Quantity" required>
+      <button class="btn" onclick="submitNewItem()">Add Item</button>
+      <button class="btn" onclick="cancelAddItem()">Cancel</button>
+    </div>
 
     <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
   </div>
@@ -224,16 +241,33 @@
       document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
     }
 
+    // Show add item form
+    function showAddItemForm() {
+      document.getElementById("add-item-form").style.display = "block"; // Tampilkan form
+      document.querySelector(".add-item-btn").style.display = "none";  // Sembunyikan tombol Add Service
+    }
+
+    // Cancel adding item
+    function cancelAddItem() {
+      document.getElementById("add-item-form").style.display = "none"; // Sembunyikan form
+      document.querySelector(".add-item-btn").style.display = "inline-block";  // Tampilkan tombol Add Service
+    }
+
     // Add new service to the list
-    function addItem() {
-      // Adding a new service (you can customize this)
-      const newService = {
-        name: 'New Service',
-        price: 200000,
-        quantity: 1
-      };
-      services.push(newService);
-      updateServices();
+    function submitNewItem() {
+      const name = document.getElementById("new-service-name").value;
+      const price = parseFloat(document.getElementById("new-service-price").value);
+      const quantity = parseInt(document.getElementById("new-service-quantity").value);
+
+      // Validate input
+      if (name && price && quantity) {
+        const newService = { name, price, quantity };
+        services.push(newService);
+        updateServices();
+        cancelAddItem();
+      } else {
+        alert("Please fill in all fields.");
+      }
     }
 
     // Initialize
