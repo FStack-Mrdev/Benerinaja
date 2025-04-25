@@ -585,3 +585,66 @@ form button {
   display: block;
   margin: 0 auto;
 }
+
+/* Responsivitas untuk tampilan di HP */
+@media (max-width: 600px) {
+  .pembayaran-garansi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .qris-box, .syarat-box {
+    flex: 1 1 100%;
+    text-align: center;
+    margin-bottom: 1rem; /* Menambah jarak bawah agar tidak terlalu rapat */
+  }
+
+  .qris-box img {
+    max-width: 100%; /* Menyesuaikan ukuran gambar QR agar lebih responsif */
+    height: auto;
+  }
+
+  .syarat-box ul {
+    padding-left: 20px;
+    list-style-position: inside;
+  }
+
+  /* Membuat bagian syarat dan ketentuan menjadi lebih responsif */
+  .syarat-box li {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  /* Merapikan form dan table agar responsif */
+  .form-row {
+    flex-direction: column;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  td {
+    position: relative;
+    padding-left: 50%;
+    margin-bottom: 0.5rem;
+  }
+
+  td::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  td:nth-child(1)::before { content: "Deskripsi"; }
+  td:nth-child(2)::before { content: "Qty"; }
+  td:nth-child(3)::before { content: "Harga"; }
+  td:nth-child(4)::before { content: "Aksi"; }
+}
