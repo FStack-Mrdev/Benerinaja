@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,99 +124,96 @@
     }
   </style>
 </head>
-<body>  <div class="container">
+<body>
+  <div class="container">
     <div class="invoice-header">
       <div class="logo">Benerin.aja</div>
       <div class="date">
         <span>Date: <strong id="date"></strong></span>
         <span>Invoice #: <strong id="invoice-number"></strong></span>
       </div>
-    </div><div class="section-title">Billing Information</div>
-<div class="billing-details">
-  <table>
-    <tr>
-      <th>Customer Name</th>
-      <td id="customer-name">John Doe</td>
-    </tr>
-    <tr>
-      <th>Address</th>
-      <td id="address">Jl. Merdeka No. 123, Jakarta</td>
-    </tr>
-    <tr>
-      <th>Phone</th>
-      <td id="phone">081234567890</td>
-    </tr>
-  </table>
-</div>
+    </div>
 
-  <!-- Tombol Add Service -->
-<button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
+    <div class="section-title">Billing Information</div>
+    <div class="billing-details">
+      <table>
+        <tr>
+          <th>Customer Name</th>
+          <td id="customer-name">John Doe</td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td id="address">Jl. Merdeka No. 123, Jakarta</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td id="phone">081234567890</td>
+        </tr>
+      </table>
+    </div>
 
-<!-- Form untuk input Customer Name, Address, Phone, dan Service -->
-<div id="add-item-form" style="display:none; margin-top: 20px;">
-  <h3>Input Customer & Service Details</h3>
-  <!-- Customer Information Inputs -->
-  <input type="text" id="customer-name-input" placeholder="Customer Name" required>
-  <input type="text" id="address-input" placeholder="Address" required>
-  <input type="text" id="phone-input" placeholder="Phone" required>
-  
-  <h3>Service Information</h3>
-  <input type="text" id="new-service-name" placeholder="Service Name" required>
-  <input type="number" id="new-service-price" placeholder="Unit Price" required>
-  <input type="number" id="new-service-quantity" placeholder="Quantity" required>
+    <!-- Tombol Add Service -->
+    <button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
 
-  <button class="btn" onclick="submitNewItem()">Add Item</button>
-  <button class="btn" onclick="cancelAddItem()">Cancel</button>
-</div>
+    <!-- Form untuk input Customer Name, Address, Phone, dan Service -->
+    <div id="add-item-form" style="display:none; margin-top: 20px;">
+      <h3>Input Customer & Service Details</h3>
+      <!-- Customer Information Inputs -->
+      <input type="text" id="customer-name-input" placeholder="Customer Name" required>
+      <input type="text" id="address-input" placeholder="Address" required>
+      <input type="text" id="phone-input" placeholder="Phone" required>
 
-<div class="section-title">Invoice Details</div>
-<div class="invoice-details">
-  <table>
-    <thead>
-      <tr>
-        <th>Service</th>
-        <th>Unit Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody id="service-list">
-      <tr>
-        <td>iPhone Screen Repair</td>
-        <td>Rp 500.000</td>
-        <td>1</td>
-        <td>Rp 500.000</td>
-      </tr>
-      <tr>
-        <td>Battery Replacement</td>
-        <td>Rp 350.000</td>
-        <td>1</td>
-        <td>Rp 350.000</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      <h3>Service Information</h3>
+      <input type="text" id="new-service-name" placeholder="Service Name" required>
+      <input type="number" id="new-service-price" placeholder="Unit Price" required>
+      <input type="number" id="new-service-quantity" placeholder="Quantity" required>
 
-<div class="total">
-  <span>Total: </span>
-  <span id="total-price">Rp 850.000</span>
-</div>
+      <button class="btn" onclick="submitNewItem()">Add Item</button>
+      <button class="btn" onclick="cancelAddItem()">Cancel</button>
+    </div>
 
-<button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
+    <div class="section-title">Invoice Details</div>
+    <div class="invoice-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="service-list">
+          <tr>
+            <td>iPhone Screen Repair</td>
+            <td>Rp 500.000</td>
+            <td>1</td>
+            <td>Rp 500.000</td>
+          </tr>
+          <tr>
+            <td>Battery Replacement</td>
+            <td>Rp 350.000</td>
+            <td>1</td>
+            <td>Rp 350.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<div id="add-item-form" style="display:none; margin-top: 20px;">
-  <input type="text" id="new-service-name" placeholder="Service Name" required>
-  <input type="number" id="new-service-price" placeholder="Price" required>
-  <input type="number" id="new-service-quantity" placeholder="Quantity" required>
-  <button class="btn" onclick="submitNewItem()">Add Item</button>
-  <button class="btn" onclick="cancelAddItem()">Cancel</button>
-</div>
+    <div class="total">
+      <span>Total: </span>
+      <span id="total-price">Rp 850.000</span>
+    </div>
 
-<a href="#" class="btn" onclick="window.print();">Print Invoice</a>
+    <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
 
-  </div>  <div class="footer">
+  </div>
+
+  <div class="footer">
     <p>&copy; 2025 Benerin.aja | All Rights Reserved</p>
-  </div>  <script>
+  </div>
+
+  <script>
     // Date formatting
     const date = new Date();
     const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
@@ -265,102 +263,14 @@
       document.querySelector(".add-item-btn").style.display = "inline-block";  // Tampilkan tombol Add Service
     }
 
-    <script>
-  // Data layanan untuk menampung service yang akan ditambah
-  const services = [
-    { name: 'iPhone Screen Repair', price: 500000, quantity: 1 },
-    { name: 'Battery Replacement', price: 350000, quantity: 1 }
-  ];
-
-  // Menampilkan form untuk menambah service
-  function showAddItemForm() {
-    // Tampilkan form input customer dan service
-    document.getElementById("add-item-form").style.display = "block";
-    document.querySelector(".add-item-btn").style.display = "none"; // Sembunyikan tombol Add Service
-  }
-
-  // Menyembunyikan form tanpa menambah item
-  function cancelAddItem() {
-    document.getElementById("add-item-form").style.display = "none";
-    document.querySelector(".add-item-btn").style.display = "inline-block"; // Tampilkan tombol Add Service
-  }
-
-  // Menambah item baru ke dalam invoice
-  function submitNewItem() {
-    // Mengambil nilai dari input
-    const customerName = document.getElementById("customer-name-input").value;
-    const address = document.getElementById("address-input").value;
-    const phone = document.getElementById("phone-input").value;
-    const serviceName = document.getElementById("new-service-name").value;
-    const unitPrice = parseFloat(document.getElementById("new-service-price").value);
-    const quantity = parseInt(document.getElementById("new-service-quantity").value);
-
-    // Validasi input
-    if (customerName && address && phone && serviceName && unitPrice && quantity) {
-      // Tambahkan customer info dan service baru ke dalam list services
-      services.push({
-        name: serviceName,
-        price: unitPrice,
-        quantity: quantity
-      });
-
-      // Update invoice untuk menampilkan layanan yang baru
-      updateServices();
-
-      // Reset input form
-      document.getElementById("add-item-form").style.display = "none";
-      document.querySelector(".add-item-btn").style.display = "inline-block"; // Tampilkan tombol Add Service
-    } else {
-      alert("Please fill in all fields.");
-    }
-  }
-
-  // Update tabel services setelah item baru ditambahkan
-  function updateServices() {
-    const serviceList = document.getElementById("service-list");
-    let total = 0;
-
-    // Clear previous list
-    serviceList.innerHTML = '';
-
-    services.forEach(service => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${service.name}</td>
-        <td>Rp ${service.price.toLocaleString()}</td>
-        <td>${service.quantity}</td>
-        <td>Rp ${(service.price * service.quantity).toLocaleString()}</td>
-      `;
-      serviceList.appendChild(row);
-      total += service.price * service.quantity;
-    });
-
-    // Update total price
-    document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
-  }
-
-  // Initialize invoice saat halaman pertama kali dimuat
-  updateServices();
-</script>
-
-    // Add new service to the list
+    // Menyimpan item baru ke dalam invoice
     function submitNewItem() {
-      const name = document.getElementById("new-service-name").value;
-      const price = parseFloat(document.getElementById("new-service-price").value);
+      const customerName = document.getElementById("customer-name-input").value;
+      const address = document.getElementById("address-input").value;
+      const phone = document.getElementById("phone-input").value;
+      const serviceName = document.getElementById("new-service-name").value;
+      const unitPrice = parseFloat(document.getElementById("new-service-price").value);
       const quantity = parseInt(document.getElementById("new-service-quantity").value);
 
-      // Validate input
-      if (name && price && quantity) {
-        const newService = { name, price, quantity };
-        services.push(newService);
-        updateServices();
-        cancelAddItem();
-      } else {
-        alert("Please fill in all fields.");
-      }
-    }
-
-    // Initialize
-    updateServices();
-  </script></body>
-</html>
+      // Validasi input
+      if
