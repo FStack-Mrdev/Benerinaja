@@ -17,28 +17,23 @@
       max-width: 800px;
       margin: 30px auto;
       background-color: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     h1 {
       text-align: center;
       color: #4CAF50;
-      font-size: 30px;
-      margin-bottom: 10px;
     }
     .invoice-header {
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #f0f0f0;
     }
     .invoice-header .logo {
       font-size: 24px;
       font-weight: bold;
       color: #4CAF50;
-      margin-top: 10px;
     }
     .invoice-header .date {
       font-size: 14px;
@@ -49,19 +44,16 @@
       display: block;
     }
     .section-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       color: #4CAF50;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #4CAF50;
-      padding-bottom: 5px;
+      margin-bottom: 10px;
     }
     .invoice-details, .billing-details {
       margin-bottom: 20px;
       background-color: #f9f9f9;
-      padding: 20px;
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
     .invoice-details table, .billing-details table {
       width: 100%;
@@ -72,39 +64,33 @@
       background-color: #4CAF50;
       color: white;
       text-align: left;
-      padding: 12px;
-      font-weight: 600;
+      padding: 8px;
     }
     .invoice-details td, .billing-details td {
-      padding: 12px;
+      padding: 8px;
       border-bottom: 1px solid #ddd;
-      text-align: left;
-      font-size: 14px;
     }
     .total {
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: bold;
       text-align: right;
-      margin-top: 10px;
     }
     .footer {
       text-align: center;
       font-size: 14px;
       color: #777;
-      margin-top: 30px;
-      border-top: 2px solid #f0f0f0;
-      padding-top: 20px;
+      margin-top: 20px;
     }
     .btn {
       display: inline-block;
-      padding: 12px 25px;
+      padding: 10px 20px;
       background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
       margin-top: 20px;
     }
     .btn:hover {
@@ -118,124 +104,13 @@
     .add-item-btn:hover {
       background-color: #1976D2;
     }
-    /* New Section: Terms & Conditions and Payment */
-    .terms-payment {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 2px solid #4CAF50;
-    }
-    .terms-payment h2 {
-      font-size: 18px;
-      color: #4CAF50;
-      margin-bottom: 15px;
-    }
-    .terms-payment p {
-      font-size: 15px;
-      line-height: 1.6;
-      color: #555;
-      margin-bottom: 15px;
-    }
-    .terms-payment .payment-methods {
-      list-style-type: none;
-      padding-left: 0;
-      font-size: 15px;
-    }
-    .terms-payment .payment-methods li {
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-    .terms-payment .payment-methods li i {
-      color: #4CAF50;
-      margin-right: 10px;
-      font-size: 18px;
-    }
-    .terms-payment .closing {
-      font-size: 16px;
-      color: #777;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    /* Print Styles */
-    @media print {
-      body {
-        margin: 0;
-        padding: 0;
+    @media (max-width: 600px) {
+      .invoice-header {
+        flex-direction: column;
+        align-items: flex-start;
       }
-
-      .container {
-        max-width: 100%;
-        margin: 0;
-        padding: 20px;
-        box-shadow: none;
-      }
-
-      .invoice-header,
-      .section-title,
-      .invoice-details,
-      .billing-details {
-        display: block;
-      }
-
       .invoice-header .date {
-        text-align: left;
-      }
-
-      /* Ensure tables fit within the page */
-      .invoice-details table,
-      .billing-details table {
-        width: 100%;
-        table-layout: fixed;
-      }
-
-      .invoice-details th,
-      .billing-details th,
-      .invoice-details td,
-      .billing-details td {
-        padding: 8px;
-        font-size: 14px;
-      }
-
-      .btn {
-        display: none; /* Hide the buttons when printing */
-      }
-
-      .footer {
-        text-align: center;
-        font-size: 12px;
-        margin-top: 20px;
-        border-top: 2px solid #f0f0f0;
-        padding-top: 10px;
-      }
-
-      /* Remove any page breaks */
-      .page-break {
-        display: none;
-      }
-
-      /* Ensure content is in a single column */
-      .terms-payment {
-        padding-top: 10px;
-        font-size: 14px;
-      }
-
-      .terms-payment h2 {
-        font-size: 16px;
-      }
-
-      .payment-methods {
-        padding-left: 0;
-        list-style-type: none;
-      }
-
-      .payment-methods li {
-        font-size: 14px;
-      }
-
-      .closing {
-        font-size: 12px;
-        color: #777;
+        margin-top: 10px;
       }
     }
   </style>
@@ -307,7 +182,63 @@
     <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
   </div>
 
-  <!-- New Section for Terms, Conditions and Payment -->
-  <div class="terms-payment">
-    <h2>Syarat dan Ketentuan</h2>
-    <p>Dengan melakukan pembayaran, Anda menyetujui untuk menggunakan layanan perbaikan sesuai dengan syarat dan ketentuan yang berlaku. Layanan yang diberikan akan sesuai dengan deskripsi yang telah disetujui sebelumnya, dan garansi
+  <div class="footer">
+    <p>&copy; 2025 Benerin.aja | All Rights Reserved</p>
+  </div>
+
+  <script>
+    // Date formatting
+    const date = new Date();
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    document.getElementById("date").textContent = formattedDate;
+
+    // Generate invoice number (random for this demo)
+    document.getElementById("invoice-number").textContent = Math.floor(Math.random() * 1000000);
+
+    // Services data (for customization)
+    const services = [
+      { name: 'iPhone Screen Repair', price: 500000, quantity: 1 },
+      { name: 'Battery Replacement', price: 350000, quantity: 1 }
+    ];
+
+    // Update invoice table with current services
+    function updateServices() {
+      const serviceList = document.getElementById("service-list");
+      let total = 0;
+
+      // Clear previous list
+      serviceList.innerHTML = '';
+
+      services.forEach(service => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${service.name}</td>
+          <td>Rp ${service.price.toLocaleString()}</td>
+          <td>${service.quantity}</td>
+          <td>Rp ${(service.price * service.quantity).toLocaleString()}</td>
+        `;
+        serviceList.appendChild(row);
+        total += service.price * service.quantity;
+      });
+
+      document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
+    }
+
+    // Add new service to the list
+    function addItem() {
+      // Adding a new service (you can customize this)
+      const newService = {
+        name: 'New Service',
+        price: 200000,
+        quantity: 1
+      };
+      services.push(newService);
+      updateServices();
+    }
+
+    // Initialize
+    updateServices();
+  </script>
+
+</body>
+</html>
