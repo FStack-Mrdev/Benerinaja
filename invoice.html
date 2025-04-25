@@ -1,276 +1,159 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice - Perbaikan HP</title>
-  <style>
-    /* General Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f7f7f7;
-      color: #333;
-    }
-    .container {
-      max-width: 800px;
-      margin: 30px auto;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #4CAF50;
-    }
-    .invoice-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .invoice-header .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #4CAF50;
-    }
-    .invoice-header .date {
-      font-size: 14px;
-      color: #777;
-      text-align: right;
-    }
-    .invoice-header .date span {
-      display: block;
-    }
-    .section-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #4CAF50;
-      margin-bottom: 10px;
-    }
-    .invoice-details, .billing-details {
-      margin-bottom: 20px;
-      background-color: #f9f9f9;
-      padding: 15px;
-      border-radius: 8px;
-    }
-    .invoice-details table, .billing-details table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 10px;
-    }
-    .invoice-details th, .billing-details th {
-      background-color: #4CAF50;
-      color: white;
-      text-align: left;
-      padding: 8px;
-    }
-    .invoice-details td, .billing-details td {
-      padding: 8px;
-      border-bottom: 1px solid #ddd;
-    }
-    .total {
-      font-size: 20px;
-      font-weight: bold;
-      text-align: right;
-    }
-    .footer {
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-      margin-top: 20px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 20px;
-    }
-    .btn:hover {
-      background-color: #45a049;
-    }
-    .add-item-btn {
-      background-color: #2196F3;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-    .add-item-btn:hover {
-      background-color: #1976D2;
-    }
-    #add-item-form input {
-      padding: 8px;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    #add-item-form button {
-      margin-top: 10px;
-    }
-    @media (max-width: 600px) {
-      .invoice-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .invoice-header .date {
-        margin-top: 10px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator - Benerin.Aja</title>
+    <style>
+        /* Global Style */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+
+        /* Form Layout */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Invoice Display */
+        .invoice {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .invoice p {
+            margin: 5px 0;
+        }
+
+        .invoice strong {
+            font-weight: 600;
+        }
+
+        .total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="invoice-header">
-      <div class="logo">Benerin.aja</div>
-      <div class="date">
-        <span>Date: <strong id="date"></strong></span>
-        <span>Invoice #: <strong id="invoice-number"></strong></span>
-      </div>
+
+    <div class="container">
+        <h1>Generator Invoice - Benerin.Aja</h1>
+        <form id="invoiceForm">
+            <label for="customerName">Nama Customer:</label>
+            <input type="text" id="customerName" required placeholder="Masukkan Nama Customer">
+
+            <label for="address">Alamat:</label>
+            <input type="text" id="address" required placeholder="Masukkan Alamat Customer">
+
+            <label for="phone">No. Telepon:</label>
+            <input type="text" id="phone" required placeholder="Masukkan No. Telepon">
+
+            <label for="serviceName">Nama Layanan:</label>
+            <input type="text" id="serviceName" required placeholder="Masukkan Nama Layanan">
+
+            <label for="unitPrice">Harga Satuan (Rp):</label>
+            <input type="number" id="unitPrice" required placeholder="Masukkan Harga Satuan">
+
+            <label for="quantity">Jumlah:</label>
+            <input type="number" id="quantity" required placeholder="Masukkan Jumlah Layanan">
+
+            <button type="submit">Generate Invoice</button>
+        </form>
+
+        <div id="invoiceOutput" class="invoice" style="display: none;">
+            <h2>Invoice</h2>
+            <p><strong>Nama Customer:</strong> <span id="outputCustomerName"></span></p>
+            <p><strong>Alamat:</strong> <span id="outputAddress"></span></p>
+            <p><strong>No. Telepon:</strong> <span id="outputPhone"></span></p>
+            <p><strong>Nama Layanan:</strong> <span id="outputServiceName"></span></p>
+            <p><strong>Harga Satuan:</strong> Rp <span id="outputUnitPrice"></span></p>
+            <p><strong>Jumlah:</strong> <span id="outputQuantity"></span></p>
+            <p class="total"><strong>Total:</strong> Rp <span id="outputTotal"></span></p>
+        </div>
     </div>
 
-    <div class="section-title">Billing Information</div>
-    <div class="billing-details">
-      <table>
-        <tr>
-          <th>Customer Name</th>
-          <td id="customer-name">John Doe</td>
-        </tr>
-        <tr>
-          <th>Address</th>
-          <td id="address">Jl. Merdeka No. 123, Jakarta</td>
-        </tr>
-        <tr>
-          <th>Phone</th>
-          <td id="phone">081234567890</td>
-        </tr>
-      </table>
-    </div>
+    <script>
+        document.getElementById('invoiceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-    <!-- Tombol Add Service -->
-    <button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
+            // Ambil nilai input
+            const customerName = document.getElementById('customerName').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const serviceName = document.getElementById('serviceName').value;
+            const unitPrice = parseFloat(document.getElementById('unitPrice').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
 
-    <!-- Form untuk input Customer Name, Address, Phone, dan Service -->
-    <div id="add-item-form" style="display:none; margin-top: 20px;">
-      <h3>Input Customer & Service Details</h3>
-      <!-- Customer Information Inputs -->
-      <input type="text" id="customer-name-input" placeholder="Customer Name" required>
-      <input type="text" id="address-input" placeholder="Address" required>
-      <input type="text" id="phone-input" placeholder="Phone" required>
+            // Hitung total
+            const total = unitPrice * quantity;
 
-      <h3>Service Information</h3>
-      <input type="text" id="new-service-name" placeholder="Service Name" required>
-      <input type="number" id="new-service-price" placeholder="Unit Price" required>
-      <input type="number" id="new-service-quantity" placeholder="Quantity" required>
+            // Update tampilkan invoice
+            document.getElementById('outputCustomerName').textContent = customerName;
+            document.getElementById('outputAddress').textContent = address;
+            document.getElementById('outputPhone').textContent = phone;
+            document.getElementById('outputServiceName').textContent = serviceName;
+            document.getElementById('outputUnitPrice').textContent = unitPrice.toLocaleString('id-ID');
+            document.getElementById('outputQuantity').textContent = quantity;
+            document.getElementById('outputTotal').textContent = total.toLocaleString('id-ID');
 
-      <button class="btn" onclick="submitNewItem()">Add Item</button>
-      <button class="btn" onclick="cancelAddItem()">Cancel</button>
-    </div>
+            // Tampilkan invoice
+            document.getElementById('invoiceOutput').style.display = 'block';
+        });
+    </script>
 
-    <div class="section-title">Invoice Details</div>
-    <div class="invoice-details">
-      <table>
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody id="service-list">
-          <tr>
-            <td>iPhone Screen Repair</td>
-            <td>Rp 500.000</td>
-            <td>1</td>
-            <td>Rp 500.000</td>
-          </tr>
-          <tr>
-            <td>Battery Replacement</td>
-            <td>Rp 350.000</td>
-            <td>1</td>
-            <td>Rp 350.000</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="total">
-      <span>Total: </span>
-      <span id="total-price">Rp 850.000</span>
-    </div>
-
-    <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
-
-  </div>
-
-  <div class="footer">
-    <p>&copy; 2025 Benerin.aja | All Rights Reserved</p>
-  </div>
-
-  <script>
-    // Date formatting
-    const date = new Date();
-    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    document.getElementById("date").textContent = formattedDate;
-
-    // Generate invoice number (random for this demo)
-    document.getElementById("invoice-number").textContent = Math.floor(Math.random() * 1000000);
-
-    // Services data (for customization)
-    const services = [
-      { name: 'iPhone Screen Repair', price: 500000, quantity: 1 },
-      { name: 'Battery Replacement', price: 350000, quantity: 1 }
-    ];
-
-    // Update invoice table with current services
-    function updateServices() {
-      const serviceList = document.getElementById("service-list");
-      let total = 0;
-
-      // Clear previous list
-      serviceList.innerHTML = '';
-
-      services.forEach(service => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${service.name}</td>
-          <td>Rp ${service.price.toLocaleString()}</td>
-          <td>${service.quantity}</td>
-          <td>Rp ${(service.price * service.quantity).toLocaleString()}</td>
-        `;
-        serviceList.appendChild(row);
-        total += service.price * service.quantity;
-      });
-
-      document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
-    }
-
-    // Show add item form
-    function showAddItemForm() {
-      document.getElementById("add-item-form").style.display = "block"; // Tampilkan form
-      document.querySelector(".add-item-btn").style.display = "none";  // Sembunyikan tombol Add Service
-    }
-
-    // Cancel adding item
-    function cancelAddItem() {
-      document.getElementById("add-item-form").style.display = "none"; // Sembunyikan form
-      document.querySelector(".add-item-btn").style.display = "inline-block";  // Tampilkan tombol Add Service
-    }
-
-    // Menyimpan item baru ke dalam invoice
-    function submitNewItem() {
-      const customerName = document.getElementById("customer-name-input").value;
-      const address = document.getElementById("address-input").value;
-      const phone = document.getElementById("phone-input").value;
-      const serviceName = document.getElementById("new-service-name").value;
-      const unitPrice = parseFloat(document.getElementById("new-service-price").value);
-      const quantity = parseInt(document.getElementById("new-service-quantity").value);
-
-      // Validasi input
-      if
+</body>
+</html>
