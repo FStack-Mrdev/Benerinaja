@@ -194,7 +194,7 @@
     <button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
 
     <!-- Form to add customer and service info -->
-    <div id="add-item-form" style="display:none;">
+    <div id="add-item-form">
       <h3>Add Service</h3>
       <!-- Customer info -->
       <input type="text" id="customer-name-input" placeholder="Customer Name" required>
@@ -271,4 +271,23 @@
       // Get service info
       const serviceName = document.getElementById("service-name-input").value;
       const servicePrice = parseFloat(document.getElementById("service-price-input").value);
-      const
+      const serviceQuantity = parseInt(document.getElementById("service-quantity-input").value);
+
+      if (customerName && address && phone && serviceName && servicePrice && serviceQuantity) {
+        // Update customer info
+        document.getElementById("customer-name").textContent = customerName;
+        document.getElementById("address").textContent = address;
+        document.getElementById("phone").textContent = phone;
+
+        // Add service
+        services.push({ name: serviceName, price: servicePrice, quantity: serviceQuantity });
+        updateServices();
+        cancelAddItemForm();
+      } else {
+        alert("Please fill in all fields.");
+      }
+    }
+
+    // Cancel adding item
+    function cancelAddItemForm() {
+      document.getElementById("add-item-form").
