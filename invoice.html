@@ -156,6 +156,88 @@
       text-align: center;
       margin-top: 20px;
     }
+
+    /* Print Styles */
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+      }
+
+      .invoice-header,
+      .section-title,
+      .invoice-details,
+      .billing-details {
+        display: block;
+      }
+
+      .invoice-header .date {
+        text-align: left;
+      }
+
+      /* Ensure tables fit within the page */
+      .invoice-details table,
+      .billing-details table {
+        width: 100%;
+        table-layout: fixed;
+      }
+
+      .invoice-details th,
+      .billing-details th,
+      .invoice-details td,
+      .billing-details td {
+        padding: 8px;
+        font-size: 14px;
+      }
+
+      .btn {
+        display: none; /* Hide the buttons when printing */
+      }
+
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        margin-top: 20px;
+        border-top: 2px solid #f0f0f0;
+        padding-top: 10px;
+      }
+
+      /* Remove any page breaks */
+      .page-break {
+        display: none;
+      }
+
+      /* Ensure content is in a single column */
+      .terms-payment {
+        padding-top: 10px;
+        font-size: 14px;
+      }
+
+      .terms-payment h2 {
+        font-size: 16px;
+      }
+
+      .payment-methods {
+        padding-left: 0;
+        list-style-type: none;
+      }
+
+      .payment-methods li {
+        font-size: 14px;
+      }
+
+      .closing {
+        font-size: 12px;
+        color: #777;
+      }
+    }
   </style>
 </head>
 <body>
@@ -228,79 +310,4 @@
   <!-- New Section for Terms, Conditions and Payment -->
   <div class="terms-payment">
     <h2>Syarat dan Ketentuan</h2>
-    <p>Dengan melakukan pembayaran, Anda menyetujui untuk menggunakan layanan perbaikan sesuai dengan syarat dan ketentuan yang berlaku. Layanan yang diberikan akan sesuai dengan deskripsi yang telah disetujui sebelumnya, dan garansi hanya berlaku pada kerusakan terkait perbaikan.</p>
-
-    <h2>Metode Pembayaran</h2>
-    <ul class="payment-methods">
-      <li><i class="fa fa-credit-card"></i>Transfer Bank (BCA, Mandiri, BNI)</li>
-      <li><i class="fa fa-paypal"></i>PayPal</li>
-      <li><i class="fa fa-wallet"></i>Ovo, GoPay, Dana</li>
-    </ul>
-
-    <p>Setelah pembayaran diterima, layanan akan segera diproses. Bukti pembayaran harus dikirimkan ke email kami atau melalui pesan WhatsApp untuk verifikasi lebih lanjut.</p>
-
-    <div class="closing">
-      <p>Hormat kami, Tim Benerin.aja</p>
-    </div>
-  </div>
-
-  <div class="footer">
-    <p>&copy; 2025 Benerin.aja | All Rights Reserved</p>
-  </div>
-
-  <script>
-    // Date formatting
-    const date = new Date();
-    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    document.getElementById("date").textContent = formattedDate;
-
-    // Generate invoice number (random for this demo)
-    document.getElementById("invoice-number").textContent = Math.floor(Math.random() * 1000000);
-
-    // Services data (for customization)
-    const services = [
-      { name: 'iPhone Screen Repair', price: 500000, quantity: 1 },
-      { name: 'Battery Replacement', price: 350000, quantity: 1 }
-    ];
-
-    // Update invoice table with current services
-    function updateServices() {
-      const serviceList = document.getElementById("service-list");
-      let total = 0;
-
-      // Clear previous list
-      serviceList.innerHTML = '';
-
-      services.forEach(service => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${service.name}</td>
-          <td>Rp ${service.price.toLocaleString()}</td>
-          <td>${service.quantity}</td>
-          <td>Rp ${(service.price * service.quantity).toLocaleString()}</td>
-        `;
-        serviceList.appendChild(row);
-        total += service.price * service.quantity;
-      });
-
-      document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
-    }
-
-    // Add new service to the list
-    function addItem() {
-      // Adding a new service (you can customize this)
-      const newService = {
-        name: 'New Service',
-        price: 200000,
-        quantity: 1
-      };
-      services.push(newService);
-      updateServices();
-    }
-
-    // Initialize
-    updateServices();
-  </script>
-
-</body>
-</html>
+    <p>Dengan melakukan pembayaran, Anda menyetujui untuk menggunakan layanan perbaikan sesuai dengan syarat dan ketentuan yang berlaku. Layanan yang diberikan akan sesuai dengan deskripsi yang telah disetujui sebelumnya, dan garansi
