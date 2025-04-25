@@ -1,90 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invoice - benerin.aja</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice - Perbaikan HP</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
-    h1 { color: #333; }
-    label { display: block; margin-top: 15px; }
-    input, textarea, select, button {
-      width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc;
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
     }
-    .btn { background-color: #28a745; color: white; cursor: pointer; margin-top: 20px; }
-    .btn:hover { background-color: #218838; }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+    }
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .invoice-header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+    .invoice-header .date {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+    }
+    .invoice-header .date span {
+      display: block;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+    .invoice-details, .billing-details {
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .invoice-details table, .billing-details table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    .invoice-details th, .billing-details th {
+      background-color: #4CAF50;
+      color: white;
+      text-align: left;
+      padding: 8px;
+    }
+    .invoice-details td, .billing-details td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    .total {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: right;
+    }
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+    @media (max-width: 600px) {
+      .invoice-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .invoice-header .date {
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Form Invoice Perbaikan HP</h1>
-  <form id="invoice-form">
-    <label for="customer-name">Nama Pelanggan</label>
-    <input type="text" id="customer-name" name="customer-name" required />
 
-    <label for="phone-model">Model HP</label>
-    <input type="text" id="phone-model" name="phone-model" placeholder="Ketik atau pilih model HP" required />
+  <div class="container">
+    <div class="invoice-header">
+      <div class="logo">Benerin.aja</div>
+      <div class="date">
+        <span>Date: <strong id="date"></strong></span>
+        <span>Invoice #: <strong id="invoice-number"></strong></span>
+      </div>
+    </div>
 
-    <label for="problem">Kerusakan</label>
-    <textarea id="problem" name="problem" required></textarea>
+    <div class="section-title">Billing Information</div>
+    <div class="billing-details">
+      <table>
+        <tr>
+          <th>Customer Name</th>
+          <td id="customer-name">John Doe</td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td id="address">Jl. Merdeka No. 123, Jakarta</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td id="phone">081234567890</td>
+        </tr>
+      </table>
+    </div>
 
-    <label for="price">Harga (Rp)</label>
-    <input type="number" id="price" name="price" required />
+    <div class="section-title">Invoice Details</div>
+    <div class="invoice-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="service-list">
+          <tr>
+            <td>iPhone Screen Repair</td>
+            <td>Rp 500.000</td>
+            <td>1</td>
+            <td>Rp 500.000</td>
+          </tr>
+          <tr>
+            <td>Battery Replacement</td>
+            <td>Rp 350.000</td>
+            <td>1</td>
+            <td>Rp 350.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <label for="payment">Metode Pembayaran</label>
-    <select id="payment" name="payment">
-      <option value="cash">Cash</option>
-      <option value="transfer">Transfer Bank</option>
-      <option value="qris">QRIS</option>
-    </select>
+    <div class="total">
+      <span>Total: </span>
+      <span id="total-price">Rp 850.000</span>
+    </div>
 
-    <label for="warranty">Garansi (contoh: 30 hari)</label>
-    <input type="text" id="warranty" name="warranty" />
+    <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
+  </div>
 
-    <label for="terms">Syarat dan Ketentuan</label>
-    <textarea id="terms" name="terms">1. Garansi tidak berlaku jika kerusakan disebabkan oleh kelalaian pengguna.
-2. Segala bentuk klaim garansi harus disertai invoice ini.
-3. Pembayaran dilakukan sesuai metode yang dipilih dan disepakati.
-    </textarea>
+  <div class="footer">
+    <p>&copy; 2025 Benerin.aja | All Rights Reserved</p>
+  </div>
 
-    <button type="button" class="btn" onclick="window.print()">Cetak Invoice</button>
-  </form>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
   <script>
-    const models = [
-      "iPhone 13", "iPhone 13 Pro", "iPhone 13 Pro Max", "iPhone 12", "iPhone 12 Mini", "iPhone 12 Pro", 
-      "iPhone 12 Pro Max", "iPhone 11", "iPhone 11 Pro", "iPhone 11 Pro Max", "iPhone XR", "iPhone XS", 
-      "iPhone XS Max", "iPhone SE (2020)", "iPhone SE (2022)",
-      "Samsung Galaxy S21", "Samsung Galaxy S21+", "Samsung Galaxy S21 Ultra", "Samsung Galaxy S20", 
-      "Samsung Galaxy S20 FE", "Samsung Galaxy Note 20", "Samsung Galaxy A52", "Samsung Galaxy A72",
-      "Samsung Galaxy Z Fold 3", "Samsung Galaxy Z Flip 3", "Samsung Galaxy A32", "Samsung Galaxy A51",
-      "Samsung Galaxy A21s", "Samsung Galaxy M21", "Samsung Galaxy M31", "Samsung Galaxy M32",
-      "Samsung Galaxy M51", "Samsung Galaxy J6", "Samsung Galaxy J7",
-      "Xiaomi Mi 11", "Xiaomi Mi 10", "Xiaomi Mi 9", "Xiaomi Redmi Note 10", "Xiaomi Redmi Note 11",
-      "Xiaomi Redmi Note 9", "Xiaomi Poco X3 Pro", "Xiaomi Poco F3", "Xiaomi Poco M3", "Xiaomi Mi Mix 4",
-      "Xiaomi Mi 9T Pro",
-      "Oppo Reno 5", "Oppo Reno 6", "Oppo Reno 7", "Oppo A54", "Oppo A74", "Oppo A92", "Oppo A15",
-      "Oppo Find X3 Pro", "Oppo Find X2 Pro", "Oppo Find X2 Neo", "Oppo A16", "Oppo A95", "Oppo F19 Pro",
-      "Vivo V21", "Vivo V21e", "Vivo V23", "Vivo V23e", "Vivo Y33s", "Vivo Y21", "Vivo Y51", "Vivo Y53s",
-      "Vivo Y73", "Vivo X60", "Vivo X60 Pro", "Vivo X70 Pro", "Vivo V17", "Vivo X50", "Vivo X30 Pro",
-      "Realme 8", "Realme 8 Pro", "Realme GT Master Edition", "Realme Narzo 30", "Realme Narzo 50",
-      "Realme X3", "Realme X3 SuperZoom", "Realme C15", "Realme C21", "Realme C25", "Realme 7 Pro",
-      "Realme 7i", "Realme 6 Pro",
-      "Asus Zenfone 8", "Asus Zenfone 7", "Asus ROG Phone 5", "Asus Zenfone 6", "Asus ROG Phone 3",
-      "Asus Zenfone Max Pro M2", "Asus Zenfone 4",
-      "Nokia 8.3 5G", "Nokia 7.2", "Nokia 6.2", "Nokia 5.3", "Nokia 3.4", "Nokia 2.4", "Nokia 6.1 Plus",
-      "Nokia X20", "Nokia 7.1",
-      "Huawei P40 Pro", "Huawei P30 Pro", "Huawei Mate 40 Pro", "Huawei Mate 30 Pro", "Huawei Nova 8",
-      "Huawei Nova 7",
-      "LG V60 ThinQ", "LG Velvet", "LG G8X ThinQ", "LG G7 ThinQ"
-    ];
-    const input = document.getElementById("phone-model");
-    new Awesomplete(input, {
-      list: models,
-      minChars: 1,
-      autoFirst: true
-    });
+    // Date formatting
+    const date = new Date();
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    document.getElementById("date").textContent = formattedDate;
+
+    // Generate invoice number (random for this demo)
+    document.getElementById("invoice-number").textContent = Math.floor(Math.random() * 1000000);
+
+    // Update services (for customization)
+    function updateServices() {
+      const services = [
+        { name: 'iPhone Screen Repair', price: 500000, quantity: 1 },
+        { name: 'Battery Replacement', price: 350000, quantity: 1 }
+      ];
+      const serviceList = document.getElementById("service-list");
+      let total = 0;
+
+      // Clear previous list
+      serviceList.innerHTML = '';
+
+      services.forEach(service => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${service.name}</td>
+          <td>Rp ${service.price.toLocaleString()}</td>
+          <td>${service.quantity}</td>
+          <td>Rp ${(service.price * service.quantity).toLocaleString()}</td>
+        `;
+        serviceList.appendChild(row);
+        total += service.price * service.quantity;
+      });
+
+      document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
+    }
+
+    // Initialize
+    updateServices();
   </script>
+
 </body>
 </html>
