@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Generator</title>
+    <title>Generator Invoice</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,31 +67,31 @@
 </head>
 <body>
     <div class="container">
-        <h1>Generate Your Invoice</h1>
+        <h1>Generate Invoice Anda</h1>
         <form id="invoice-form">
-            <label for="name">Customer Name:</label>
+            <label for="name">Nama Pelanggan:</label>
             <input type="text" id="name" required>
 
-            <label for="address">Address:</label>
+            <label for="address">Alamat:</label>
             <input type="text" id="address" required>
 
-            <label for="phone">Phone Model (iPhone/Android):</label>
+            <label for="phone">Model HP (iPhone/Android):</label>
             <input type="text" id="phone" required>
 
-            <label for="issue">Issue Description:</label>
+            <label for="issue">Deskripsi Masalah:</label>
             <textarea id="issue" required></textarea>
 
-            <label for="cost">Repair Cost:</label>
+            <label for="cost">Biaya Perbaikan:</label>
             <input type="number" id="cost" required>
 
-            <label for="date">Repair Date:</label>
+            <label for="date">Tanggal Perbaikan:</label>
             <input type="date" id="date" required>
 
             <button type="submit">Generate Invoice</button>
         </form>
 
         <div id="invoice-preview" class="hidden">
-            <h2>Invoice Preview</h2>
+            <h2>Preview Invoice</h2>
             <div id="invoice-content"></div>
             <button id="print-invoice">Print Invoice</button>
         </div>
@@ -100,6 +100,10 @@
     <!-- jsPDF CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toLocaleString('id-ID');
+        }
+
         document.getElementById('invoice-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -108,30 +112,30 @@
             const address = document.getElementById('address').value;
             const phone = document.getElementById('phone').value;
             const issue = document.getElementById('issue').value;
-            const cost = document.getElementById('cost').value;
+            const cost = parseFloat(document.getElementById('cost').value);
             const date = document.getElementById('date').value;
 
             // Create invoice content
             const invoiceContent = `
-                <h3>Customer: ${name}</h3>
-                <p><strong>Address:</strong> ${address}</p>
-                <p><strong>Phone Model:</strong> ${phone}</p>
-                <p><strong>Issue:</strong> ${issue}</p>
-                <p><strong>Repair Cost:</strong> $${cost}</p>
-                <p><strong>Repair Date:</strong> ${date}</p>
+                <h3>Pelanggan: ${name}</h3>
+                <p><strong>Alamat:</strong> ${address}</p>
+                <p><strong>Model HP:</strong> ${phone}</p>
+                <p><strong>Masalah:</strong> ${issue}</p>
+                <p><strong>Biaya Perbaikan:</strong> ${formatRupiah(cost)}</p>
+                <p><strong>Tanggal Perbaikan:</strong> ${date}</p>
                 <hr>
-                <h4><strong>Terms & Conditions:</strong></h4>
+                <h4><strong>Syarat & Ketentuan:</strong></h4>
                 <ul>
-                    <li>1. Warranty valid for 14 days after repair completion.</li>
-                    <li>2. Payment is due after the service is completed.</li>
-                    <li>3. Service charges are non-refundable once repair is done.</li>
-                    <li>4. Any malfunctioning caused by misuse is not covered under warranty.</li>
+                    <li>1. Garansi berlaku selama 14 hari setelah perbaikan selesai.</li>
+                    <li>2. Pembayaran dilakukan setelah layanan selesai.</li>
+                    <li>3. Biaya layanan tidak dapat dikembalikan setelah perbaikan dilakukan.</li>
+                    <li>4. Kerusakan akibat penyalahgunaan tidak termasuk dalam garansi.</li>
                 </ul>
-                <h4><strong>Payment Methods:</strong></h4>
+                <h4><strong>Metode Pembayaran:</strong></h4>
                 <ul>
-                    <li>1. Bank Transfer (BCA, Mandiri, BRI, etc.)</li>
-                    <li>2. Cash on Delivery (COD)</li>
-                    <li>3. E-Wallets (OVO, GoPay, DANA, etc.)</li>
+                    <li>1. Transfer Bank (BCA, Mandiri, BRI, dll.)</li>
+                    <li>2. Pembayaran di Tempat (COD)</li>
+                    <li>3. E-Wallet (OVO, GoPay, DANA, dll.)</li>
                 </ul>
             `;
 
