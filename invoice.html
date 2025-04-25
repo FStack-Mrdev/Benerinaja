@@ -1,299 +1,90 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        .invoice-details {
-            margin-top: 20px;
-        }
-
-        .invoice-details .row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .invoice-details .row span {
-            font-weight: bold;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice - benerin.aja</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.css" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    h1 { color: #333; }
+    label { display: block; margin-top: 15px; }
+    input, textarea, select, button {
+      width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc;
+    }
+    .btn { background-color: #28a745; color: white; cursor: pointer; margin-top: 20px; }
+    .btn:hover { background-color: #218838; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Invoice Perbaikan Handphone</h2>
-        <form id="invoice-form">
-            <div class="form-group">
-                <label for="customer-name">Nama Pelanggan</label>
-                <input type="text" id="customer-name" name="customer-name" required>
-            </div>
-            <div class="form-group">
-                <label for="phone-model">Model HP</label>
-                <input type="text" id="phone-model" name="phone-model" list="phone-models" required>
-                <datalist id="phone-models">
-                    <!-- iPhone Models -->
-                    <option value="iPhone 13">
-                    <option value="iPhone 13 Pro">
-                    <option value="iPhone 13 Pro Max">
-                    <option value="iPhone 12">
-                    <option value="iPhone 12 Mini">
-                    <option value="iPhone 12 Pro">
-                    <option value="iPhone 12 Pro Max">
-                    <option value="iPhone 11">
-                    <option value="iPhone 11 Pro">
-                    <option value="iPhone 11 Pro Max">
-                    <option value="iPhone XR">
-                    <option value="iPhone XS">
-                    <option value="iPhone XS Max">
-                    <option value="iPhone SE (2020)">
-                    <option value="iPhone SE (2022)">
-                    <!-- Samsung Models -->
-                    <option value="Samsung Galaxy S21">
-                    <option value="Samsung Galaxy S21+">
-                    <option value="Samsung Galaxy S21 Ultra">
-                    <option value="Samsung Galaxy S20">
-                    <option value="Samsung Galaxy S20 FE">
-                    <option value="Samsung Galaxy Note 20">
-                    <option value="Samsung Galaxy A52">
-                    <option value="Samsung Galaxy A72">
-                    <option value="Samsung Galaxy Z Fold 3">
-                    <option value="Samsung Galaxy Z Flip 3">
-                    <option value="Samsung Galaxy A32">
-                    <option value="Samsung Galaxy A51">
-                    <option value="Samsung Galaxy A21s">
-                    <option value="Samsung Galaxy M21">
-                    <option value="Samsung Galaxy M31">
-                    <option value="Samsung Galaxy M32">
-                    <option value="Samsung Galaxy M51">
-                    <option value="Samsung Galaxy J6">
-                    <option value="Samsung Galaxy J7">
-                    <!-- Xiaomi Models -->
-                    <option value="Xiaomi Mi 11">
-                    <option value="Xiaomi Mi 10">
-                    <option value="Xiaomi Mi 9">
-                    <option value="Xiaomi Redmi Note 10">
-                    <option value="Xiaomi Redmi Note 11">
-                    <option value="Xiaomi Redmi Note 9">
-                    <option value="Xiaomi Poco X3 Pro">
-                    <option value="Xiaomi Poco F3">
-                    <option value="Xiaomi Poco M3">
-                    <option value="Xiaomi Mi Mix 4">
-                    <option value="Xiaomi Mi 9T Pro">
-                    <!-- Oppo Models -->
-                    <option value="Oppo Reno 5">
-                    <option value="Oppo Reno 6">
-                    <option value="Oppo Reno 7">
-                    <option value="Oppo A54">
-                    <option value="Oppo A74">
-                    <option value="Oppo A92">
-                    <option value="Oppo A15">
-                    <option value="Oppo Find X3 Pro">
-                    <option value="Oppo Find X2 Pro">
-                    <option value="Oppo Find X2 Neo">
-                    <option value="Oppo A16">
-                    <option value="Oppo A95">
-                    <option value="Oppo F19 Pro">
-                    <!-- Vivo Models -->
-                    <option value="Vivo V21">
-                    <option value="Vivo V21e">
-                    <option value="Vivo V23">
-                    <option value="Vivo V23e">
-                    <option value="Vivo Y33s">
-                    <option value="Vivo Y21">
-                    <option value="Vivo Y51">
-                    <option value="Vivo Y53s">
-                    <option value="Vivo Y73">
-                    <option value="Vivo X60">
-                    <option value="Vivo X60 Pro">
-                    <option value="Vivo X70 Pro">
-                    <option value="Vivo V17">
-                    <option value="Vivo X50">
-                    <option value="Vivo X30 Pro">
-                    <!-- Realme Models -->
-                    <option value="Realme 8">
-                    <option value="Realme 8 Pro">
-                    <option value="Realme GT Master Edition">
-                    <option value="Realme Narzo 30">
-                    <option value="Realme Narzo 50">
-                    <option value="Realme X3">
-                    <option value="Realme X3 SuperZoom">
-                    <option value="Realme C15">
-                    <option value="Realme C21">
-                    <option value="Realme C25">
-                    <option value="Realme 7 Pro">
-                    <option value="Realme 7i">
-                    <option value="Realme 6 Pro">
-                    <!-- Asus Models -->
-                    <option value="Asus Zenfone 8">
-                    <option value="Asus Zenfone 7">
-                    <option value="Asus ROG Phone 5">
-                    <option value="Asus Zenfone 6">
-                    <option value="Asus ROG Phone 3">
-                    <option value="Asus Zenfone Max Pro M2">
-                    <option value="Asus Zenfone 4">
-                    <!-- Nokia Models -->
-                    <option value="Nokia 8.3 5G">
-                    <option value="Nokia 7.2">
-                    <option value="Nokia 6.2">
-                    <option value="Nokia 5.3">
-                    <option value="Nokia 3.4">
-                    <option value="Nokia 2.4">
-                    <option value="Nokia 6.1 Plus">
-                    <option value="Nokia X20">
-                    <option value="Nokia 7.1">
-                    <!-- Huawei Models -->
-                    <option value="Huawei P40 Pro">
-                    <option value="Huawei P30 Pro">
-                    <option value="Huawei Mate 40 Pro">
-                    <option value="Huawei Mate 30 Pro">
-                    <option value="Huawei Nova 8">
-                    <option value="Huawei Nova 7">
-                    <!-- LG Models -->
-                    <option value="LG V60 ThinQ">
-                    <option value="LG Velvet">
-                    <option value="LG G8X ThinQ">
-                    <option value="LG G7 ThinQ">
-                </datalist>
-            </div>
-            <div class="form-group">
-                <label for="repair-type">Jenis Perbaikan</label>
-                <input type="text" id="repair-type" name="repair-type" required>
-            </div>
-            <div class="form-group">
-                <label for="price">Harga (Rp)</label>
-                <input type="number" id="price" name="price" required>
-            </div>
-            <div class="form-group">
-                <label for="payment-method">Metode Pembayaran</label>
-                <select id="payment-method" name="payment-method" required>
-                    <option value="Cash">Cash</option>
-                    <option value="Transfer Bank">Transfer Bank</option>
-                    <option value="E-wallet">E-wallet</option>
-                    <option value="Credit Card">Credit Card</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="warranty">Garansi (Bulan)</label>
-                <input type="number" id="warranty" name="warranty" required>
-            </div>
-            <button type="button" onclick="generateInvoice()">Generate Invoice</button>
-        </form>
+  <h1>Form Invoice Perbaikan HP</h1>
+  <form id="invoice-form">
+    <label for="customer-name">Nama Pelanggan</label>
+    <input type="text" id="customer-name" name="customer-name" required />
 
-        <div id="invoice-output" class="invoice-details">
-            <!-- Output invoice details will go here -->
-        </div>
+    <label for="phone-model">Model HP</label>
+    <input type="text" id="phone-model" name="phone-model" placeholder="Ketik atau pilih model HP" required />
 
-        <div class="footer">
-            <p>Terima kasih telah menggunakan layanan kami. <br> Syarat dan ketentuan berlaku.</p>
-        </div>
-    </div>
+    <label for="problem">Kerusakan</label>
+    <textarea id="problem" name="problem" required></textarea>
 
-    <script>
-        function generateInvoice() {
-            const customerName = document.getElementById("customer-name").value;
-            const phoneModel = document.getElementById("phone-model").value;
-            const repairType = document.getElementById("repair-type").value;
-            const price = document.getElementById("price").value;
-            const paymentMethod = document.getElementById("payment-method").value;
-            const warranty = document.getElementById("warranty").value;
+    <label for="price">Harga (Rp)</label>
+    <input type="number" id="price" name="price" required />
 
-            let total = parseFloat(price);
-            let formattedTotal = total.toLocaleString('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            });
+    <label for="payment">Metode Pembayaran</label>
+    <select id="payment" name="payment">
+      <option value="cash">Cash</option>
+      <option value="transfer">Transfer Bank</option>
+      <option value="qris">QRIS</option>
+    </select>
 
-            let invoiceHTML = `
-                <div class="row">
-                    <span>Nama Pelanggan:</span><span>${customerName}</span>
-                </div>
-                <div class="row">
-                    <span>Model HP:</span><span>${phoneModel}</span>
-                </div>
-                <div class="row">
-                    <span>Jenis Perbaikan:</span><span>${repairType}</span>
-                </div>
-                <div class="row">
-                    <span>Harga:</span><span>${formattedTotal}</span>
-                </div>
-                <div class="row">
-                    <span>Metode Pembayaran:</span><span>${paymentMethod}</span>
-                </div>
-                <div class="row">
-                    <span>Garansi (Bulan):</span><span>${warranty}</span>
-                </div>
-                <div class="row">
-                    <span><strong>Total:</strong></span><span><strong>${formattedTotal}</strong></span>
-                </div>
-                <button onclick="window.print()">Print Invoice</button>
-            `;
+    <label for="warranty">Garansi (contoh: 30 hari)</label>
+    <input type="text" id="warranty" name="warranty" />
 
-            document.getElementById("invoice-output").innerHTML = invoiceHTML;
-        }
-    </script>
+    <label for="terms">Syarat dan Ketentuan</label>
+    <textarea id="terms" name="terms">1. Garansi tidak berlaku jika kerusakan disebabkan oleh kelalaian pengguna.
+2. Segala bentuk klaim garansi harus disertai invoice ini.
+3. Pembayaran dilakukan sesuai metode yang dipilih dan disepakati.
+    </textarea>
+
+    <button type="button" class="btn" onclick="window.print()">Cetak Invoice</button>
+  </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
+  <script>
+    const models = [
+      "iPhone 13", "iPhone 13 Pro", "iPhone 13 Pro Max", "iPhone 12", "iPhone 12 Mini", "iPhone 12 Pro", 
+      "iPhone 12 Pro Max", "iPhone 11", "iPhone 11 Pro", "iPhone 11 Pro Max", "iPhone XR", "iPhone XS", 
+      "iPhone XS Max", "iPhone SE (2020)", "iPhone SE (2022)",
+      "Samsung Galaxy S21", "Samsung Galaxy S21+", "Samsung Galaxy S21 Ultra", "Samsung Galaxy S20", 
+      "Samsung Galaxy S20 FE", "Samsung Galaxy Note 20", "Samsung Galaxy A52", "Samsung Galaxy A72",
+      "Samsung Galaxy Z Fold 3", "Samsung Galaxy Z Flip 3", "Samsung Galaxy A32", "Samsung Galaxy A51",
+      "Samsung Galaxy A21s", "Samsung Galaxy M21", "Samsung Galaxy M31", "Samsung Galaxy M32",
+      "Samsung Galaxy M51", "Samsung Galaxy J6", "Samsung Galaxy J7",
+      "Xiaomi Mi 11", "Xiaomi Mi 10", "Xiaomi Mi 9", "Xiaomi Redmi Note 10", "Xiaomi Redmi Note 11",
+      "Xiaomi Redmi Note 9", "Xiaomi Poco X3 Pro", "Xiaomi Poco F3", "Xiaomi Poco M3", "Xiaomi Mi Mix 4",
+      "Xiaomi Mi 9T Pro",
+      "Oppo Reno 5", "Oppo Reno 6", "Oppo Reno 7", "Oppo A54", "Oppo A74", "Oppo A92", "Oppo A15",
+      "Oppo Find X3 Pro", "Oppo Find X2 Pro", "Oppo Find X2 Neo", "Oppo A16", "Oppo A95", "Oppo F19 Pro",
+      "Vivo V21", "Vivo V21e", "Vivo V23", "Vivo V23e", "Vivo Y33s", "Vivo Y21", "Vivo Y51", "Vivo Y53s",
+      "Vivo Y73", "Vivo X60", "Vivo X60 Pro", "Vivo X70 Pro", "Vivo V17", "Vivo X50", "Vivo X30 Pro",
+      "Realme 8", "Realme 8 Pro", "Realme GT Master Edition", "Realme Narzo 30", "Realme Narzo 50",
+      "Realme X3", "Realme X3 SuperZoom", "Realme C15", "Realme C21", "Realme C25", "Realme 7 Pro",
+      "Realme 7i", "Realme 6 Pro",
+      "Asus Zenfone 8", "Asus Zenfone 7", "Asus ROG Phone 5", "Asus Zenfone 6", "Asus ROG Phone 3",
+      "Asus Zenfone Max Pro M2", "Asus Zenfone 4",
+      "Nokia 8.3 5G", "Nokia 7.2", "Nokia 6.2", "Nokia 5.3", "Nokia 3.4", "Nokia 2.4", "Nokia 6.1 Plus",
+      "Nokia X20", "Nokia 7.1",
+      "Huawei P40 Pro", "Huawei P30 Pro", "Huawei Mate 40 Pro", "Huawei Mate 30 Pro", "Huawei Nova 8",
+      "Huawei Nova 7",
+      "LG V60 ThinQ", "LG Velvet", "LG G8X ThinQ", "LG G7 ThinQ"
+    ];
+    const input = document.getElementById("phone-model");
+    new Awesomplete(input, {
+      list: models,
+      minChars: 1,
+      autoFirst: true
+    });
+  </script>
 </body>
 </html>
