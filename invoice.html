@@ -96,6 +96,14 @@
     .btn:hover {
       background-color: #45a049;
     }
+    .add-item-btn {
+      background-color: #2196F3;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .add-item-btn:hover {
+      background-color: #1976D2;
+    }
     @media (max-width: 600px) {
       .invoice-header {
         flex-direction: column;
@@ -169,6 +177,8 @@
       <span id="total-price">Rp 850.000</span>
     </div>
 
+    <button class="btn add-item-btn" onclick="addItem()">Add Service</button>
+
     <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
   </div>
 
@@ -185,12 +195,14 @@
     // Generate invoice number (random for this demo)
     document.getElementById("invoice-number").textContent = Math.floor(Math.random() * 1000000);
 
-    // Update services (for customization)
+    // Services data (for customization)
+    const services = [
+      { name: 'iPhone Screen Repair', price: 500000, quantity: 1 },
+      { name: 'Battery Replacement', price: 350000, quantity: 1 }
+    ];
+
+    // Update invoice table with current services
     function updateServices() {
-      const services = [
-        { name: 'iPhone Screen Repair', price: 500000, quantity: 1 },
-        { name: 'Battery Replacement', price: 350000, quantity: 1 }
-      ];
       const serviceList = document.getElementById("service-list");
       let total = 0;
 
@@ -210,6 +222,18 @@
       });
 
       document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
+    }
+
+    // Add new service to the list
+    function addItem() {
+      // Adding a new service (you can customize this)
+      const newService = {
+        name: 'New Service',
+        price: 200000,
+        quantity: 1
+      };
+      services.push(newService);
+      updateServices();
     }
 
     // Initialize
