@@ -529,3 +529,40 @@ form button {
       }
     }
   </style>
+
+.invoice-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.invoice-bottom .qris,
+.invoice-bottom .terms {
+  flex: 1 1 300px;
+}
+
+.invoice-bottom img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+.invoice-bottom .terms {
+  font-size: 0.9rem;
+  color: #555;
+  text-align: justify;
+}
+
+@media (max-width: 768px) {
+  .invoice-bottom {
+    flex-direction: column;
+  }
+
+  .invoice-bottom .qris,
+  .invoice-bottom .terms {
+    flex: 1 1 100%;
+  }
+}
