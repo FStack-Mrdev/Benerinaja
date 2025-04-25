@@ -113,6 +113,11 @@
     #add-item-form button {
       margin-top: 10px;
     }
+    /* Form hidden initially */
+    #add-item-form {
+      display: none;
+      margin-top: 20px;
+    }
     @media (max-width: 600px) {
       .invoice-header {
         flex-direction: column;
@@ -188,12 +193,13 @@
 
     <button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
 
-    <div id="add-item-form" style="display:none; margin-top: 20px;">
-      <input type="text" id="new-service-name" placeholder="Service Name" required>
-      <input type="number" id="new-service-price" placeholder="Price" required>
-      <input type="number" id="new-service-quantity" placeholder="Quantity" required>
-      <button class="btn" onclick="submitNewItem()">Add Item</button>
-      <button class="btn" onclick="cancelAddItem()">Cancel</button>
+    <!-- Form to add customer info -->
+    <div id="customer-info-form" style="display:none; margin-top: 20px;">
+      <input type="text" id="customer-name-input" placeholder="Customer Name" required>
+      <input type="text" id="address-input" placeholder="Address" required>
+      <input type="text" id="phone-input" placeholder="Phone" required>
+      <button class="btn" onclick="saveCustomerInfo()">Save Customer Info</button>
+      <button class="btn" onclick="cancelCustomerInfo()">Cancel</button>
     </div>
 
     <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
@@ -243,31 +249,30 @@
 
     // Show add item form
     function showAddItemForm() {
-      document.getElementById("add-item-form").style.display = "block"; // Tampilkan form
+      document.getElementById("customer-info-form").style.display = "block"; // Tampilkan form untuk input customer info
       document.querySelector(".add-item-btn").style.display = "none";  // Sembunyikan tombol Add Service
     }
 
-    // Cancel adding item
-    function cancelAddItem() {
-      document.getElementById("add-item-form").style.display = "none"; // Sembunyikan form
-      document.querySelector(".add-item-btn").style.display = "inline-block";  // Tampilkan tombol Add Service
-    }
+    // Save customer info
+    function saveCustomerInfo() {
+      const name = document.getElementById("customer-name-input").value;
+      const address = document.getElementById("address-input").value;
+      const phone = document.getElementById("phone-input").value;
 
-    // Add new service to the list
-    function submitNewItem() {
-      const name = document.getElementById("new-service-name").value;
-      const price = parseFloat(document.getElementById("new-service-price").value);
-      const quantity = parseInt(document.getElementById("new-service-quantity").value);
-
-      // Validate input
-      if (name && price && quantity) {
-        const newService = { name, price, quantity };
-        services.push(newService);
-        updateServices();
-        cancelAddItem();
+      if (name && address && phone) {
+        document.getElementById("customer-name").textContent = name;
+        document.getElementById("address").textContent = address;
+        document.getElementById("phone").textContent = phone;
+        cancelCustomerInfo();
       } else {
         alert("Please fill in all fields.");
       }
+    }
+
+    // Cancel customer info input
+    function cancelCustomerInfo() {
+      document.getElementById("customer-info-form").style.display = "none";  // Sembunyikan form input customer info
+      document.querySelector(".add-item-btn").style.display = "inline-block";  // Tampilkan tombol Add Service
     }
 
     // Initialize
