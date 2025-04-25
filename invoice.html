@@ -193,13 +193,21 @@
 
     <button class="btn add-item-btn" onclick="showAddItemForm()">Add Service</button>
 
-    <!-- Form to add customer info -->
-    <div id="customer-info-form" style="display:none; margin-top: 20px;">
+    <!-- Form to add customer and service info -->
+    <div id="add-item-form" style="display:none;">
+      <h3>Add Service</h3>
+      <!-- Customer info -->
       <input type="text" id="customer-name-input" placeholder="Customer Name" required>
       <input type="text" id="address-input" placeholder="Address" required>
       <input type="text" id="phone-input" placeholder="Phone" required>
-      <button class="btn" onclick="saveCustomerInfo()">Save Customer Info</button>
-      <button class="btn" onclick="cancelCustomerInfo()">Cancel</button>
+
+      <!-- Service info -->
+      <input type="text" id="service-name-input" placeholder="Service Name" required>
+      <input type="number" id="service-price-input" placeholder="Unit Price" required>
+      <input type="number" id="service-quantity-input" placeholder="Quantity" required>
+
+      <button class="btn" onclick="saveCustomerAndService()">Save</button>
+      <button class="btn" onclick="cancelAddItemForm()">Cancel</button>
     </div>
 
     <a href="#" class="btn" onclick="window.print();">Print Invoice</a>
@@ -247,37 +255,20 @@
       document.getElementById("total-price").textContent = `Rp ${total.toLocaleString()}`;
     }
 
-    // Show add item form
+    // Show form for adding customer and service
     function showAddItemForm() {
-      document.getElementById("customer-info-form").style.display = "block"; // Tampilkan form untuk input customer info
-      document.querySelector(".add-item-btn").style.display = "none";  // Sembunyikan tombol Add Service
+      document.getElementById("add-item-form").style.display = "block";  // Show form
+      document.querySelector(".add-item-btn").style.display = "none";  // Hide Add Service button
     }
 
-    // Save customer info
-    function saveCustomerInfo() {
-      const name = document.getElementById("customer-name-input").value;
+    // Save customer info and service info
+    function saveCustomerAndService() {
+      // Get customer info
+      const customerName = document.getElementById("customer-name-input").value;
       const address = document.getElementById("address-input").value;
       const phone = document.getElementById("phone-input").value;
 
-      if (name && address && phone) {
-        document.getElementById("customer-name").textContent = name;
-        document.getElementById("address").textContent = address;
-        document.getElementById("phone").textContent = phone;
-        cancelCustomerInfo();
-      } else {
-        alert("Please fill in all fields.");
-      }
-    }
-
-    // Cancel customer info input
-    function cancelCustomerInfo() {
-      document.getElementById("customer-info-form").style.display = "none";  // Sembunyikan form input customer info
-      document.querySelector(".add-item-btn").style.display = "inline-block";  // Tampilkan tombol Add Service
-    }
-
-    // Initialize
-    updateServices();
-  </script>
-
-</body>
-</html>
+      // Get service info
+      const serviceName = document.getElementById("service-name-input").value;
+      const servicePrice = parseFloat(document.getElementById("service-price-input").value);
+      const
