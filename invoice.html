@@ -59,12 +59,39 @@
   align-items: center;
   text-align: center;
 }
+    /** header container **/
+    .header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.header-container h1 {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  text-shadow: 2px 2px 0px #ccc;
+}
+
+.header-container p {
+  font-size: 14px;
+  margin: 0;
+  color: #666;
+  text-align: center;
+}
   </style>
 </head>
 <body>
+   <div class="header-container">
     <h1>INVOICE G BY ISSA</h1>
     <p>Get your transactions sorted with style</p>
-
+   </div>
   <div class="grid-container">
   <div class="grid-item">Item 1</div>
   <div class="grid-item">Item 2</div>
