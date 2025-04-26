@@ -85,6 +85,32 @@
   color: #666;
   text-align: center;
 }
+    .header-container {
+  background-image: url('doodle.png'); /* Ganti dengan path file lu */
+  background-repeat: repeat;
+  background-size: cover; /* Cover supaya penuh, otomatis menyesuaikan */
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.9); /* Putih semi transparan buat overlay */
+  background-blend-mode: overlay;
+  padding: 30px 20px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+/* Untuk teks di header */
+.header-container h1, 
+.header-container p {
+  position: relative;
+  z-index: 1; /* Pastikan teks di atas background */
+}
+
+/* Tambahan supaya header nggak terlalu besar di HP */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 20px 10px;
+    background-size: contain; /* Supaya doodle nggak kegedean di HP */
+  }
+}
   </style>
 </head>
 <body>
