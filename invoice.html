@@ -3,230 +3,153 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Invoice Generator - Benerin.aja</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #56ccf2, #2f80ed);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    .container {
-      background: #eaf6ff;
-      padding: 30px;
-      border-radius: 15px;
-      width: 100%;
-      max-width: 800px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-    h1, h2 {
-      text-align: center;
-      margin: 0 0 10px 0;
-    }
-    label {
-      font-weight: 600;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-family: 'Poppins', sans-serif;
-    }
-    button {
-      background: #2f80ed;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #1c60c2;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
-    }
-    .total {
-      text-align: right;
-      margin-top: 10px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #555;
-    }
-    @media print {
-      body {
-        background: white;
-      }
-      .no-print {
-        display: none;
-      }
-      .container {
-        box-shadow: none;
-      }
-    }
-  </style>
+  <title>Invoice Generator - Benerin HP Onsite</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen p-6 font-sans">
 
-<div class="container" id="invoiceArea">
-  <div style="text-align: center; margin-bottom: 20px;">
-    <h1>benerin.<span style="color:green;">aja</span></h1>
-    <h2>INVOICE</h2>
+  <!-- FORM SECTION -->
+  <div id="form-section" class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">Buat Invoice Baru</h1>
+    <form id="invoiceForm" class="space-y-4">
+      <div>
+        <label class="block font-semibold">Nama Pelanggan</label>
+        <input type="text" id="namaPelanggan" class="w-full border p-2 rounded" required>
+      </div>
+
+      <!-- Dynamic Items -->
+      <div id="items" class="space-y-4">
+        <div class="item flex space-x-2">
+          <input type="text" placeholder="Nama Layanan" class="layanan flex-1 border p-2 rounded" required>
+          <input type="number" placeholder="Harga (Rp)" class="harga flex-1 border p-2 rounded" required>
+          <button type="button" onclick="removeItem(this)" class="bg-red-500 text-white px-2 rounded">Hapus</button>
+        </div>
+      </div>
+
+      <button type="button" onclick="addItem()" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Tambah Layanan</button>
+
+      <div class="mt-4">
+        <label class="block font-semibold">Link Pembayaran (QR Code)</label>
+        <input type="text" id="paymentLink" class="w-full border p-2 rounded" required>
+      </div>
+
+      <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 mt-4">Generate Invoice</button>
+    </form>
   </div>
 
-  <div class="no-print">
-    <label>Nama Customer</label>
-    <input type="text" id="customerName">
+  <!-- INVOICE SECTION -->
+  <div id="invoice-section" class="hidden max-w-3xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-blue-600">INVOICE</h2>
+        <p id="invoiceNumber" class="text-sm text-gray-500"></p>
+      </div>
+      <div>
+        <!-- Ganti src logo sesuai bisnis lu -->
+        <img src="your-logo.png" alt="Logo" class="w-24">
+      </div>
+    </div>
 
-    <label>Alamat</label>
-    <input type="text" id="customerAddress">
+    <div class="mb-6">
+      <p><strong>Nama Pelanggan:</strong> <span id="namaDisplay"></span></p>
+    </div>
 
-    <label>Nomor Telepon</label>
-    <input type="text" id="customerPhone">
-
-    <label>Tanggal</label>
-    <input type="date" id="invoiceDate">
-
-    <hr>
-
-    <label>Nama Service</label>
-    <input type="text" id="serviceName">
-
-    <label>Harga Satuan (Rp)</label>
-    <input type="number" id="unitPrice">
-
-    <label>Quantity</label>
-    <input type="number" id="quantity" value="1">
-
-    <button onclick="addService()">Tambah Service</button>
-    <button onclick="generateInvoice()">Generate Invoice</button>
-  </div>
-
-  <div id="invoiceContent" style="margin-top:20px;">
-    <p><strong>No. Invoice:</strong> <span id="invoiceNumber"></span></p>
-    <p><strong>Nama:</strong> <span id="showCustomerName"></span></p>
-    <p><strong>Alamat:</strong> <span id="showCustomerAddress"></span></p>
-    <p><strong>Telepon:</strong> <span id="showCustomerPhone"></span></p>
-    <p><strong>Tanggal:</strong> <span id="showInvoiceDate"></span></p>
-
-    <table id="serviceTable">
+    <table class="w-full mb-6 border">
       <thead>
-        <tr>
-          <th>Nama Service</th>
-          <th>Harga Satuan</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
+        <tr class="bg-blue-100">
+          <th class="border p-2 text-left">Layanan</th>
+          <th class="border p-2 text-right">Harga (Rp)</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="itemList" class="text-gray-700">
+        <!-- Items will appear here -->
       </tbody>
     </table>
 
-    <div class="total" id="totalAmount">Total: Rp 0</div>
+    <div class="text-right font-bold text-lg mb-6">
+      Total: Rp <span id="totalHarga"></span>
+    </div>
 
-    <div class="footer">
-      <p><strong>Syarat & Ketentuan:</strong> Pembayaran harus diselesaikan setelah service selesai. Garansi service 30 hari untuk masalah yang sama.</p>
-      <br><br>
-      <p style="text-align: right;">Hormat Kami,<br>Tim Benerin.aja</p>
+    <div class="mb-6 flex flex-col items-center">
+      <canvas id="qrcode" class="mb-2"></canvas>
+      <p class="text-sm text-gray-500">Scan untuk pembayaran</p>
+    </div>
+
+    <div class="text-sm text-gray-700 mt-6">
+      <h3 class="font-bold mb-2">Syarat dan Ketentuan Garansi:</h3>
+      <ul class="list-disc ml-5 space-y-1">
+        <li>Garansi 30 hari hanya untuk perbaikan tertentu.</li>
+        <li>Garansi batal jika kerusakan akibat jatuh, air, atau kelalaian pengguna.</li>
+        <li>Invoice ini wajib ditunjukkan saat klaim garansi.</li>
+      </ul>
+    </div>
+
+    <div class="mt-8 text-center">
+      <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Print Invoice</button>
     </div>
   </div>
-</div>
 
-<script>
-  let services = [];
-  let invoiceCounter = 1;
+  <script>
+    let invoiceCount = 1;
 
-  function formatRupiah(angka) {
-    return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
+    document.getElementById('invoiceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-  function updateInvoiceNumber() {
-    const today = new Date();
-    const dateStr = today.getFullYear().toString() + 
-                    String(today.getMonth()+1).padStart(2, '0') +
-                    String(today.getDate()).padStart(2, '0');
-    document.getElementById('invoiceNumber').textContent = 'INV' + dateStr + '-' + String(invoiceCounter).padStart(3, '0');
-  }
+      document.getElementById('form-section').classList.add('hidden');
+      document.getElementById('invoice-section').classList.remove('hidden');
 
-  function addService() {
-    const name = document.getElementById('serviceName').value;
-    const price = parseInt(document.getElementById('unitPrice').value);
-    const qty = parseInt(document.getElementById('quantity').value);
+      const nama = document.getElementById('namaPelanggan').value;
+      const items = document.querySelectorAll('#items .item');
+      const paymentLink = document.getElementById('paymentLink').value;
 
-    if (!name || !price || !qty) {
-      alert('Lengkapi data Service!');
-      return;
-    }
+      document.getElementById('invoiceNumber').textContent = 'INV-' + String(invoiceCount).padStart(3, '0');
+      document.getElementById('namaDisplay').textContent = nama;
 
-    services.push({name, price, qty});
-    renderServices();
-    document.getElementById('serviceName').value = '';
-    document.getElementById('unitPrice').value = '';
-    document.getElementById('quantity').value = 1;
-  }
+      const itemList = document.getElementById('itemList');
+      itemList.innerHTML = '';
+      let total = 0;
 
-  function renderServices() {
-    const tbody = document.getElementById('serviceTable').querySelector('tbody');
-    tbody.innerHTML = '';
-    let total = 0;
-    services.forEach(service => {
-      const subtotal = service.price * service.qty;
-      total += subtotal;
-      const row = `<tr>
-        <td>${service.name}</td>
-        <td>${formatRupiah(service.price)}</td>
-        <td>${service.qty}</td>
-        <td>${formatRupiah(subtotal)}</td>
-      </tr>`;
-      tbody.innerHTML += row;
+      items.forEach(item => {
+        const layanan = item.querySelector('.layanan').value;
+        const harga = parseInt(item.querySelector('.harga').value);
+
+        total += harga;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="border p-2">${layanan}</td>
+          <td class="border p-2 text-right">${harga.toLocaleString('id-ID')}</td>
+        `;
+        itemList.appendChild(row);
+      });
+
+      document.getElementById('totalHarga').textContent = total.toLocaleString('id-ID');
+
+      const qr = new QRious({
+        element: document.getElementById('qrcode'),
+        value: paymentLink,
+        size: 150
+      });
+
+      invoiceCount++;
     });
-    document.getElementById('totalAmount').textContent = 'Total: ' + formatRupiah(total);
-  }
 
-  function generateInvoice() {
-    const customerName = document.getElementById('customerName').value;
-    const customerAddress = document.getElementById('customerAddress').value;
-    const customerPhone = document.getElementById('customerPhone').value;
-    const invoiceDate = document.getElementById('invoiceDate').value;
-
-    if (!customerName || !customerAddress || !customerPhone || !invoiceDate || services.length == 0) {
-      alert('Lengkapi semua data Customer & Service!');
-      return;
+    function addItem() {
+      const itemHTML = `
+        <div class="item flex space-x-2">
+          <input type="text" placeholder="Nama Layanan" class="layanan flex-1 border p-2 rounded" required>
+          <input type="number" placeholder="Harga (Rp)" class="harga flex-1 border p-2 rounded" required>
+          <button type="button" onclick="removeItem(this)" class="bg-red-500 text-white px-2 rounded">Hapus</button>
+        </div>
+      `;
+      document.getElementById('items').insertAdjacentHTML('beforeend', itemHTML);
     }
 
-    document.getElementById('showCustomerName').textContent = customerName;
-    document.getElementById('showCustomerAddress').textContent = customerAddress;
-    document.getElementById('showCustomerPhone').textContent = customerPhone;
-    document.getElementById('showInvoiceDate').textContent = invoiceDate;
-
-    updateInvoiceNumber();
-    window.print();
-    invoiceCounter++;
-  }
-
-  window.onload = () => {
-    const today = new Date();
-    document.getElementById('invoiceDate').valueAsDate = today;
-    updateInvoiceNumber();
-  };
-</script>
+    function removeItem(button) {
+      button.parentElement.remove();
+    }
+  </script>
 
 </body>
 </html>
