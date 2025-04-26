@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +7,22 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: #f4f8fc;
+            color: #333;
+            padding: 20px;
             margin: 0;
-            padding: 0;
-            background-color: #f0f8ff;
         }
         .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background-color: #fff;
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
+            background: #fff;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #2d87f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         h1 {
-            font-size: 36px;
-        }
-        h2 {
-            color: #3a3a3a;
-            margin-bottom: 10px;
+            text-align: center;
+            color: #3f83c3;
         }
         .form-group {
             margin-bottom: 15px;
@@ -39,183 +31,171 @@
             display: block;
             font-weight: bold;
         }
-        input, select, button {
+        input, select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
-        }
-        select:focus, input:focus {
-            border-color: #2d87f0;
-        }
-        .paid-status {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
+            font-size: 16px;
         }
         .btn {
-            margin-top: 20px;
-            padding: 12px;
-            background-color: #2d87f0;
+            padding: 12px 20px;
+            background-color: #3f83c3;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
         }
         .btn:hover {
-            background-color: #1d69c0;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
+            background-color: #3498db;
         }
         .watermark {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            top: 30%;
+            left: 40%;
             font-size: 50px;
-            color: rgba(0, 0, 0, 0.1);
-            font-family: 'Courier', sans-serif;
-            font-weight: bold;
+            opacity: 0.1;
+            color: #3f83c3;
+            transform: rotate(-45deg);
             z-index: -1;
         }
-        .signature {
-            text-align: right;
-            margin-top: 50px;
+        .paid {
+            color: green;
         }
-        .syarat {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #333;
+        .unpaid {
+            color: red;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header>
-            <h1>Welcome to Invoice Generator by Issa</h1>
-            <p>Silakan buat invoice profesional Anda dengan mudah!</p>
-        </header>
-
+        <h1>Welcome to Invoice Generator by Issa</h1>
+        
         <div class="form-group">
             <label for="invoiceNumber">Invoice Number</label>
-            <input type="text" id="invoiceNumber" disabled>
+            <input type="text" id="invoiceNumber" value="INV-001" readonly>
         </div>
-
+        
         <div class="form-group">
-            <label for="invoiceDate">Tanggal Invoice</label>
-            <input type="date" id="invoiceDate" disabled>
+            <label for="date">Date</label>
+            <input type="text" id="date" value="" readonly>
         </div>
-
+        
         <div class="form-group">
-            <label for="customerName">Nama Pelanggan</label>
-            <input type="text" id="customerName" placeholder="Masukkan Nama Pelanggan">
+            <label for="customerName">Customer Name</label>
+            <input type="text" id="customerName" placeholder="Enter customer name">
         </div>
-
+        
         <div class="form-group">
-            <label for="damageType">Jenis Kerusakan</label>
-            <input type="text" id="damageType" placeholder="Masukkan Jenis Kerusakan">
+            <label for="customerPhone">Customer Phone Number</label>
+            <input type="text" id="customerPhone" placeholder="Enter customer phone number">
         </div>
-
+        
+        <div class="form-group">
+            <label for="damageType">Type of Damage</label>
+            <input type="text" id="damageType" placeholder="Enter type of damage">
+        </div>
+        
         <div class="form-group">
             <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" placeholder="Jumlah">
+            <input type="number" id="quantity" placeholder="Enter quantity" min="1" value="1">
         </div>
-
+        
         <div class="form-group">
-            <label for="price">Total Harga (Rp)</label>
-            <input type="text" id="price" placeholder="Harga" oninput="formatPrice()">
+            <label for="price">Price (Rp)</label>
+            <input type="number" id="price" placeholder="Enter price" value="0">
         </div>
-
+        
         <div class="form-group">
-            <label for="phoneModel">Model HP</label>
-            <select id="phoneModel">
-                <option value="iphone">iPhone</option>
-                <option value="samsung">Samsung</option>
-                <option value="xiaomi">Xiaomi</option>
-                <option value="oppo">Oppo</option>
-                <option value="asus">Asus</option>
-                <option value="realme">Realme</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="paymentMethod">Metode Pembayaran</label>
+            <label for="paymentMethod">Payment Method</label>
             <select id="paymentMethod">
-                <option value="qris">QRIS</option>
-                <option value="bca">BCA</option>
-                <option value="mandiri">Mandiri</option>
-                <option value="bri">BRI</option>
-                <option value="bsi">BSI</option>
-                <option value="muamalat">Muamalat</option>
-                <option value="cash">Cash</option>
+                <option value="QRIS">QRIS</option>
+                <option value="BCA">BCA</option>
+                <option value="Mandiri">Mandiri</option>
+                <option value="BRI">BRI</option>
+                <option value="BSI">BSI</option>
+                <option value="Muamalat">Muamalat</option>
+                <option value="Cash">Cash</option>
             </select>
         </div>
 
-        <div class="paid-status">
-            <div>
-                <label for="paidStatus">Status Pembayaran</label>
-                <select id="paidStatus">
-                    <option value="unpaid">Unpaid</option>
-                    <option value="paid">Paid</option>
-                </select>
-            </div>
-        </div>
-
         <div class="form-group">
-            <label for="customerPhone">No. HP Pelanggan</label>
-            <input type="text" id="customerPhone" placeholder="Masukkan No. HP">
+            <label for="status">Payment Status</label>
+            <select id="status">
+                <option value="Unpaid">Unpaid</option>
+                <option value="Paid">Paid</option>
+            </select>
         </div>
 
-        <button class="btn" onclick="generateInvoice()">Generate Invoice</button>
+        <button class="btn" id="generateInvoice">Generate Invoice</button>
+        <button class="btn" id="sendToWhatsapp">Send to WhatsApp</button>
+        <button class="btn" id="sendToSpreadsheet">Send to Spreadsheet</button>
 
-        <div class="signature">
-            <p>Hormat Kami, <br>Tim Benerin.aja</p>
-            <p>Tanda Tangan Teknisi: ____________</p>
+        <div id="invoicePreview" style="display:none; margin-top: 30px;">
+            <h2>Invoice Preview</h2>
+            <p><strong>Invoice Number:</strong> <span id="previewInvoiceNumber"></span></p>
+            <p><strong>Date:</strong> <span id="previewDate"></span></p>
+            <p><strong>Customer Name:</strong> <span id="previewCustomerName"></span></p>
+            <p><strong>Phone Number:</strong> <span id="previewCustomerPhone"></span></p>
+            <p><strong>Damage Type:</strong> <span id="previewDamageType"></span></p>
+            <p><strong>Quantity:</strong> <span id="previewQuantity"></span></p>
+            <p><strong>Total Price (Rp):</strong> <span id="previewPrice"></span></p>
+            <p><strong>Status:</strong> <span id="previewStatus" class="paid"></span></p>
         </div>
-
-        <div class="syarat">
-            <p><strong>Syarat dan Ketentuan:</strong><br>
-            - Garansi berlaku selama 30 hari.<br>
-            - Tidak meliputi kerusakan akibat kelalaian pengguna.
-            </p>
-        </div>
-
-        <div class="watermark">Benerin.aja</div>
+        
+        <div class="watermark">Benerin.Aja</div>
     </div>
 
     <script>
-        // Auto Generate Invoice Number and Date
-        document.getElementById("invoiceNumber").value = "INV" + new Date().getTime();
-        document.getElementById("invoiceDate").value = new Date().toISOString().split('T')[0];
+        document.getElementById('generateInvoice').addEventListener('click', function() {
+            const invoiceNumber = "INV-" + Math.floor(Math.random() * 1000 + 1);
+            const date = new Date().toLocaleDateString();
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const damageType = document.getElementById('damageType').value;
+            const quantity = document.getElementById('quantity').value;
+            const price = document.getElementById('price').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const status = document.getElementById('status').value;
 
-        function formatPrice() {
-            let price = document.getElementById("price").value;
-            price = price.replace(/[^\d]/g, '');
-            document.getElementById("price").value = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
+            const totalPrice = (quantity * price).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
 
-        function generateInvoice() {
-            const customerName = document.getElementById("customerName").value;
-            const damageType = document.getElementById("damageType").value;
-            const quantity = document.getElementById("quantity").value;
-            const price = document.getElementById("price").value;
-            const phoneModel = document.getElementById("phoneModel").value;
-            const paymentMethod = document.getElementById("paymentMethod").value;
-            const paidStatus = document.getElementById("paidStatus").value;
-            const customerPhone = document.getElementById("customerPhone").value;
+            // Update preview section
+            document.getElementById('previewInvoiceNumber').textContent = invoiceNumber;
+            document.getElementById('previewDate').textContent = date;
+            document.getElementById('previewCustomerName').textContent = customerName;
+            document.getElementById('previewCustomerPhone').textContent = customerPhone;
+            document.getElementById('previewDamageType').textContent = damageType;
+            document.getElementById('previewQuantity').textContent = quantity;
+            document.getElementById('previewPrice').textContent = totalPrice;
+            document.getElementById('previewStatus').textContent = status;
 
-            if (!customerName || !damageType || !quantity || !price || !customerPhone) {
-                alert("Please fill in all fields!");
-                return;
-            }
+            // Show preview
+            document.getElementById('invoicePreview').style.display = 'block';
+        });
 
-            alert("Invoice Generated!\nCustomer: " + customerName + "\nAmount: Rp " + price);
-        }
+        document.getElementById('sendToWhatsapp').addEventListener('click', function() {
+            const invoiceNumber = document.getElementById('previewInvoiceNumber').textContent;
+            const customerName = document.getElementById('previewCustomerName').textContent;
+            const totalPrice = document.getElementById('previewPrice').textContent;
+
+            const whatsappMessage = `Invoice: ${invoiceNumber}\nCustomer: ${customerName}\nTotal Price: ${totalPrice}`;
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+
+            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+        });
+
+        document.getElementById('sendToSpreadsheet').addEventListener('click', function() {
+            alert('Data will be sent to a Google Spreadsheet (implement Google Sheets API or Google Apps Script here).');
+        });
+
+        // Set initial date
+        document.getElementById('date').value = new Date().toLocaleDateString();
     </script>
-
 </body>
 </html>
