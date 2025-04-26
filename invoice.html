@@ -46,6 +46,13 @@
     flex: 1 1 100%; /* Mengubah layout menjadi satu kolom */
   }
 }
+
+    /* Letter spacing hanya aktif di layar besar */
+@media (min-width: 768px) {
+  h1 {
+    letter-spacing: 2px;
+  }
+}
      body {
   display: flex;
   flex-direction: column;
