@@ -1,51 +1,53 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice Benerin.aja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invoice Generator - Benerin.aja</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-    }
-    .invoice {
-      max-width: 800px;
-      margin: 20px auto;
-      background: #fff;
+      background: linear-gradient(135deg, #56ccf2, #2f80ed);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .header {
+    .container {
+      background: #eaf6ff;
+      padding: 30px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
       text-align: center;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #ccc;
+      margin: 0 0 10px 0;
     }
-    .header img {
-      width: 50px;
-      margin-bottom: 10px;
+    label {
+      font-weight: 600;
     }
-    .header h1 {
-      margin: 0;
-      color: #2c3e50;
-      font-size: 28px;
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
     }
-    .header p {
-      margin: 5px 0 0;
-      font-size: 14px;
-      color: #7f8c8d;
+    button {
+      background: #2f80ed;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
     }
-    .info {
-      margin: 20px 0;
-    }
-    .info h2 {
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
-    .info p {
-      margin: 2px 0;
+    button:hover {
+      background: #1c60c2;
     }
     table {
       width: 100%;
@@ -53,107 +55,178 @@
       margin-top: 20px;
     }
     th, td {
-      border: 1px solid #ddd;
       padding: 10px;
-      text-align: center;
-    }
-    th {
-      background: #f0f0f0;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
     }
     .total {
-      margin-top: 20px;
       text-align: right;
-      font-size: 20px;
+      margin-top: 10px;
+      font-size: 18px;
       font-weight: bold;
     }
-    .terms {
+    .footer {
       margin-top: 30px;
-      font-size: 14px;
+      font-size: 12px;
+      color: #555;
     }
-    .signature {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 50px;
-    }
-    .signature div {
-      width: 40%;
-      text-align: center;
-    }
-    .signature hr {
-      margin-top: 60px;
-    }
-    .print-btn {
-      margin: 20px auto;
-      display: flex;
-      justify-content: center;
-    }
-    button {
-      background: linear-gradient(to right, #00c6ff, #0072ff);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
+    @media print {
+      body {
+        background: white;
+      }
+      .no-print {
+        display: none;
+      }
+      .container {
+        box-shadow: none;
+      }
     }
   </style>
 </head>
-<body><div class="invoice" id="invoice">
-  <div class="header">
-    <img src="https://via.placeholder.com/50" alt="Logo">
-    <h1>Benerin.<span style="color: #27ae60;">aja</span></h1>
-    <p>Telp: 0812-3456-7890</p>
-  </div>  <div class="info">
-    <h2>Informasi Customer</h2>
-    <p id="customerName">Nama: -</p>
-    <p id="customerAddress">Alamat: -</p>
-    <p id="customerPhone">Telepon: -</p>
-    <p id="invoiceDate">Tanggal: -</p>
-  </div>  <table>
-    <thead>
-      <tr>
-        <th>Nama Service</th>
-        <th>Harga</th>
-        <th>Qty</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody id="serviceTable">
-      <tr>
-        <td>Perbaikan LCD</td>
-        <td>Rp 250.000</td>
-        <td>1</td>
-        <td>Rp 250.000</td>
-      </tr>
-    </tbody>
-  </table>  <div class="total" id="grandTotal">Total: Rp 250.000</div>  <div class="terms">
-    <h2>Garansi & Syarat Ketentuan</h2>
-    <p>Garansi service berlaku 30 hari sejak tanggal perbaikan. Kerusakan akibat human error tidak termasuk garansi. Harap simpan nota ini sebagai bukti garansi.</p>
-  </div>  <div class="signature">
-    <div>
-      Customer
-      <hr>
-    </div>
-    <div>
-      Teknisi
-      <hr>
+<body>
+
+<div class="container" id="invoiceArea">
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h1>benerin.<span style="color:green;">aja</span></h1>
+    <h2>INVOICE</h2>
+  </div>
+
+  <div class="no-print">
+    <label>Nama Customer</label>
+    <input type="text" id="customerName">
+
+    <label>Alamat</label>
+    <input type="text" id="customerAddress">
+
+    <label>Nomor Telepon</label>
+    <input type="text" id="customerPhone">
+
+    <label>Tanggal</label>
+    <input type="date" id="invoiceDate">
+
+    <hr>
+
+    <label>Nama Service</label>
+    <input type="text" id="serviceName">
+
+    <label>Harga Satuan (Rp)</label>
+    <input type="number" id="unitPrice">
+
+    <label>Quantity</label>
+    <input type="number" id="quantity" value="1">
+
+    <button onclick="addService()">Tambah Service</button>
+    <button onclick="generateInvoice()">Generate Invoice</button>
+  </div>
+
+  <div id="invoiceContent" style="margin-top:20px;">
+    <p><strong>No. Invoice:</strong> <span id="invoiceNumber"></span></p>
+    <p><strong>Nama:</strong> <span id="showCustomerName"></span></p>
+    <p><strong>Alamat:</strong> <span id="showCustomerAddress"></span></p>
+    <p><strong>Telepon:</strong> <span id="showCustomerPhone"></span></p>
+    <p><strong>Tanggal:</strong> <span id="showInvoiceDate"></span></p>
+
+    <table id="serviceTable">
+      <thead>
+        <tr>
+          <th>Nama Service</th>
+          <th>Harga Satuan</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <div class="total" id="totalAmount">Total: Rp 0</div>
+
+    <div class="footer">
+      <p><strong>Syarat & Ketentuan:</strong> Pembayaran harus diselesaikan setelah service selesai. Garansi service 30 hari untuk masalah yang sama.</p>
+      <br><br>
+      <p style="text-align: right;">Hormat Kami,<br>Tim Benerin.aja</p>
     </div>
   </div>
-</div><div class="print-btn">
-  <button onclick="window.print()">Print / Simpan PDF</button>
-</div><script>
-  // Auto Tanggal Hari Ini
-  const today = new Date();
-  const options = { day: 'numeric', month: 'long', year: 'numeric' };
-  document.getElementById('invoiceDate').innerText = 'Tanggal: ' + today.toLocaleDateString('id-ID', options);
+</div>
 
-  // Auto Isi Customer Info (contoh)
-  const customerName = 'Budi Santoso';
-  const customerAddress = 'Jl. Mawar No.123, Jakarta';
-  const customerPhone = '0812-9876-5432';
+<script>
+  let services = [];
+  let invoiceCounter = 1;
 
-  document.getElementById('customerName').innerText = 'Nama: ' + customerName;
-  document.getElementById('customerAddress').innerText = 'Alamat: ' + customerAddress;
-  document.getElementById('customerPhone').innerText = 'Telepon: ' + customerPhone;
-</script></body>
+  function formatRupiah(angka) {
+    return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
+  function updateInvoiceNumber() {
+    const today = new Date();
+    const dateStr = today.getFullYear().toString() + 
+                    String(today.getMonth()+1).padStart(2, '0') +
+                    String(today.getDate()).padStart(2, '0');
+    document.getElementById('invoiceNumber').textContent = 'INV' + dateStr + '-' + String(invoiceCounter).padStart(3, '0');
+  }
+
+  function addService() {
+    const name = document.getElementById('serviceName').value;
+    const price = parseInt(document.getElementById('unitPrice').value);
+    const qty = parseInt(document.getElementById('quantity').value);
+
+    if (!name || !price || !qty) {
+      alert('Lengkapi data Service!');
+      return;
+    }
+
+    services.push({name, price, qty});
+    renderServices();
+    document.getElementById('serviceName').value = '';
+    document.getElementById('unitPrice').value = '';
+    document.getElementById('quantity').value = 1;
+  }
+
+  function renderServices() {
+    const tbody = document.getElementById('serviceTable').querySelector('tbody');
+    tbody.innerHTML = '';
+    let total = 0;
+    services.forEach(service => {
+      const subtotal = service.price * service.qty;
+      total += subtotal;
+      const row = `<tr>
+        <td>${service.name}</td>
+        <td>${formatRupiah(service.price)}</td>
+        <td>${service.qty}</td>
+        <td>${formatRupiah(subtotal)}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+    document.getElementById('totalAmount').textContent = 'Total: ' + formatRupiah(total);
+  }
+
+  function generateInvoice() {
+    const customerName = document.getElementById('customerName').value;
+    const customerAddress = document.getElementById('customerAddress').value;
+    const customerPhone = document.getElementById('customerPhone').value;
+    const invoiceDate = document.getElementById('invoiceDate').value;
+
+    if (!customerName || !customerAddress || !customerPhone || !invoiceDate || services.length == 0) {
+      alert('Lengkapi semua data Customer & Service!');
+      return;
+    }
+
+    document.getElementById('showCustomerName').textContent = customerName;
+    document.getElementById('showCustomerAddress').textContent = customerAddress;
+    document.getElementById('showCustomerPhone').textContent = customerPhone;
+    document.getElementById('showInvoiceDate').textContent = invoiceDate;
+
+    updateInvoiceNumber();
+    window.print();
+    invoiceCounter++;
+  }
+
+  window.onload = () => {
+    const today = new Date();
+    document.getElementById('invoiceDate').valueAsDate = today;
+    updateInvoiceNumber();
+  };
+</script>
+
+</body>
 </html>
