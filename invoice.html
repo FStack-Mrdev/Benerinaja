@@ -101,6 +101,12 @@
       position: relative;
       z-index: 1; /* Pastikan teks di atas background */
     }
+          .invoice-detail {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px; /* Jarak dari teks di atasnya */
+}
 
     /* Tambahan supaya header nggak terlalu besar di HP */
     @media (max-width: 768px) {
@@ -109,12 +115,14 @@
         background-size: contain; /* Supaya doodle nggak kegedean di HP */
       }
     }
+    
   </style>
 </head>
 <body>
    <div class="header-container">
     <h1>INVOICE G BY ISSA</h1>
     <p>Get your transactions sorted with style</p>
+    <p class="invoice-detail">Invoice Detail</p>
    </div>
 
   <div class="grid-container">
