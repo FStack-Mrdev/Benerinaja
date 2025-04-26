@@ -3,114 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>INVOICE G BY•ISSA•</title>
+  <title>INVOICE G BY•ISSA•</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-  h1{font-family: "Press Start 2P", system-ui;
-  font-weight: 400;
-  font-style: normal;
+    h1 {
+      font-family: "Press Start 2P", system-ui;
+      font-weight: 400;
+      font-style: normal;
     }
-     
-     /* Container untuk grid */
-.grid-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Jarak antar item */
-  justify-content: center; /* Posisi grid di tengah */
-  padding: 20px;
-}
 
-/* Setiap item grid */
-.grid-item {
-  flex: 1 1 200px; /* Flex: grow, shrink, basis */
-  min-width: 200px; /* Ukuran minimum untuk tiap item */
-  background-color: #f0f0f0;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease;
-}
+    /* Container untuk grid */
+    .grid-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; /* Jarak antar item */
+      justify-content: center; /* Posisi grid di tengah */
+      padding: 20px;
+    }
 
-/* Efek hover pada grid-item */
-.grid-item:hover {
-  transform: translateY(-5px);
-}
+    /* Setiap item grid */
+    .grid-item {
+      flex: 1 1 200px; /* Flex: grow, shrink, basis */
+      min-width: 200px; /* Ukuran minimum untuk tiap item */
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
 
-/* Responsif untuk layar kecil */
-@media (max-width: 768px) {
-  .grid-item {
-    flex: 1 1 100%; /* Mengubah layout menjadi satu kolom */
-  }
-}
+    /* Efek hover pada grid-item */
+    .grid-item:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Responsif untuk layar kecil */
+    @media (max-width: 768px) {
+      .grid-item {
+        flex: 1 1 100%; /* Mengubah layout menjadi satu kolom */
+      }
+    }
 
     /* Letter spacing hanya aktif di layar besar */
-@media (min-width: 768px) {
-  h1 {
-    letter-spacing: 2px;
-  }
-}
-     body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+    @media (min-width: 768px) {
+      h1 {
+        letter-spacing: 2px;
+      }
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
     /** header container **/
     .header-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 20px;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 20px;
-}
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      border-bottom: 2px solid #ccc;
+      margin-bottom: 20px;
+      background-image: url('illustration-social-media-concept.png'); /* Ganti dengan path file lu */
+      background-repeat: repeat;
+      background-size: cover; /* Cover supaya penuh, otomatis menyesuaikan */
+      background-position: center;
+      background-color: rgba(255, 255, 255, 0.9); /* Putih semi transparan buat overlay */
+      background-blend-mode: overlay;
+    }
 
-.header-container h1 {
-  font-family: "Press Start 2P", system-ui;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 20px;
-  margin-bottom: 10px;
-  text-align: center;
-  text-shadow: 2px 2px 0px #ccc;
-}
+    .header-container h1 {
+      font-family: "Press Start 2P", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: center;
+      text-shadow: 2px 2px 0px #ccc;
+    }
 
-.header-container p {
-  font-size: 14px;
-  margin: 0;
-  color: #666;
-  text-align: center;
-}
-    .header-container {
-  background-image: url('illustration-social-media-concept.png'); /* Ganti dengan path file lu */
-  background-repeat: repeat;
-  background-size: cover; /* Cover supaya penuh, otomatis menyesuaikan */
-  background-position: center;
-  background-color: rgba(255, 255, 255, 0.9); /* Putih semi transparan buat overlay */
-  background-blend-mode: overlay;
-  padding: 30px 20px;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 20px;
-}
+    .header-container p {
+      font-size: 14px;
+      margin: 0;
+      color: #666;
+      text-align: center;
+    }
 
-/* Untuk teks di header */
-.header-container h1, 
-.header-container p {
-  position: relative;
-  z-index: 1; /* Pastikan teks di atas background */
-}
+    /* Untuk teks di header */
+    .header-container h1, 
+    .header-container p {
+      position: relative;
+      z-index: 1; /* Pastikan teks di atas background */
+    }
 
-/* Tambahan supaya header nggak terlalu besar di HP */
-@media (max-width: 768px) {
-  .header-container {
-    padding: 20px 10px;
-    background-size: contain; /* Supaya doodle nggak kegedean di HP */
-  }
-}
+    /* Tambahan supaya header nggak terlalu besar di HP */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 20px 10px;
+        background-size: contain; /* Supaya doodle nggak kegedean di HP */
+      }
+    }
   </style>
 </head>
 <body>
@@ -118,11 +116,12 @@
     <h1>INVOICE G BY ISSA</h1>
     <p>Get your transactions sorted with style</p>
    </div>
+
   <div class="grid-container">
-  <div class="grid-item">Item 1</div>
-  <div class="grid-item">Item 2</div>
-  <div class="grid-item">Item 3</div>
-  <div class="grid-item">Item 4</div>
-</div>
-    
+    <div class="grid-item">Item 1</div>
+    <div class="grid-item">Item 2</div>
+    <div class="grid-item">Item 3</div>
+    <div class="grid-item">Item 4</div>
+  </div>
 </body>
+</html>
