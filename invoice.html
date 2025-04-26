@@ -168,6 +168,9 @@
         <button class="btn" id="generateInvoice">Generate Invoice</button>
         <button class="btn" id="sendToWhatsapp">Send to WhatsApp</button>
         <button class="btn" id="sendToSpreadsheet">Send to Spreadsheet</button>
+        
+        <!-- Button for Printing -->
+        <button class="btn" id="printInvoice">Print Invoice</button>
 
         <!-- Invoice Preview Section -->
         <div id="invoicePreview" style="display:none; margin-top: 30px;">
@@ -234,6 +237,11 @@
         // Placeholder for sending data to Google Spreadsheet
         document.getElementById('sendToSpreadsheet').addEventListener('click', function() {
             alert('Data will be sent to a Google Spreadsheet (implement Google Sheets API or Google Apps Script here).');
+        });
+
+        // Print Invoice to PDF (using browser print function)
+        document.getElementById('printInvoice').addEventListener('click', function() {
+            window.print(); // This will trigger the print dialog in the browser
         });
 
         // Set initial date when the page loads
