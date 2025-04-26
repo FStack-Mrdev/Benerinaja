@@ -1,151 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice Generator</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator by Issa</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f9ff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2e3d49;
+            text-align: center;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-input:focus {
+            border-color: #4CAF50;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .invoice-preview {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .invoice-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .invoice-item:last-child {
+            border-bottom: none;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 30px;
+            color: #555;
+        }
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            font-size: 50px;
+            color: #4CAF50;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container mx-auto p-8">
-    <h1 class="text-3xl font-semibold mb-4">Invoice Generator</h1>
-    
-    <!-- Form Input -->
-    <div class="space-y-4">
-      <!-- Tanggal -->
-      <div>
-        <label class="block font-semibold">Tanggal</label>
-        <input type="date" id="tanggal" class="w-full border p-2 rounded" />
-      </div>
 
-      <!-- Nama Pelanggan -->
-      <div>
-        <label class="block font-semibold">Nama Pelanggan</label>
-        <input type="text" id="namaPelanggan" class="w-full border p-2 rounded" />
-      </div>
-
-      <!-- Alamat Pelanggan -->
-      <div>
-        <label class="block font-semibold">Alamat Pelanggan</label>
-        <textarea id="alamatPelanggan" class="w-full border p-2 rounded" rows="3"></textarea>
-      </div>
-
-      <!-- Nomor HP -->
-      <div>
-        <label class="block font-semibold">Nomor HP</label>
-        <input type="text" id="noHP" class="w-full border p-2 rounded" />
-      </div>
-
-      <!-- Email Pelanggan -->
-      <div>
-        <label class="block font-semibold">Email Pelanggan</label>
-        <input type="email" id="emailPelanggan" class="w-full border p-2 rounded" />
-      </div>
-
-      <!-- Status Pembayaran -->
-      <div class="mt-4">
-        <label class="block font-semibold">Status Pembayaran</label>
-        <select id="statusPembayaran" class="w-full border p-2 rounded">
-          <option value="UNPAID">UNPAID</option>
-          <option value="PAID">PAID</option>
-        </select>
-      </div>
-
-      <!-- Metode Pembayaran -->
-      <div class="mt-4">
-        <label class="block font-semibold">Metode Pembayaran</label>
-        <select id="metodePembayaran" class="w-full border p-2 rounded" onchange="tampilPilihanPembayaran()">
-          <option value="QRIS">QRIS</option>
-          <option value="BRI">BRI</option>
-          <option value="BCA">BCA</option>
-          <option value="Mandiri">Mandiri</option>
-          <option value="Dana">Dana</option>
-          <option value="Cash">Cash</option>
-        </select>
-      </div>
-
-      <!-- Pilihan Pembayaran -->
-      <div id="pilihanPembayaran" class="mt-4 hidden">
-        <div id="BRI" class="pembayaranItem hidden">
-          <h3 class="text-lg font-semibold">Transfer BRI</h3>
-          <p>No. Rekening BRI: 123-456-7890</p>
+    <div class="container">
+        <div class="welcome-message">
+            <h2>Welcome to Invoice Generator by Issa</h2>
+            <p>Generate your invoice quickly and easily with our super cool and professional tool!</p>
         </div>
-        <div id="BCA" class="pembayaranItem hidden">
-          <h3 class="text-lg font-semibold">Transfer BCA</h3>
-          <p>No. Rekening BCA: 987-654-3210</p>
+        
+        <!-- Form Input Invoice -->
+        <div class="form-section">
+            <input type="text" id="customerName" class="form-input" placeholder="Nama Pelanggan" />
+            <input type="text" id="customerPhone" class="form-input" placeholder="No HP Pelanggan" />
+            <input type="text" id="damageType" class="form-input" placeholder="Jenis Kerusakan" />
+            <select id="deviceModel" class="form-input">
+                <option value="">Pilih Model HP</option>
+                <option value="iPhone">iPhone</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Xiaomi">Xiaomi</option>
+                <option value="Oppo">Oppo</option>
+                <option value="Realme">Realme</option>
+            </select>
+            <input type="number" id="quantity" class="form-input" placeholder="Quantity" />
+            <input type="number" id="unitPrice" class="form-input" placeholder="Harga Satuan (Rp)" />
+            <select id="paymentMethod" class="form-input">
+                <option value="QRIS">QRIS</option>
+                <option value="BCA">BCA</option>
+                <option value="Mandiri">Mandiri</option>
+                <option value="BRI">BRI</option>
+                <option value="BSI">BSI</option>
+                <option value="Muamalat">Muamalat</option>
+                <option value="Cash">Cash</option>
+            </select>
+            <select id="status" class="form-input">
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+            </select>
+            <button class="btn" id="generateInvoiceBtn">Generate Invoice</button>
         </div>
-        <div id="Mandiri" class="pembayaranItem hidden">
-          <h3 class="text-lg font-semibold">Transfer Mandiri</h3>
-          <p>No. Rekening Mandiri: 456-789-1234</p>
-        </div>
-        <div id="Dana" class="pembayaranItem hidden">
-          <h3 class="text-lg font-semibold">Pembayaran via Dana</h3>
-          <p>Scan QR untuk bayar menggunakan Dana.</p>
-        </div>
-        <div id="Cash" class="pembayaranItem hidden">
-          <h3 class="text-lg font-semibold">Cash</h3>
-          <p>Silakan bayar di tempat.</p>
-        </div>
-      </div>
 
-      <!-- Submit Button -->
-      <div class="mt-4">
-        <button class="bg-blue-500 text-white py-2 px-4 rounded" onclick="generateInvoice()">Generate Invoice</button>
-      </div>
+        <!-- Invoice Preview -->
+        <div class="invoice-preview" id="invoicePreview" style="display: none;">
+            <div class="watermark">Benerin.Aja</div>
+            <h3>Invoice #<span id="invoiceNumber">0001</span> - <span id="invoiceDate"></span></h3>
+            <p><strong>Nama Pelanggan:</strong> <span id="customerNamePreview"></span></p>
+            <p><strong>No HP:</strong> <span id="customerPhonePreview"></span></p>
+            <p><strong>Jenis Kerusakan:</strong> <span id="damageTypePreview"></span></p>
+            <p><strong>Model HP:</strong> <span id="deviceModelPreview"></span></p>
+            <p><strong>Quantity:</strong> <span id="quantityPreview"></span></p>
+            <p><strong>Harga Satuan:</strong> Rp <span id="unitPricePreview"></span></p>
+            <p><strong>Total:</strong> Rp <span id="totalPricePreview"></span></p>
+            <p><strong>Status Pembayaran:</strong> <span id="statusPreview"></span></p>
+            <p><strong>Metode Pembayaran:</strong> <span id="paymentMethodPreview"></span></p>
+            <p><strong>Catatan:</strong> <span id="notesPreview">Hormat Kami, Tim Benerin.Aja</span></p>
+            <button class="btn" id="downloadPdfBtn">Download PDF</button>
+        </div>
+
+        <div class="footer-text">
+            <p>&copy; 2025 Benerin.Aja. All rights reserved.</p>
+        </div>
     </div>
 
-    <!-- Output Invoice -->
-    <div id="invoiceOutput" class="mt-8 p-4 border rounded hidden">
-      <h2 class="text-xl font-semibold">Invoice</h2>
-      <div id="outputTanggal"></div>
-      <div id="outputNamaPelanggan"></div>
-      <div id="outputAlamatPelanggan"></div>
-      <div id="outputNoHP"></div>
-      <div id="outputEmailPelanggan"></div>
-      <div id="outputStatusPembayaran"></div>
-      <div id="outputMetodePembayaran"></div>
-    </div>
-  </div>
+    <script>
+        document.getElementById('generateInvoiceBtn').addEventListener('click', function() {
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const damageType = document.getElementById('damageType').value;
+            const deviceModel = document.getElementById('deviceModel').value;
+            const quantity = document.getElementById('quantity').value;
+            const unitPrice = document.getElementById('unitPrice').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const status = document.getElementById('status').value;
 
-  <script>
-    // Fungsi untuk menampilkan pilihan metode pembayaran
-    function tampilPilihanPembayaran() {
-      const metodePembayaran = document.getElementById('metodePembayaran').value;
-      
-      // Sembunyikan semua pilihan pembayaran
-      const pilihanItems = document.querySelectorAll('.pembayaranItem');
-      pilihanItems.forEach(item => {
-        item.classList.add('hidden');
-      });
+            // Auto generate Invoice Number and Date
+            const invoiceNumber = 'INV-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.floor(Math.random() * 1000);
+            const invoiceDate = new Date().toLocaleDateString();
 
-      // Tampilkan metode yang dipilih
-      if (metodePembayaran !== 'QRIS') {
-        document.getElementById(metodePembayaran).classList.remove('hidden');
-      }
-    }
+            // Calculate Total Price
+            const totalPrice = (quantity * unitPrice).toLocaleString();
 
-    // Fungsi untuk generate invoice
-    function generateInvoice() {
-      const tanggal = document.getElementById('tanggal').value;
-      const namaPelanggan = document.getElementById('namaPelanggan').value;
-      const alamatPelanggan = document.getElementById('alamatPelanggan').value;
-      const noHP = document.getElementById('noHP').value;
-      const emailPelanggan = document.getElementById('emailPelanggan').value;
-      const statusPembayaran = document.getElementById('statusPembayaran').value;
-      const metodePembayaran = document.getElementById('metodePembayaran').value;
+            // Show Invoice Preview
+            document.getElementById('invoiceNumber').textContent = invoiceNumber;
+            document.getElementById('invoiceDate').textContent = invoiceDate;
+            document.getElementById('customerNamePreview').textContent = customerName;
+            document.getElementById('customerPhonePreview').textContent = customerPhone;
+            document.getElementById('damageTypePreview').textContent = damageType;
+            document.getElementById('deviceModelPreview').textContent = deviceModel;
+            document.getElementById('quantityPreview').textContent = quantity;
+            document.getElementById('unitPricePreview').textContent = unitPrice;
+            document.getElementById('totalPricePreview').textContent = totalPrice;
+            document.getElementById('statusPreview').textContent = status;
+            document.getElementById('paymentMethodPreview').textContent = paymentMethod;
 
-      // Output ke halaman
-      document.getElementById('outputTanggal').innerHTML = `<strong>Tanggal:</strong> ${tanggal}`;
-      document.getElementById('outputNamaPelanggan').innerHTML = `<strong>Nama Pelanggan:</strong> ${namaPelanggan}`;
-      document.getElementById('outputAlamatPelanggan').innerHTML = `<strong>Alamat:</strong> ${alamatPelanggan}`;
-      document.getElementById('outputNoHP').innerHTML = `<strong>Nomor HP:</strong> ${noHP}`;
-      document.getElementById('outputEmailPelanggan').innerHTML = `<strong>Email:</strong> ${emailPelanggan}`;
-      document.getElementById('outputStatusPembayaran').innerHTML = `<strong>Status Pembayaran:</strong> ${statusPembayaran}`;
-      document.getElementById('outputMetodePembayaran').innerHTML = `<strong>Metode Pembayaran:</strong> ${metodePembayaran}`;
+            // Show preview section
+            document.getElementById('invoicePreview').style.display = 'block';
+        });
 
-      // Tampilkan hasil invoice
-      document.getElementById('invoiceOutput').classList.remove('hidden');
-    }
-  </script>
+        // Download PDF Button
+        document.getElementById('downloadPdfBtn').addEventListener('click', function() {
+            const doc = new jsPDF();
+            doc.text("Invoice #", 10, 10);
+            doc.text("Customer Name: " + document.getElementById('customerNamePreview').textContent, 10, 20);
+            doc.text("Total: Rp " + document.getElementById('totalPricePreview').textContent, 10, 30);
+            doc.save('invoice.pdf');
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
