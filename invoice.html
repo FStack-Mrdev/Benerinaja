@@ -18,6 +18,26 @@
         <input type="text" id="namaPelanggan" class="w-full border p-2 rounded" required>
       </div>
 
+      <div>
+        <label class="block font-semibold">Alamat Pelanggan</label>
+        <input type="text" id="alamatPelanggan" class="w-full border p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Nomor HP Pelanggan</label>
+        <input type="text" id="noHpPelanggan" class="w-full border p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Email Pelanggan</label>
+        <input type="email" id="emailPelanggan" class="w-full border p-2 rounded" required>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Tanggal Invoice</label>
+        <input type="date" id="tanggalInvoice" class="w-full border p-2 rounded" value="" required>
+      </div>
+
       <!-- Dynamic Items -->
       <div id="items" class="space-y-4">
         <div class="item flex space-x-2">
@@ -32,6 +52,19 @@
       <div class="mt-4">
         <label class="block font-semibold">Link Pembayaran (QR Code)</label>
         <input type="text" id="paymentLink" class="w-full border p-2 rounded" required>
+      </div>
+
+      <div class="mt-4">
+        <label class="block font-semibold">Status Pembayaran</label>
+        <select id="statusPembayaran" class="w-full border p-2 rounded">
+          <option value="UNPAID">UNPAID</option>
+          <option value="PAID">PAID</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label class="block font-semibold">Nama Teknisi (Tanda Tangan)</label>
+        <input type="text" id="namaTeknisi" class="w-full border p-2 rounded" required>
       </div>
 
       <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 mt-4">Generate Invoice</button>
@@ -53,6 +86,13 @@
 
     <div class="mb-6">
       <p><strong>Nama Pelanggan:</strong> <span id="namaDisplay"></span></p>
+      <p><strong>Alamat:</strong> <span id="alamatDisplay"></span></p>
+      <p><strong>Nomor HP:</strong> <span id="noHpDisplay"></span></p>
+      <p><strong>Email:</strong> <span id="emailDisplay"></span></p>
+    </div>
+
+    <div class="mb-6">
+      <p><strong>Tanggal Invoice:</strong> <span id="tanggalDisplay"></span></p>
     </div>
 
     <table class="w-full mb-6 border">
@@ -71,9 +111,17 @@
       Total: Rp <span id="totalHarga"></span>
     </div>
 
+    <div class="text-right font-semibold mb-6">
+      <p>Status Pembayaran: <span id="statusPembayaranDisplay"></span></p>
+    </div>
+
     <div class="mb-6 flex flex-col items-center">
       <canvas id="qrcode" class="mb-2"></canvas>
       <p class="text-sm text-gray-500">Scan untuk pembayaran</p>
+    </div>
+
+    <div class="mb-6">
+      <p><strong>Tanda Tangan Teknisi:</strong> <span id="tandaTanganTeknisi"></span></p>
     </div>
 
     <div class="text-sm text-gray-700 mt-6">
@@ -100,11 +148,23 @@
       document.getElementById('invoice-section').classList.remove('hidden');
 
       const nama = document.getElementById('namaPelanggan').value;
+      const alamat = document.getElementById('alamatPelanggan').value;
+      const noHp = document.getElementById('noHpPelanggan').value;
+      const email = document.getElementById('emailPelanggan').value;
+      const tanggal = document.getElementById('tanggalInvoice').value;
+      const status = document.getElementById('statusPembayaran').value;
+      const teknisi = document.getElementById('namaTeknisi').value;
       const items = document.querySelectorAll('#items .item');
       const paymentLink = document.getElementById('paymentLink').value;
 
       document.getElementById('invoiceNumber').textContent = 'INV-' + String(invoiceCount).padStart(3, '0');
       document.getElementById('namaDisplay').textContent = nama;
+      document.getElementById('alamatDisplay').textContent = alamat;
+      document.getElementById('noHpDisplay').textContent = noHp;
+      document.getElementById('emailDisplay').textContent = email;
+      document.getElementById('tanggalDisplay').textContent = tanggal;
+      document.getElementById('statusPembayaranDisplay').textContent = status;
+      document.getElementById('tandaTanganTeknisi').textContent = teknisi;
 
       const itemList = document.getElementById('itemList');
       itemList.innerHTML = '';
