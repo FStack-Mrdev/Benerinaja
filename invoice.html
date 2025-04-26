@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Generator by Issa</title>
     <style>
+        /* Dibuat oleh Issa — Free for Everyone */
         body {
             font-family: Arial, sans-serif;
             background: #f4f8fc;
@@ -81,6 +82,7 @@
             color: red;
         }
 
+        /* Animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -106,6 +108,7 @@
     <div class="container">
         <h1>Welcome to Invoice Generator by Issa</h1>
         
+        <!-- Form Fields for Invoice -->
         <div class="form-group">
             <label for="invoiceNumber">Invoice Number</label>
             <input type="text" id="invoiceNumber" value="INV-001" readonly>
@@ -166,6 +169,7 @@
         <button class="btn" id="sendToWhatsapp">Send to WhatsApp</button>
         <button class="btn" id="sendToSpreadsheet">Send to Spreadsheet</button>
 
+        <!-- Invoice Preview Section -->
         <div id="invoicePreview" style="display:none; margin-top: 30px;">
             <h2>Invoice Preview</h2>
             <p><strong>Invoice Number:</strong> <span id="previewInvoiceNumber"></span></p>
@@ -179,9 +183,15 @@
         </div>
         
         <div class="watermark">Benerin.Aja</div>
+
+        <!-- Comment: Dibuat oleh Issa — Free for Everyone -->
+        <footer style="text-align: center; margin-top: 40px;">
+            <p>Support usaha kecil, sebarkan kebaikan</p>
+        </footer>
     </div>
 
     <script>
+        // Automatically generate the invoice number and current date
         document.getElementById('generateInvoice').addEventListener('click', function() {
             const invoiceNumber = "INV-" + Math.floor(Math.random() * 1000 + 1);
             const date = new Date().toLocaleDateString();
@@ -195,7 +205,7 @@
 
             const totalPrice = (quantity * price).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
 
-            // Update preview section
+            // Update preview section with values
             document.getElementById('previewInvoiceNumber').textContent = invoiceNumber;
             document.getElementById('previewDate').textContent = date;
             document.getElementById('previewCustomerName').textContent = customerName;
@@ -209,6 +219,7 @@
             document.getElementById('invoicePreview').style.display = 'block';
         });
 
+        // Send invoice details to WhatsApp
         document.getElementById('sendToWhatsapp').addEventListener('click', function() {
             const invoiceNumber = document.getElementById('previewInvoiceNumber').textContent;
             const customerName = document.getElementById('previewCustomerName').textContent;
@@ -220,11 +231,12 @@
             window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
         });
 
+        // Placeholder for sending data to Google Spreadsheet
         document.getElementById('sendToSpreadsheet').addEventListener('click', function() {
             alert('Data will be sent to a Google Spreadsheet (implement Google Sheets API or Google Apps Script here).');
         });
 
-        // Set initial date
+        // Set initial date when the page loads
         document.getElementById('date').value = new Date().toLocaleDateString();
     </script>
 </body>
