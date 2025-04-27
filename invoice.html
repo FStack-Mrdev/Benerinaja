@@ -61,7 +61,13 @@
       align-items: center;
       text-align: center;
     }
-
+    
+.invoice-wrapper {
+  text-align: left; /* Posisi invoice ke kiri */
+  width: 100%; /* Agar wrapper mengisi seluruh lebar */
+  margin-left: 20px; /* Jarak dari kiri */
+}
+    
     /** header container **/
     .header-container {
       display: flex;
@@ -108,14 +114,6 @@
   text-align: left;
   margin-top: 4px; /* Jarak dari teks di atasnya */
 }
-    /* Modifikasi untuk posisi Invoice Number di kiri */
-    .invoice {
-      text-align: left; /* Membuat teks di sisi kiri */
-      font-weight: bold;
-      font-size: 18px;
-      color: #333;
-      margin-left: 20px; /* Jarak dari kiri */
-    }
  
     /* Tambahan supaya header nggak terlalu besar di HP */
     @media (max-width: 768px) {
@@ -133,8 +131,9 @@
     <p>Get your transactions sorted with style</p>
    </div>
   <p class="invoice-detail">Invoice Detail</p> <!-- Teks muncul di bawah garis -->
+ <div class="invoice-wrapper">
   <p class="invoice">invoice number: <span id="invoicenumber"></span></p>
- 
+ </div>
  <script>
     // Ambil nomor invoice terakhir dari localStorage
     let lastInvoiceNumber = localStorage.getItem('lastInvoiceNumber') || 0;
