@@ -125,7 +125,7 @@
     <p>Get your transactions sorted with style</p>
    </div>
   <p class="invoice-detail">Invoice Detail</p> <!-- Teks muncul di bawah garis -->
-  <p class="invoice"<invoice number: <span id="invoicenumber"></span></p>
+  <p class="invoice">invoice number: <span id="invoicenumber"></span></p>
  
  <script>
     // Ambil nomor invoice terakhir dari localStorage
@@ -138,7 +138,7 @@
     localStorage.setItem('lastInvoiceNumber', newInvoiceNumber);
 
     // Tampilkan nomor invoice baru di halaman
-    document.getElementById('invoiceNumber').textContent = 'INV-' + newInvoiceNumber.toString().padStart(6, '0');
+    document.getElementById('invoicenumber').textContent = 'INV-' + newInvoiceNumber.toString().padStart(6, '0');
   </script>
   
   <div class="grid-container">
