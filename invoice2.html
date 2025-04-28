@@ -86,6 +86,22 @@
         button:hover {
             background-color: #45a049;
         }
+
+        .blue-button {
+            background-color: #1E90FF;
+        }
+
+        .green-button {
+            background-color: #4CAF50;
+        }
+
+        .blue-button:hover {
+            background-color: #4682B4;
+        }
+
+        .green-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -124,14 +140,14 @@
         </section>
 
         <footer>
-            <button class="add-service" onclick="addService()">Add Service</button>
-            <button class="print-invoice" onclick="printPDF()">Print Invoice to PDF</button>
+            <button class="blue-button" onclick="addService()">Add Service</button>
+            <button class="green-button" onclick="printPDF()">Print Invoice to PDF</button>
         </footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // Initialize dynamic data for the invoice
+        // Sample data for the invoice
         const invoiceData = {
             date: '2025-04-28',
             invoiceNumber: 'INV123456',
@@ -144,7 +160,7 @@
             ]
         };
 
-        // Populate the invoice with data
+        // Populate the invoice data dynamically
         function populateInvoice() {
             document.getElementById('invoice-date').innerText = invoiceData.date;
             document.getElementById('invoice-number').innerText = invoiceData.invoiceNumber;
@@ -168,13 +184,13 @@
             document.getElementById('total-amount').innerText = 'Rp ' + totalAmount.toLocaleString();
         }
 
-        // Function to add a new service (just a sample)
+        // Function to add a new service dynamically
         function addService() {
-            const newItem = { 
-                service: 'New Service', 
-                unitPrice: 'Rp 200.000', 
-                quantity: 1, 
-                total: 'Rp 200.000' 
+            const newItem = {
+                service: 'New Service',
+                unitPrice: 'Rp 200.000',
+                quantity: 1,
+                total: 'Rp 200.000'
             };
             invoiceData.items.push(newItem);
             populateInvoice();
