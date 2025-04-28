@@ -91,17 +91,29 @@
             background-color: #1E90FF;
         }
 
-        .green-button {
-            background-color: #4CAF50;
-        }
-
         .blue-button:hover {
             background-color: #4682B4;
+        }
+
+        .green-button {
+            background-color: #4CAF50;
         }
 
         .green-button:hover {
             background-color: #45a049;
         }
+
+        .invoice-header, .invoice-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 18px;
+        }
+
     </style>
 </head>
 <body>
@@ -109,17 +121,17 @@
         <header>
             <h1>Benerin.aja</h1>
             <div class="invoice-details">
-                <p>Date: <span id="invoice-date"></span></p>
-                <p>Invoice #: <span id="invoice-number"></span></p>
+                <p>Date: <span id="invoice-date">2025-04-28</span></p>
+                <p>Invoice #: <span id="invoice-number">INV123456</span></p>
             </div>
         </header>
 
         <section class="billing-info">
             <h2>Billing Information</h2>
             <div class="info">
-                <p><strong>Customer Name:</strong> <span id="customer-name"></span></p>
-                <p><strong>Address:</strong> <span id="customer-address"></span></p>
-                <p><strong>Phone:</strong> <span id="customer-phone"></span></p>
+                <p><strong>Customer Name:</strong> John Doe</p>
+                <p><strong>Address:</strong> Jl. Merdeka No. 123, Jakarta</p>
+                <p><strong>Phone:</strong> 081234567890</p>
             </div>
         </section>
 
@@ -132,14 +144,25 @@
                     <th>Quantity</th>
                     <th>Total</th>
                 </tr>
-                <!-- Items will be added dynamically here -->
+                <tr>
+                    <td>iPhone Screen Repair</td>
+                    <td>Rp 500.000</td>
+                    <td>1</td>
+                    <td>Rp 500.000</td>
+                </tr>
+                <tr>
+                    <td>Battery Replacement</td>
+                    <td>Rp 350.000</td>
+                    <td>1</td>
+                    <td>Rp 350.000</td>
+                </tr>
             </table>
             <div class="total">
-                <p><strong>Total:</strong> <span id="total-amount"></span></p>
+                <p><strong>Total:</strong> Rp 850.000</p>
             </div>
         </section>
 
-        <footer>
+        <footer class="invoice-footer">
             <button class="blue-button" onclick="addService()">Add Service</button>
             <button class="green-button" onclick="printPDF()">Print Invoice to PDF</button>
         </footer>
