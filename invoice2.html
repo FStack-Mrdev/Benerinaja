@@ -1,229 +1,179 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Invoice</title>
-    <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INVOICE G BY•ISSA•</title>
+    
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    h1 {
+      font-family: "Press Start 2P", system-ui;
+      font-weight: 400;
+      font-style: normal;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    /* Container untuk grid */
+    .grid-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; /* Jarak antar item */
+      justify-content: center; /* Posisi grid di tengah */
+      padding: 20px;
+    }
 
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-        }
+    /* Setiap item grid */
+    .grid-item {
+      flex: 1 1 200px; /* Flex: grow, shrink, basis */
+      min-width: 200px; /* Ukuran minimum untuk tiap item */
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
 
-        .invoice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
+    /* Efek hover pada grid-item */
+    .grid-item:hover {
+      transform: translateY(-5px);
+    }
 
-        .invoice-header div {
-            flex: 1;
-        }
+    /* Responsif untuk layar kecil */
+    @media (max-width: 768px) {
+      .grid-item {
+        flex: 1 1 100%; /* Mengubah layout menjadi satu kolom */
+      }
+    }
 
-        .invoice-header .invoice-details {
-            text-align: right;
-        }
+    /* Letter spacing hanya aktif di layar besar */
+    @media (min-width: 768px) {
+      h1 {
+        letter-spacing: 2px;
+      }
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
+    .invoice-wrapper {
+      text-align: left; /* Posisi invoice ke kiri */
+      width: 100%; /* Agar wrapper mengisi seluruh lebar */
+      margin-left: 20px; /* Jarak dari kiri */
+    }
 
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
+    /** header container **/
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      border-bottom: 2px solid #ccc;
+      margin-bottom: 20px;
+      background-image: url('illustration-social-media-concept.png'); /* Ganti dengan path file lu */
+      background-repeat: repeat;
+      background-size: cover; /* Cover supaya penuh, otomatis menyesuaikan */
+      background-position: center;
+      background-color: rgba(255, 255, 255, 0.9); /* Putih semi transparan buat overlay */
+      background-blend-mode: overlay;
+    }
 
-        .add-service-btn, .print-btn {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
+    .header-container h1 {
+      font-family: "Press Start 2P", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: center;
+      text-shadow: 2px 2px 0px #ccc;
+    }
 
-        .add-service-btn:hover, .print-btn:hover {
-            background-color: #45a049;
-        }
+    .header-container p {
+      font-size: 14px;
+      margin: 0;
+      color: #666;
+      text-align: center;
+    }
 
-        .invoice-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
+    /* Untuk teks di header */
+    .header-container h1, 
+    .header-container p {
+      position: relative;
+      z-index: 1; /* Pastikan teks di atas background */
+    }
 
-        .invoice-table th, .invoice-table td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
+    .invoice-detail {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+      text-align: left;
+      margin-top: 4px; /* Jarak dari teks di atasnya */
+    }
 
-        .invoice-table th {
-            background-color: #f2f2f2;
-        }
+    /* Tambahan supaya header nggak terlalu besar di HP */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 20px 10px;
+        background-size: contain; /* Supaya doodle nggak kegedean di HP */
+      }
 
-        .total-row td {
-            font-weight: bold;
-            background-color: #f2f2f2;
-        }
+      /* Menyesuaikan ukuran font header untuk perangkat kecil */
+      .header-container h1 {
+        font-size: 16px;
+      }
 
-        /* Responsiveness */
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
+      .header-container p {
+        font-size: 12px;
+      }
+    }
 
-            h1 {
-                font-size: 20px;
-            }
+    /* Menyesuaikan untuk desktop */
+    @media (min-width: 1024px) {
+      .grid-container {
+        padding: 40px;
+        justify-content: space-between;
+      }
 
-            .invoice-table th, .invoice-table td {
-                font-size: 14px;
-            }
-        }
-    </style>
+      .grid-item {
+        flex: 1 1 250px; /* Lebih besar di desktop */
+      }
+    }
+
+  </style>
 </head>
 <body>
+  <div class="header-container">
+    <h1>INVOICE G BY ISSA</h1>
+    <p>Get your transactions sorted with style</p>
+  </div>
 
-    <div class="container">
-        <h1>Invoice Generator</h1>
+  <p class="invoice-detail">Invoice Detail</p> <!-- Teks muncul di bawah garis -->
+  <div class="invoice-wrapper">
+    <p class="invoice">Invoice number: <span id="invoicenumber"></span></p>
+  </div>
 
-        <!-- Invoice Header -->
-        <div class="invoice-header">
-            <div class="invoice-info">
-                <p><strong>Invoice Number:</strong> <span id="invoiceNumber"></span></p>
-                <p><strong>Invoice Date:</strong> <span id="invoiceDate"></span></p>
-            </div>
-            <div class="invoice-details">
-                <p><strong>Customer Name:</strong> <span id="customerName">John Doe</span></p>
-                <p><strong>Phone:</strong> <span id="phoneNumber">08123456789</span></p>
-                <p><strong>Email:</strong> <span id="email">johndoe@example.com</span></p>
-            </div>
-        </div>
+  <script>
+    // Ambil nomor invoice terakhir dari localStorage
+    let lastInvoiceNumber = localStorage.getItem('lastInvoiceNumber') || 0;
 
-        <!-- Service Form -->
-        <div class="form-group">
-            <label for="service">Service</label>
-            <input type="text" id="service" placeholder="Enter service name">
+    // Generate nomor invoice baru
+    let newInvoiceNumber = parseInt(lastInvoiceNumber) + 1;
 
-            <label for="price">Price (Rp)</label>
-            <input type="number" id="price" placeholder="Enter price">
+    // Simpan nomor invoice baru ke localStorage
+    localStorage.setItem('lastInvoiceNumber', newInvoiceNumber);
 
-            <label for="qty">Quantity</label>
-            <input type="number" id="qty" value="1" placeholder="Enter quantity">
-            
-            <button class="add-service-btn" id="addServiceBtn">Add Service</button>
-        </div>
-
-        <!-- Invoice Table -->
-        <table class="invoice-table" id="invoiceTable">
-            <thead>
-                <tr>
-                    <th>Service</th>
-                    <th>Price (Rp)</th>
-                    <th>Quantity</th>
-                    <th>Total (Rp)</th>
-                </tr>
-            </thead>
-            <tbody id="invoiceBody"></tbody>
-            <tfoot>
-                <tr class="total-row">
-                    <td colspan="3">Total</td>
-                    <td id="totalAmount">Rp 0</td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <!-- Terms and Conditions -->
-        <p><strong>Terms and Conditions:</strong></p>
-        <ul>
-            <li>Warranty valid for 30 days after purchase.</li>
-            <li>Non-refundable after 7 days.</li>
-            <li>Additional terms may apply.</li>
-        </ul>
-
-        <!-- Footer -->
-        <p><strong>Hormat Kami,</strong></p>
-        <p>Your Company Name</p>
-
-        <!-- Print Button -->
-        <button class="print-btn" id="printBtn">Print Invoice</button>
-    </div>
-
-    <script>
-        // Get the current date and format it
-        const currentDate = new Date();
-        const dateString = currentDate.toLocaleDateString('id-ID');
-
-        // Set the invoice date and number
-        document.getElementById('invoiceDate').textContent = dateString;
-        document.getElementById('invoiceNumber').textContent = `INV-${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-
-        let totalAmount = 0;
-
-        // Function to add service to the table
-        document.getElementById('addServiceBtn').addEventListener('click', function() {
-            const service = document.getElementById('service').value;
-            const price = parseFloat(document.getElementById('price').value);
-            const qty = parseInt(document.getElementById('qty').value);
-
-            if (service && price && qty) {
-                const total = price * qty;
-                totalAmount += total;
-
-                // Add the new service to the table
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${service}</td>
-                    <td>Rp ${price.toFixed(2)}</td>
-                    <td>${qty}</td>
-                    <td>Rp ${total.toFixed(2)}</td>
-                `;
-                document.getElementById('invoiceBody').appendChild(newRow);
-
-                // Update the total amount
-                document.getElementById('totalAmount').textContent = `Rp ${totalAmount.toFixed(2)}`;
-                
-                // Clear the form
-                document.getElementById('service').value = '';
-                document.getElementById('price').value = '';
-                document.getElementById('qty').value = 1;
-            } else {
-                alert("Please fill out all fields.");
-            }
-        });
-
-        // Function to print the invoice
-        document.getElementById('printBtn').addEventListener('click', function() {
-            window.print();
-        });
-    </script>
+    // Tampilkan nomor invoice baru di halaman
+    document.getElementById('invoicenumber').textContent = 'INV-' + newInvoiceNumber.toString().padStart(6, '0');
+  </script>
+  
+  <div class="grid-container">
+    <!-- Anda bisa menambahkan grid-item di sini jika diperlukan -->
+  </div>
 </body>
 </html>
