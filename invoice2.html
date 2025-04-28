@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,7 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+
         .container {
             width: 100%;
             max-width: 1200px;
@@ -21,9 +22,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
+
         h1 {
             text-align: center;
-            color: #00b141; /* Green */
+            color: #4A90E2; /* Blue */
             font-size: 36px;
             margin-bottom: 20px;
         }
@@ -31,11 +33,12 @@
         /* Header Section */
         .invoice-header {
             text-align: center;
-            background-color: #4a90e2; /* Blue */
+            background-color: #00B141; /* Green */
             color: white;
             padding: 10px 0;
             border-radius: 5px;
         }
+
         .invoice-header p {
             margin: 5px 0;
             font-size: 16px;
@@ -48,11 +51,13 @@
             gap: 20px;
             margin-top: 30px;
         }
+
         .billing-info label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
         }
+
         .billing-info input {
             width: 100%;
             padding: 8px;
@@ -60,21 +65,25 @@
             border: 1px solid #ddd;
             font-size: 16px;
         }
+
         /* Table */
         .invoice-details table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
+
         .invoice-details th,
         .invoice-details td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         .invoice-details th {
             background-color: #f4f4f4;
         }
+
         .invoice-details td input {
             width: 100%;
             padding: 8px;
@@ -88,8 +97,9 @@
             text-align: center;
             margin-top: 20px;
         }
+
         .button-container button {
-            background-color: #4a90e2; /* Blue */
+            background-color: #4A90E2; /* Blue */
             color: white;
             padding: 10px 20px;
             border: none;
@@ -98,6 +108,7 @@
             border-radius: 5px;
             margin: 10px;
         }
+
         .button-container button:hover {
             background-color: #357ABD;
         }
@@ -183,8 +194,9 @@
     </div>
 
     <script>
-        // Setting invoice date dynamically
+        // Set invoice date and number dynamically
         document.getElementById("invoice-date").textContent = new Date().toLocaleDateString();
+        document.getElementById("invoice-number").textContent = "#" + Math.floor(Math.random() * 1000);
 
         // Function to calculate total price for each row
         function updateRowTotal(row) {
