@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,48 +7,48 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f4f4f4;
-        }
-
-        .invoice-container {
-            width: 80%;
-            margin: 20px auto;
+            margin: 0;
             padding: 20px;
-            background-color: white;
+        }
+
+        .invoice {
+            background-color: #fff;
+            width: 60%;
+            margin: auto;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .invoice-header {
+        header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        .invoice-header h1 {
+        h1 {
             color: #4CAF50;
         }
 
-        .invoice-info {
+        .invoice-details {
             text-align: right;
-            font-size: 14px;
-        }
-
-        .billing-info, .invoice-details {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .billing-info h2, .invoice-details h2 {
-            color: #4CAF50;
-            font-size: 20px;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px;
             margin-bottom: 10px;
+        }
+
+        .info p {
+            margin: 5px 0;
         }
 
         table {
             width: 100%;
+            margin-bottom: 20px;
             border-collapse: collapse;
         }
 
@@ -59,30 +59,28 @@
         }
 
         table th {
-            background-color: #f2f2f2;
-            color: #4CAF50;
+            background-color: #f1f1f1;
         }
 
         .total {
             text-align: right;
             font-size: 18px;
-            font-weight: bold;
-            color: #4CAF50;
         }
 
         footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         button {
             padding: 10px 20px;
+            border: none;
             background-color: #4CAF50;
             color: white;
-            border: none;
-            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
+            border-radius: 4px;
         }
 
         button:hover {
@@ -91,57 +89,116 @@
     </style>
 </head>
 <body>
-    <div class="invoice-container">
-        <header class="invoice-header">
+    <div class="invoice" id="invoice">
+        <header>
             <h1>Benerin.aja</h1>
-            <div class="invoice-info">
-                <p>Date: <span class="date">2025-04-28</span></p>
-                <p>Invoice #: <span class="invoice-number">001</span></p>
+            <div class="invoice-details">
+                <p>Date: <span id="invoice-date"></span></p>
+                <p>Invoice #: <span id="invoice-number"></span></p>
             </div>
         </header>
 
         <section class="billing-info">
             <h2>Billing Information</h2>
-            <p><strong>Customer Name:</strong> John Doe</p>
-            <p><strong>Address:</strong> Jl. Merdeka No. 123, Jakarta</p>
-            <p><strong>Phone:</strong> 081234567890</p>
+            <div class="info">
+                <p><strong>Customer Name:</strong> <span id="customer-name"></span></p>
+                <p><strong>Address:</strong> <span id="customer-address"></span></p>
+                <p><strong>Phone:</strong> <span id="customer-phone"></span></p>
+            </div>
         </section>
 
         <section class="invoice-details">
             <h2>Invoice Details</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Service</th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>iPhone Screen Repair</td>
-                        <td>Rp 500.000</td>
-                        <td>1</td>
-                        <td>Rp 500.000</td>
-                    </tr>
-                    <tr>
-                        <td>Battery Replacement</td>
-                        <td>Rp 350.000</td>
-                        <td>1</td>
-                        <td>Rp 350.000</td>
-                    </tr>
-                </tbody>
+            <table id="invoice-table">
+                <tr>
+                    <th>Service</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+                <!-- Items will be added dynamically here -->
             </table>
             <div class="total">
-                <p><strong>Total: Rp 850.000</strong></p>
+                <p><strong>Total:</strong> <span id="total-amount"></span></p>
             </div>
         </section>
 
-        <footer class="invoice-footer">
-            <button class="add-service">Add Service</button>
-            <button class="print-invoice">Print Invoice</button>
+        <footer>
+            <button class="add-service" onclick="addService()">Add Service</button>
+            <button class="print-invoice" onclick="printPDF()">Print Invoice to PDF</button>
         </footer>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Initialize dynamic data for the invoice
+        const invoiceData = {
+            date: '2025-04-28',
+            invoiceNumber: 'INV123456',
+            customerName: 'John Doe',
+            customerAddress: 'Jl. Merdeka No. 123, Jakarta',
+            customerPhone: '081234567890',
+            items: [
+                { service: 'iPhone Screen Repair', unitPrice: 'Rp 500.000', quantity: 1, total: 'Rp 500.000' },
+                { service: 'Battery Replacement', unitPrice: 'Rp 350.000', quantity: 1, total: 'Rp 350.000' }
+            ]
+        };
+
+        // Populate the invoice with data
+        function populateInvoice() {
+            document.getElementById('invoice-date').innerText = invoiceData.date;
+            document.getElementById('invoice-number').innerText = invoiceData.invoiceNumber;
+            document.getElementById('customer-name').innerText = invoiceData.customerName;
+            document.getElementById('customer-address').innerText = invoiceData.customerAddress;
+            document.getElementById('customer-phone').innerText = invoiceData.customerPhone;
+
+            let totalAmount = 0;
+            const table = document.getElementById('invoice-table');
+            invoiceData.items.forEach(item => {
+                const row = table.insertRow();
+                row.innerHTML = `
+                    <td>${item.service}</td>
+                    <td>${item.unitPrice}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.total}</td>
+                `;
+                totalAmount += parseInt(item.unitPrice.replace('Rp ', '').replace('.', '').replace(',', '')) * item.quantity;
+            });
+
+            document.getElementById('total-amount').innerText = 'Rp ' + totalAmount.toLocaleString();
+        }
+
+        // Function to add a new service (just a sample)
+        function addService() {
+            const newItem = { 
+                service: 'New Service', 
+                unitPrice: 'Rp 200.000', 
+                quantity: 1, 
+                total: 'Rp 200.000' 
+            };
+            invoiceData.items.push(newItem);
+            populateInvoice();
+        }
+
+        // Function to generate PDF
+        function printPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const invoice = document.getElementById('invoice');
+            doc.html(invoice, {
+                callback: function (doc) {
+                    doc.save('invoice.pdf');
+                },
+                x: 10,
+                y: 10
+            });
+        }
+
+        // Initialize the page with the invoice data
+        window.onload = function() {
+            populateInvoice();
+        };
+    </script>
 </body>
 </html>
