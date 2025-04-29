@@ -141,6 +141,7 @@
  <div class="invoice-wrapper">
 
    <p>Invoice number <span class="wrapper"><span id="invoicenumber">INV-000207</span></span></p>
+   span id="invoiceDate"></span>  <!-- Tanggal otomatis akan muncul di sini -->
  <script>
     // Ambil nomor invoice terakhir dari localStorage
     let lastInvoiceNumber = localStorage.getItem('lastInvoiceNumber') || 0;
@@ -154,7 +155,21 @@
     // Tampilkan nomor invoice baru di halaman
     document.getElementById('invoicenumber').textContent = 'INV-' + newInvoiceNumber.toString().padStart(6, '0');
   </script>
-  
+
+ // Ambil tanggal hari ini
+   <script>
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0'); // Menambahkan leading zero untuk hari
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Menambahkan leading zero untuk bulan
+    const year = today.getFullYear(); // Tahun 4 digit
+
+    // Format tanggal menjadi MM/DD/YYYY
+    const formattedDate = month + '/' + day + '/' + year;
+
+    // Tampilkan tanggal di elemen dengan ID "invoiceDate"
+    document.getElementById('invoiceDate').textContent = formattedDate;
+</script>
+   
   <div class="grid-container">
   </div>
 </body>
