@@ -67,7 +67,13 @@
   width: 100%; /* Agar wrapper mengisi seluruh lebar */
   margin-left: 20px; /* Jarak dari kiri */
 }
-    
+
+    .wrapper {
+    display: flex; /* Membuat wrapper menjadi flex container */
+    flex-direction: column; /* Mengatur elemen di dalam wrapper secara vertikal */
+    align-items: center; /* Memastikan elemen di dalam wrapper terpusat */
+    margin-top: 20px; /* Menambahkan jarak untuk memindahkan span ke bawah */
+}
     /** header container **/
     .header-container {
       display: flex;
@@ -137,8 +143,8 @@
    </div>
   <p class="invoice-detail">Invoice Detail</p> <!-- Teks muncul di bawah garis -->
  <div class="invoice-wrapper">
-  <p class="invoice">invoice number: <span id="invoicenumber"></span></p>
- </div>
+
+   <p>Invoice number <span class="wrapper"><span id="invoiceNumber">INV-000207</span></span></p>
  <script>
     // Ambil nomor invoice terakhir dari localStorage
     let lastInvoiceNumber = localStorage.getItem('lastInvoiceNumber') || 0;
