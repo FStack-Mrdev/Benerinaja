@@ -167,6 +167,24 @@
 
     // Tampilkan tanggal di elemen dengan ID "invoiceDate"
     document.getElementById('invoiceDate').textContent = formattedDate;
+   </script>
+<script>
+    // Teks yang mau dibaca
+    const text = "Welcome to Invoice G by Issa";
+    
+    // Gunakan SpeechSynthesis untuk bacain teks
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Setelan suara (opsional)
+    utterance.lang = 'en-US';  // Bahasa Inggris
+    utterance.volume = 1;      // Volume (0.0 sampai 1.0)
+    utterance.rate = 1;        // Kecepatan suara (0.1 sampai 10)
+    utterance.pitch = 1;       // Pitch suara (0 sampai 2)
+
+    // Mainin suara
+    window.speechSynthesis.speak(utterance);
+</script>
+     
 </script>
    
   <div class="grid-container">
