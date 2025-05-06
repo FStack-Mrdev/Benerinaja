@@ -13,9 +13,10 @@
         }
 
         body {
-            padding: 30px;
+            padding: 40px 60px;
             max-width: 800px;
             margin: auto;
+            background-color: white;
         }
 
         .header {
@@ -24,32 +25,41 @@
             margin-bottom: 30px;
         }
 
-        .company-info {
-            line-height: 1.5;
+        .company-section {
+            font-size: 14px;
         }
 
         .invoice-title {
-            font-size: 24px;
+            font-size: 36px;
             font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .details-container {
+            display: flex;
+            gap: 80px;
+            margin: 25px 0;
         }
 
         .from-to {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
         }
 
         .invoice-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 25px 0;
         }
 
         .invoice-table th,
         .invoice-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
             text-align: left;
+            font-size: 14px;
         }
 
         .price-column {
@@ -57,19 +67,28 @@
         }
 
         .totals-section {
-            text-align: right;
+            float: right;
+            width: 300px;
             margin: 20px 0;
         }
 
-        .payment-method {
+        .totals-line {
             display: flex;
             justify-content: space-between;
-            margin: 20px 0;
+            margin: 8px 0;
+        }
+
+        .payment-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
         }
 
         .terms {
-            margin: 20px 0;
-            font-style: italic;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 20px;
+            margin: 30px 0;
+            font-size: 12px;
             color: #666;
         }
 
@@ -77,36 +96,50 @@
             text-align: center;
             margin-top: 30px;
             color: #666;
+            font-size: 14px;
         }
 
         .authorized-sign {
-            margin-top: 40px;
+            text-align: right;
+            margin-top: 30px;
+        }
+
+        .bold-text {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="company-info">
+        <div class="company-section">
             <h2>COMPANY TANGUINE</h2>
             <p>Phone: +123456</p>
             <p>Email: example@mail.com</p>
         </div>
-        <div class="invoice-info">
+        <div>
             <h1 class="invoice-title">INVOICE</h1>
-            <p>Invoice Number: <span id="invoice-number">INV-001</span></p>
-            <p>Invoice Date: <span id="invoice-date">05-Apr-2020</span></p>
+            <div class="details-container">
+                <div>
+                    <p>Invoice Number:</p>
+                    <p>Invoice Date:</p>
+                </div>
+                <div>
+                    <p class="bold-text">April05,2020</p>
+                    <p class="bold-text">+123456</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="from-to">
-        <div class="invoice-from">
+        <div>
             <h3>Invoice From:</h3>
             <p>Jhone Smith</p>
             <p>Managing Director, Company Rd</p>
             <p>Phone: +12345678910</p>
             <p>Email: example@mail.com</p>
         </div>
-        <div class="invoice-to">
+        <div>
             <h3>Invoice To:</h3>
             <p>Jhone Doe</p>
             <p>Managing Director, Company Rd</p>
@@ -125,19 +158,39 @@
                 <th>TOTAL</th>
             </tr>
         </thead>
-        <tbody id="invoice-items">
-            <!-- Items will be populated by JavaScript -->
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>
+                    <strong>Business Card Design</strong><br>
+                    Lorem ipsum dolor sit amet.consectetur adipiscing elit.
+                </td>
+                <td class="price-column">$50</td>
+                <td>2</td>
+                <td class="price-column">$100.00</td>
+            </tr>
+            <!-- Repeat similar rows for 02-05 -->
+            <tr><td colspan="5" style="border: none; height: 20px"></td></tr>
+            <tr>
+                <td colspan="4" style="text-align: right; border: none">Sultoicai:</td>
+                <td class="price-column">$3150.00</td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: right; border: none">Discount:</td>
+                <td class="price-column">$0.00</td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: right; border: none">Tax (10%):</td>
+                <td class="price-column">$315.00</td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: right; border: none">Totals:</td>
+                <td class="price-column bold-text">$3465.00</td>
+            </tr>
         </tbody>
     </table>
 
-    <div class="totals-section">
-        <p>Subtotal: <span id="subtotal">$3150.00</span></p>
-        <p>Discount: <span id="discount">$0.00</span></p>
-        <p>Tax (10%): <span id="tax">$315.00</span></p>
-        <h3>Total: <span id="total">$3465.00</span></h3>
-    </div>
-
-    <div class="payment-method">
+    <div class="payment-section">
         <div>
             <h4>Payment Method:</h4>
             <p>Account No: 12345678910</p>
@@ -145,14 +198,14 @@
             <p>Branch Name: XYZ</p>
         </div>
         <div class="authorized-sign">
-            <p>Authorized Signature</p>
+            <p>Authorised sign</p>
             <img src="signature-placeholder.png" alt="Signature" width="150">
         </div>
     </div>
 
     <div class="terms">
         <h4>Terms & Conditions:</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+        <p>Lorem ipsum dolor sit amet.consectetur adipiscing elit.sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Quis ipsum suspendisse ultrices gravida.Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
     </div>
 
     <div class="footer">
@@ -160,57 +213,5 @@
         <p>Your location here</p>
         <h3>Thank You For Your Business</h3>
     </div>
-
-    <script>
-        // Generate invoice data
-        const invoiceData = {
-            items: [
-                { no: 1, description: "Business Card Design", price: 50, qty: 2 },
-                { no: 2, description: "Business Card Design", price: 50, qty: 2 },
-                { no: 3, description: "Business Card Design", price: 50, qty: 2 },
-                { no: 4, description: "Business Card Design", price: 50, qty: 2 },
-                { no: 5, description: "Business Card Design", price: 50, qty: 2 }
-            ],
-            taxRate: 0.10,
-            discount: 0
-        };
-
-        // Populate invoice items
-        const invoiceItems = document.getElementById('invoice-items');
-        let subtotal = 0;
-
-        invoiceData.items.forEach(item => {
-            const total = item.price * item.qty;
-            subtotal += total;
-            
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.no}</td>
-                <td>${item.description}</td>
-                <td class="price-column">$${item.price.toFixed(2)}</td>
-                <td>${item.qty}</td>
-                <td class="price-column">$${total.toFixed(2)}</td>
-            `;
-            invoiceItems.appendChild(row);
-        });
-
-        // Calculate totals
-        const tax = subtotal * invoiceData.taxRate;
-        const total = subtotal + tax;
-
-        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-        document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-        document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-
-        // Generate invoice date
-        const dateOptions = { day: '2-digit', month: 'short', year: 'numeric' };
-        const invoiceDate = new Date().toLocaleDateString('en-US', dateOptions);
-        document.getElementById('invoice-date').textContent = invoiceDate;
-
-        // Simple invoice number generator (you might want to implement a better system)
-        let invoiceCounter = localStorage.getItem('invoiceCounter') || 1;
-        document.getElementById('invoice-number').textContent = `INV-${invoiceCounter.toString().padStart(3, '0')}`;
-        localStorage.setItem('invoiceCounter', parseInt(invoiceCounter) + 1);
-    </script>
 </body>
 </html>
