@@ -3,64 +3,240 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CV. EKA PRATAMA PERKASA</title>
+        <title>EKA PRATAMA PERKASA | Spesialis Bore Pile</title>
         <link rel="stylesheet" href="css/style.css">
-        <script src="https://unpkg.com/feather-icons"></script>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </head>
     <body>
-        <header>
-            <a href="#" class="logo">CV. EKA PRATAMA PERKASA</a>
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <a href="#" class="logo">
+                    <span class="logo-icon"><i
+                            class="fas fa-hard-hat"></i></span>
+                    <span>EKA PRATAMA PERKASA</span>
+                </a>
 
-            <nav class="navbar">
-                <ul class="nav-menu">
-                    <li><a href="#" class="nav-link active">Home</a></li>
-                    <li><a href="#" class="nav-link">About</a></li>
-                    <li><a href="#" class="nav-link">Projects</a></li>
-                </ul>
-            </nav>
+                <nav class="navbar">
+                    <ul class="nav-menu">
+                        <li><a href="#home"
+                                class="nav-link active">Beranda</a></li>
+                        <li><a href="#services"
+                                class="nav-link">Layanan</a></li>
+                        <li><a href="#projects" class="nav-link">Proyek</a></li>
+                        <li><a href="#about" class="nav-link">Tentang</a></li>
+                        <li><a href="#contact" class="nav-link">Kontak</a></li>
+                    </ul>
+                </nav>
 
-            <div class="nav-extra">
-                <a href="#" class="nav-icon"><i data-feather="home"></i></a>
-                <a href="#" class="nav-icon"><i data-feather="menu"></i></a>
-                <a href="#" class="nav-icon"><i data-feather="search"></i></a>
+                <div class="nav-toggler">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </header>
 
-        <section class="hero">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
             <div class="hero-overlay"></div>
-            <img src="img/bg.jpg" alt="Proyek Konstruksi">
-            <div class="hero-content">
-                <h1 class="hero-title">Membangun Masa Depan Bersama</h1>
-                <p class="hero-tagline">Solusi konstruksi terpercaya sejak
-                    2010</p>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Spesialis Konstruksi Bore Pile</h1>
+                    <p class="hero-subtitle">Solusi Fondasi Dalam yang Kuat dan
+                        Andal</p>
+                    <a href="#contact" class="cta-button">Konsultasi Gratis</a>
+                </div>
+            </div>
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
             </div>
         </section>
 
-        <main class="main-content">
-            <!-- Konten utama bisa ditambahkan disini -->
-        </main>
-
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>CV. EKA PRATAMA PERKASA</h3>
-                    <p>Spesialis konstruksi dan pengembangan properti</p>
-                </div>
-                <div class="footer-contact">
-                    <h4>Hubungi Kami</h4>
-                    <p><i data-feather="map-pin"></i> Jl. Contoh No. 123,
-                        Kota</p>
-                    <p><i data-feather="phone"></i> (021) 123-4567</p>
-                    <p><i data-feather="mail"></i> info@ekapratama.com</p>
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="container">
+                <h2 class="section-title">Layanan Kami</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Pengeboran Bore Pile</h3>
+                        <p>Pengeboran diameter kecil hingga besar dengan
+                            kedalaman mencapai 60 meter</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Pemasangan Strauss Pile</h3>
+                        <p>Solusi fondasi ekonomis untuk bangunan bertingkat
+                            rendah</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <h3>Pondasi Tiang Pancang</h3>
+                        <p>Instalasi tiang pancang beton pracetak untuk proyek
+                            skala besar</p>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 CV. EKA PRATAMA PERKASA. All Rights Reserved.</p>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects" id="projects">
+            <div class="container">
+                <h2 class="section-title">Proyek Terkini</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="img/project1.jpg"
+                            alt="Proyek Gedung Perpustakaan">
+                        <div class="project-info">
+                            <h3>Pembangunan gedung perpustakaan daerah
+                                kolonodale morut ( CV. ERYNAS PERDANA )</h3>
+                            <p>Jakarta CBD - 250 titik bore pile</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="img/project2.jpg" alt="Proyek Jembatan">
+                        <div class="project-info">
+                            <h3>Pembangunan rumah tinggal cluster topas ( PT.
+                                SINERGI MUTIARA CEMERLANG/ SUMMARECON)</h3>
+                            <p>Tangerang - Fondasi dalam 40m</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="img/project3.jpg" alt="Proyek Apartemen">
+                        <div class="project-info">
+                            <h3>Apartemen Premium</h3>
+                            <p>Bandung - 500 titik strauss pile</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2 class="section-title">Tentang Kami</h2>
+                    <p>CV. EKA PRATAMA PERKASA adalah perusahaan spesialis
+                        pondasi dalam yang telah berpengalaman lebih dari 10
+                        tahun dalam bidang konstruksi bore pile dan fondasi
+                        khusus. Dengan tim ahli dan peralatan modern, kami
+                        memberikan solusi terbaik untuk kebutuhan fondasi proyek
+                        Anda.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number">150+</span>
+                            <span class="stat-label">Proyek Selesai</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Klien Puas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Tahun Pengalaman</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="img/team.jpg" alt="Tim Eka Pratama Perkasa">
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>Jl. Konstruksi No. 123, Jakarta Selatan</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <p>(021) 1234-5678</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>info@ekapratamaperkasa.com</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <p>Senin-Sabtu: 08.00 - 17.00 WIB</p>
+                        </div>
+                    </div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Nama Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="No. Telepon">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Pesan Anda"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Kirim
+                            Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-about">
+                        <h3>EKA PRATAMA PERKASA</h3>
+                        <p>Spesialis konstruksi bore pile dan fondasi dalam
+                            dengan kualitas terjamin dan harga kompetitif.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h3>Tautan Cepat</h3>
+                        <ul>
+                            <li><a href="#home">Beranda</a></li>
+                            <li><a href="#services">Layanan</a></li>
+                            <li><a href="#projects">Proyek</a></li>
+                            <li><a href="#about">Tentang Kami</a></li>
+                            <li><a href="#contact">Kontak</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-services">
+                        <h3>Layanan Kami</h3>
+                        <ul>
+                            <li><a href="#">Bore Pile</a></li>
+                            <li><a href="#">Strauss Pile</a></li>
+                            <li><a href="#">Tiang Pancang</a></li>
+                            <li><a href="#">Pondasi Dalam</a></li>
+                            <li><a href="#">Konsultasi Fondasi</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 CV. EKA PRATAMA PERKASA. All Rights
+                        Reserved.</p>
+                </div>
             </div>
         </footer>
 
-        <script>
-    feather.replace();
-  </script>
+        <script src="js/script.js"></script>
     </body>
 </html>
