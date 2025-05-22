@@ -105,7 +105,7 @@ img {
 
 .header.scrolled {
   background-color: rgba(44, 62, 80, 0.95);
-  padding: 10px 0;
+ /* padding: 10px 0; */
 }
 
 .header.scrolled .logo,
