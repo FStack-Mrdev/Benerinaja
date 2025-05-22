@@ -181,7 +181,7 @@ img {
 
 /* ===== HERO SECTION ===== */
 .hero {
-  position: fixed;
+  position: relative;
   height: 100vh;
   display: flex;
   align-items: center;
